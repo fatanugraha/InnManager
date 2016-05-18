@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, formLogin, lib.database, lib.common, lib.logger, formmain;
+  Forms, formLogin, lib.database, lib.common, lib.logger, formmain, formuser,
+  formAddUser;
 
 {$R *.res}
 
@@ -25,6 +26,8 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmUsers, frmUsers);
+  Application.CreateForm(TfrmAddUser, frmAddUser);
   Application.Run;
 end.
 

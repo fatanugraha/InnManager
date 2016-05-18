@@ -1,0 +1,174 @@
+object frmUsers: TfrmUsers
+  Left = 613
+  Height = 457
+  Top = 94
+  Width = 585
+  Caption = 'frmUsers'
+  ClientHeight = 457
+  ClientWidth = 585
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poDesktopCenter
+  LCLVersion = '1.6.0.4'
+  object lvUsers: TListView
+    Left = 8
+    Height = 408
+    Top = 8
+    Width = 569
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Columns = <    
+      item
+        Caption = 'ID'
+        Width = 30
+      end    
+      item
+        Caption = 'Username'
+        Width = 100
+      end    
+      item
+        Caption = 'Nama Lengkap'
+        Width = 150
+      end    
+      item
+        Caption = 'Terakhir Login'
+        Width = 150
+      end>
+    ReadOnly = True
+    RowSelect = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 3
+    Visible = False
+    ViewStyle = vsReport
+    OnClick = lvUsersClick
+    OnSelectItem = lvUsersSelectItem
+  end
+  object gbEditPassword: TGroupBox
+    Left = 280
+    Height = 160
+    Top = 256
+    Width = 296
+    Caption = 'Ganti Password'
+    ClientHeight = 140
+    ClientWidth = 292
+    TabOrder = 0
+    Visible = False
+    object btnChangePwd: TButton
+      Left = 205
+      Height = 25
+      Top = 104
+      Width = 75
+      Caption = 'OK'
+      OnClick = btnChangePwdClick
+      TabOrder = 3
+    end
+    object edtVerify: TLabeledEdit
+      Left = 112
+      Height = 23
+      Top = 72
+      Width = 168
+      EchoMode = emPassword
+      EditLabel.AnchorSideTop.Control = edtVerify
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = edtVerify
+      EditLabel.AnchorSideBottom.Control = edtVerify
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 12
+      EditLabel.Height = 15
+      EditLabel.Top = 76
+      EditLabel.Width = 90
+      EditLabel.Caption = 'Ulangi Password:'
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      PasswordChar = '*'
+      TabOrder = 2
+    end
+    object edtNew: TLabeledEdit
+      Left = 112
+      Height = 23
+      Top = 40
+      Width = 168
+      EchoMode = emPassword
+      EditLabel.AnchorSideTop.Control = edtNew
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = edtNew
+      EditLabel.AnchorSideBottom.Control = edtNew
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 22
+      EditLabel.Height = 15
+      EditLabel.Top = 44
+      EditLabel.Width = 80
+      EditLabel.Caption = 'Password Baru:'
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      PasswordChar = '*'
+      TabOrder = 1
+    end
+    object edtOld: TLabeledEdit
+      Left = 112
+      Height = 23
+      Top = 8
+      Width = 168
+      EchoMode = emPassword
+      EditLabel.AnchorSideTop.Control = edtOld
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = edtOld
+      EditLabel.AnchorSideBottom.Control = edtOld
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 17
+      EditLabel.Height = 15
+      EditLabel.Top = 12
+      EditLabel.Width = 85
+      EditLabel.Caption = 'Password Lama:'
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      LabelSpacing = 10
+      PasswordChar = '*'
+      TabOrder = 0
+      Text = 'edtOld'
+    end
+    object Button1: TButton
+      Left = 128
+      Height = 25
+      Top = 104
+      Width = 75
+      Caption = 'Batal'
+      OnClick = Button1Click
+      TabOrder = 4
+    end
+  end
+  object btnRemove: TButton
+    Left = 423
+    Height = 25
+    Top = 424
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Hapus'
+    OnClick = btnRemoveClick
+    TabOrder = 1
+    Visible = False
+  end
+  object btnAdd: TButton
+    Left = 8
+    Height = 25
+    Top = 424
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Tambah'
+    OnClick = btnAddClick
+    TabOrder = 2
+    Visible = False
+  end
+  object btnEdit: TButton
+    Left = 502
+    Height = 25
+    Top = 424
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Ubah'
+    OnClick = btnEditClick
+    TabOrder = 4
+    Visible = False
+  end
+end

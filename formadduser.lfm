@@ -1,0 +1,120 @@
+object frmAddUser: TfrmAddUser
+  Left = 38
+  Height = 281
+  Top = 162
+  Width = 320
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Tambahkan Pengguna'
+  ClientHeight = 281
+  ClientWidth = 320
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poDesktopCenter
+  LCLVersion = '1.6.0.4'
+  object edtUsername: TLabeledEdit
+    Left = 8
+    Height = 23
+    Top = 24
+    Width = 304
+    EditLabel.AnchorSideLeft.Control = edtUsername
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = edtUsername
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = edtUsername
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 6
+    EditLabel.Width = 304
+    EditLabel.Caption = 'Username'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    Text = 'edtUsername'
+  end
+  object edtName: TLabeledEdit
+    Left = 8
+    Height = 23
+    Top = 72
+    Width = 304
+    EditLabel.AnchorSideLeft.Control = edtName
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = edtName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = edtName
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 54
+    EditLabel.Width = 304
+    EditLabel.Caption = 'Nama Lengkap'
+    EditLabel.ParentColor = False
+    TabOrder = 1
+    Text = 'edtName'
+  end
+  object edtPassword: TLabeledEdit
+    Left = 8
+    Height = 23
+    Top = 120
+    Width = 304
+    EditLabel.AnchorSideLeft.Control = edtPassword
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = edtPassword
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = edtPassword
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 102
+    EditLabel.Width = 304
+    EditLabel.Caption = 'Password'
+    EditLabel.ParentColor = False
+    TabOrder = 2
+    Text = 'edtPassword'
+  end
+  object CheckGroup1: TCheckGroup
+    Left = 8
+    Height = 88
+    Top = 152
+    Width = 305
+    AutoFill = True
+    Caption = 'Wewenang'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 68
+    ClientWidth = 301
+    Columns = 2
+    Items.Strings = (
+      'Lihat Produk'
+      'Atur Produk'
+      'Lihat Pengguna'
+      'Atur Pengguna'
+    )
+    TabOrder = 3
+    Data = {
+      0400000003020202
+    }
+  end
+  object btnSave: TButton
+    Left = 238
+    Height = 25
+    Top = 248
+    Width = 75
+    Caption = 'OK'
+    OnClick = btnSaveClick
+    TabOrder = 4
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 248
+    Width = 75
+    Caption = 'Batal'
+    OnClick = Button1Click
+    TabOrder = 5
+  end
+end

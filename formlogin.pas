@@ -33,7 +33,7 @@ type
   TSession = record
     FullName: string;
     Username: string;
-    Authority: integer;
+    Authority, ID: integer;
     Password: string;
   end;
 
@@ -71,7 +71,7 @@ end;
 
 procedure TfrmLogin.FormCreate(Sender: TObject);
 begin
-  //koneksi ke database inti
+  //keep alive aja yah
   dbCoreConnection.DatabaseName:= CurrentDir+FILE_COREDB;
   dbCoreConnection.Connected := true;
 
@@ -129,14 +129,14 @@ begin
   end
   else
   begin
-    hash := MD5Print(MD5String(Format('%s%s%s', [SALT_PREFIX, edtPassword.Text, SALT_SUFFIX])));
+    hash := HashPassword(edtPassword.Text);
     if (query.FieldByName('password').AsString = hash) then
     begin
       CurrentSession.FullName := query.FieldByName('fullname').AsString;
       CurrentSession.UserName := query.FieldByName('username').AsString;
       CurrentSession.Authority := query.FieldByName('authority').AsInteger;
       CurrentSession.Password := query.FieldByName('password').AsString;
-
+      CurrentSession.ID := query.FieldByName('ID').AsInteger;
       dbCoreConnection.ExecuteDirect(Format('UPDATE `users` SET `lastlogin` = ''%s'' WHERE `id` = %d',
                                             [DateTimeToStr(Now), query.FieldByName('id').AsInteger]));
       dbCoreTransaction.Commit;
