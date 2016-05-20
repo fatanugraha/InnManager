@@ -30,6 +30,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
+    procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
   private
     { private declarations }
@@ -47,7 +48,7 @@ implementation
 { TfrmMain }
 
 uses
-  FormUser, FormLogin, lib.common, FormType;
+  FormUser, FormLogin, lib.common, FormType, FormProduct;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
@@ -56,12 +57,19 @@ end;
 
 procedure TfrmMain.Image1Click(Sender: TObject);
 begin
+  Enabled := false;
   frmType.Show;
 end;
 
 procedure TfrmMain.imgCustomerClick(Sender: TObject);
 begin
 
+end;
+
+procedure TfrmMain.imgProductClick(Sender: TObject);
+begin
+  enabled := false;
+  frmProduct.Show;
 end;
 
 procedure TfrmMain.Button1Click(Sender: TObject);

@@ -7,6 +7,7 @@ object frmType: TfrmType
   Caption = 'Jenis Produk'
   ClientHeight = 400
   ClientWidth = 603
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter

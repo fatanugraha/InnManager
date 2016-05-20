@@ -1,14 +1,17 @@
 object frmProduct: TfrmProduct
-  Left = 216
+  Left = 566
   Height = 400
-  Top = 226
+  Top = 158
   Width = 600
   Caption = 'frmProduct'
   ClientHeight = 400
   ClientWidth = 600
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poMainFormCenter
   LCLVersion = '1.6.0.4'
-  object ListView1: TListView
+  object lvProduct: TListView
     Left = 8
     Height = 354
     Top = 8
@@ -17,7 +20,11 @@ object frmProduct: TfrmProduct
     AutoWidthLastColumn = True
     Columns = <    
       item
-        Caption = 'Nomor'
+        Caption = 'ID'
+        Width = 40
+      end    
+      item
+        Caption = 'Nama'
         Width = 75
       end    
       item
@@ -26,14 +33,16 @@ object frmProduct: TfrmProduct
       end    
       item
         Caption = 'Deskripsi'
-        Width = 405
+        Width = 365
       end>
     ReadOnly = True
     RowSelect = True
     ScrollBars = ssAutoBoth
     TabOrder = 0
     ViewStyle = vsReport
-    OnCompare = ListView1Compare
+    OnClick = lvProductClick
+    OnCompare = lvProductCompare
+    OnSelectItem = lvProductSelectItem
   end
   object Button1: TButton
     Left = 8
@@ -42,24 +51,27 @@ object frmProduct: TfrmProduct
     Width = 75
     Anchors = [akLeft, akBottom]
     Caption = 'Tambah'
+    OnClick = Button1Click
     TabOrder = 1
   end
-  object Button2: TButton
+  object btnRemove: TButton
     Left = 519
     Height = 25
     Top = 367
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Hapus'
+    OnClick = btnRemoveClick
     TabOrder = 2
   end
-  object Button3: TButton
+  object btnEdit: TButton
     Left = 439
     Height = 25
     Top = 367
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Ubah'
+    OnClick = btnEditClick
     TabOrder = 3
   end
 end

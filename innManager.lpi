@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="innManager.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -90,12 +90,14 @@
         <Filename Value="formproduct.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmProduct"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit8>
       <Unit9>
         <Filename Value="formtype.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmType"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit9>
       <Unit10>
@@ -105,6 +107,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="formaddproduct.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAddProduct"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="formAddProduct"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, formLogin, lib.database, lib.common, lib.logger, formmain, formuser,
-  formAddUser, formproduct, formtype, formaddtype;
+  formAddUser, formproduct, formtype, formaddtype, formAddProduct;
 
 {$R *.res}
 
@@ -31,6 +31,7 @@ begin
   Application.CreateForm(TfrmProduct, frmProduct);
   Application.CreateForm(TfrmType, frmType);
   Application.CreateForm(TfrmAddType, frmAddType);
+  Application.CreateForm(TfrmAddProduct, frmAddProduct);
   Application.Run;
 end.
 

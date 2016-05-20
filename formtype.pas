@@ -20,6 +20,7 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure lvTypeClick(Sender: TObject);
@@ -40,7 +41,7 @@ implementation
 { TfrmType }
 
 uses
-  lib.database, FormLogin, lib.common, FormAddType, lib.logger;
+  lib.database, FormLogin, lib.common, FormAddType, lib.logger, FormMain;
 
 procedure TfrmType.LoadData;
 var
@@ -111,8 +112,8 @@ begin
     query.SQL.Text := 'DELETE FROM `product_type` WHERE `id` = :id';
     query.ParamByName('id').AsString := lvType.ItemFocused.Caption;
     query.ExecSQL;
-    query.SQL.Text := 'DELETE FROM `product` WHERE `type` = :id';
-    query.ParamByName('id').AsString := lvType.ItemFocused.Caption;
+    query.SQL.Text := 'DELETE FROM `product` WHERE `typenama` = :id';
+    query.ParamByName('id').AsString := lvType.ItemFocused.SubItems[0];
     query.ExecSQL;
 
     frmLogin.dbCoreTransaction.Commit;
@@ -123,6 +124,11 @@ begin
       'Sukses', MB_ICONINFORMATION);
     LoadData;
   end;
+end;
+
+procedure TfrmType.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  frmMain.Enabled := true;
 end;
 
 procedure TfrmType.FormShow(Sender: TObject);

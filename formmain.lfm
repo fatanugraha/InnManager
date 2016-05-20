@@ -27,7 +27,7 @@ object frmMain: TfrmMain
     object lblUserName: TLabel
       Left = 776
       Height = 15
-      Top = 48
+      Top = 40
       Width = 68
       Anchors = [akTop, akRight]
       Caption = 'lblUserName'
@@ -82,6 +82,7 @@ object frmMain: TfrmMain
       Top = 0
       Width = 76
       AutoSize = True
+      OnClick = imgProductClick
       Picture.Data = {
         1754506F727461626C654E6574776F726B477261706869636C01000089504E47
         0D0A1A0A0000000D494844520000004C0000004C0806000000C797512B000000

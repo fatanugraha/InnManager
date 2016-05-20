@@ -13,7 +13,6 @@ type
   { TfrmLogin }
   TfrmLogin = class(TForm)
     btnLogin: TButton;
-    Button1: TButton;
     edtUserName: TEdit;
     edtPassword: TEdit;
     Label1: TLabel;

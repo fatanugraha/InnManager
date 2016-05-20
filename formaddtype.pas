@@ -45,6 +45,9 @@ implementation
 uses
   lib.database, FormLogin, lib.common, FormType, lib.logger;
 
+var
+  prev: string;
+
 procedure TfrmAddType.FormShow(Sender: TObject);
 var
   query: TSQLQuery;
@@ -63,6 +66,7 @@ begin
     query.ParamByName('id').AsString := id;
     query.Open;
     edtName.Text := query.FieldByName('name').AsString;
+    prev := query.FieldByName('name').AsString;
     edtprice.Text := query.FieldByName('price').AsString;
     mmFeature.Text := query.FieldByName('feature').AsString;
     mmDesc.Text := query.FieldByName('description').AsString;
@@ -130,8 +134,15 @@ begin
       query.ParamByName('description').AsString := mmDesc.Text;
       query.ParamByName('id').AsString := ID;
       query.ExecSQL;
-      frmLogin.dbCoreTransaction.Commit;
 
+      if (prev <> edtName.Text) then begin
+        query.SQL.Text := 'UPDATE `product` SET `typename` = :new WHERE `typename` = :old';
+        query.ParamByName('old').AsString := prev;
+        query.ParamByName('new').AsString := edtName.Text;
+        query.ExecSQL;
+      end;
+
+      frmLogin.dbCoreTransaction.Commit;
       Application.MessageBox('Jenis produk berhasil di ubah.', 'Sukses', MB_ICONINFORMATION);
       FrmType.LoadData;
       Close;
