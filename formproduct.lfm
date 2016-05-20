@@ -1,0 +1,65 @@
+object frmProduct: TfrmProduct
+  Left = 216
+  Height = 400
+  Top = 226
+  Width = 600
+  Caption = 'frmProduct'
+  ClientHeight = 400
+  ClientWidth = 600
+  OnCreate = FormCreate
+  LCLVersion = '1.6.0.4'
+  object ListView1: TListView
+    Left = 8
+    Height = 354
+    Top = 8
+    Width = 584
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoWidthLastColumn = True
+    Columns = <    
+      item
+        Caption = 'Nomor'
+        Width = 75
+      end    
+      item
+        Caption = 'Jenis'
+        Width = 100
+      end    
+      item
+        Caption = 'Deskripsi'
+        Width = 405
+      end>
+    ReadOnly = True
+    RowSelect = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    ViewStyle = vsReport
+    OnCompare = ListView1Compare
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Tambah'
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 519
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Hapus'
+    TabOrder = 2
+  end
+  object Button3: TButton
+    Left = 439
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Ubah'
+    TabOrder = 3
+  end
+end

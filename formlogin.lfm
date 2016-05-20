@@ -58,6 +58,15 @@ object frmLogin: TfrmLogin
     OnClick = btnLoginClick
     TabOrder = 0
   end
+  object Button1: TButton
+    Left = 79
+    Height = 25
+    Top = 180
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 3
+  end
   object dbCoreConnection: TSQLite3Connection
     Connected = False
     LoginPrompt = False

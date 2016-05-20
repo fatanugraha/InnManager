@@ -85,6 +85,7 @@ begin
     query.Next;
   end;
 
+  lvUsersClick(nil);
   query.Close;
   query.Free;
 end;

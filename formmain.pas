@@ -13,16 +13,23 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
-    Button1: TButton;
-    Edit1: TEdit;
+    Image1: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
     imgCalendar: TImage;
     imgCustomer: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     lblUserName: TLabel;
+    pnlContainer: TPanel;
     pnlHeader: TPanel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure imgCustomerClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
   private
     { private declarations }
@@ -40,16 +47,26 @@ implementation
 { TfrmMain }
 
 uses
-  FormUser, FormLogin, lib.common;
+  FormUser, FormLogin, lib.common, FormType;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
 
 end;
 
+procedure TfrmMain.Image1Click(Sender: TObject);
+begin
+  frmType.Show;
+end;
+
+procedure TfrmMain.imgCustomerClick(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmMain.Button1Click(Sender: TObject);
 begin
-  CurrentSession.Authority := StrToInt(edit1.text);
+
 end;
 
 procedure TfrmMain.imgUsersClick(Sender: TObject);

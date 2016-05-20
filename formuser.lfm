@@ -8,7 +8,7 @@ object frmUsers: TfrmUsers
   ClientWidth = 585
   OnClose = FormClose
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   LCLVersion = '1.6.0.4'
   object lvUsers: TListView
     Left = 8

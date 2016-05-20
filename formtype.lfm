@@ -1,0 +1,82 @@
+object frmType: TfrmType
+  Left = 303
+  Height = 400
+  Top = 167
+  Width = 603
+  BorderIcons = [biSystemMenu, biMaximize]
+  Caption = 'Jenis Produk'
+  ClientHeight = 400
+  ClientWidth = 603
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '1.6.0.4'
+  object lvType: TListView
+    Left = 8
+    Height = 351
+    Top = 8
+    Width = 586
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoWidthLastColumn = True
+    Columns = <    
+      item
+        Caption = 'ID'
+        Width = 40
+      end    
+      item
+        Caption = 'Nama'
+        Width = 100
+      end    
+      item
+        Caption = 'Harga (Rp)'
+        Width = 100
+      end    
+      item
+        Caption = 'Fitur'
+        Width = 150
+      end    
+      item
+        Caption = 'Deskripsi'
+        Width = 192
+      end>
+    ReadOnly = True
+    RowSelect = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    ViewStyle = vsReport
+    OnClick = lvTypeClick
+    OnSelectItem = lvTypeSelectItem
+  end
+  object btnAdd: TButton
+    Left = 8
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Tambah'
+    OnClick = btnAddClick
+    TabOrder = 1
+  end
+  object btnEdit: TButton
+    Left = 439
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Ubah'
+    OnClick = btnEditClick
+    TabOrder = 2
+    Visible = False
+  end
+  object btnRemove: TButton
+    Left = 519
+    Height = 25
+    Top = 367
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Hapus'
+    OnClick = btnRemoveClick
+    TabOrder = 3
+    Visible = False
+  end
+end

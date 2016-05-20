@@ -1,0 +1,114 @@
+object frmAddType: TfrmAddType
+  Left = 424
+  Height = 345
+  Top = 275
+  Width = 385
+  BorderIcons = [biSystemMenu]
+  Caption = 'frmAddType'
+  ClientHeight = 345
+  ClientWidth = 385
+  Constraints.MaxHeight = 345
+  Constraints.MinHeight = 345
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '1.6.0.4'
+  object edtName: TLabeledEdit
+    Left = 8
+    Height = 23
+    Top = 24
+    Width = 368
+    Anchors = [akTop, akLeft, akRight]
+    EditLabel.AnchorSideLeft.Control = edtName
+    EditLabel.AnchorSideRight.Control = edtName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = edtName
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 6
+    EditLabel.Width = 368
+    EditLabel.Caption = 'Nama:'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    Text = 'edtName'
+  end
+  object edtPrice: TLabeledEdit
+    Left = 8
+    Height = 23
+    Top = 74
+    Width = 368
+    Anchors = [akTop, akLeft, akRight]
+    EditLabel.AnchorSideLeft.Control = edtPrice
+    EditLabel.AnchorSideRight.Control = edtPrice
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = edtPrice
+    EditLabel.Left = 8
+    EditLabel.Height = 15
+    EditLabel.Top = 56
+    EditLabel.Width = 368
+    EditLabel.Caption = 'Harga'
+    EditLabel.ParentColor = False
+    TabOrder = 1
+    Text = 'edtPrice'
+    OnChange = edtPriceChange
+    OnKeyPress = edtPriceKeyPress
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 106
+    Width = 27
+    Caption = 'Fitur:'
+    ParentColor = False
+  end
+  object mmFeature: TMemo
+    Left = 8
+    Height = 74
+    Top = 122
+    Width = 368
+    Anchors = [akTop, akLeft, akRight]
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 2
+  end
+  object mmDesc: TMemo
+    Left = 8
+    Height = 77
+    Top = 223
+    Width = 368
+    Anchors = [akTop, akLeft, akRight]
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 3
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 207
+    Width = 50
+    Caption = 'Deskripsi:'
+    ParentColor = False
+  end
+  object btnOK: TButton
+    Left = 301
+    Height = 25
+    Top = 312
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'OK'
+    OnClick = btnOKClick
+    TabOrder = 4
+  end
+  object btnCancel: TButton
+    Left = 8
+    Height = 25
+    Top = 312
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Batal'
+    OnClick = btnCancelClick
+    TabOrder = 5
+  end
+end

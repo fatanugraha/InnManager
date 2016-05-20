@@ -21,15 +21,42 @@ const
   AUTH_SEE_USER     = 4;
   AUTH_EDIT_USER    = 8;
 
+  CURRENCY = 'Rp';
+
 function VerifyFiles: integer;
 function CurrentDir: string;
 function IsFieldEmpty(Sender: TObject): boolean;
 function HashPassword(password: string): string;
+function FormatCurrency(currency: string; x: int64): string;
 
 implementation
 
 uses
   lib.logger;
+
+function FormatCurrency(currency: string; x: int64): string;
+const
+  LIMITER = ',';
+var
+  len: integer;
+  tmp: int64;
+begin
+  tmp := x;
+  len := 0;
+
+  result := '';
+  while (tmp > 0) do
+  begin
+    result := char((tmp mod 10)+Ord('0')) + result;
+    inc(len);
+    tmp := tmp div 10;
+
+    if (len mod 3 = 0) and (tmp > 0) then
+      result := LIMITER+result;
+  end;
+
+  result := currency+' '+result; //increase readability
+end;
 
 function HashPassword(password: string): string;
 begin

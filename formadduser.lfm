@@ -11,7 +11,7 @@ object frmAddUser: TfrmAddUser
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   LCLVersion = '1.6.0.4'
   object edtUsername: TLabeledEdit
     Left = 8

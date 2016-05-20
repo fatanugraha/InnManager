@@ -13,12 +13,14 @@ type
   { TfrmLogin }
   TfrmLogin = class(TForm)
     btnLogin: TButton;
+    Button1: TButton;
     edtUserName: TEdit;
     edtPassword: TEdit;
     Label1: TLabel;
     dbCoreConnection: TSQLite3Connection;
     dbCoreTransaction: TSQLTransaction;
     procedure btnLoginClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure edtPasswordExit(Sender: TObject);
     procedure edtUserNameEnter(Sender: TObject);
     procedure edtUserNameKeyDown(Sender: TObject; var Key: Word;
@@ -153,6 +155,11 @@ begin
 
   query.close;
   query.Free;
+end;
+
+procedure TfrmLogin.Button1Click(Sender: TObject);
+begin
+
 end;
 
 end.

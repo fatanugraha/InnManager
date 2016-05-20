@@ -10,7 +10,7 @@ uses
 const
   FILE_LOG = 'main.log';
 
-procedure dump(x: integer);
+procedure dump(x: int64);
 procedure dump(x: string);
 
 //for logging purposes
@@ -27,7 +27,7 @@ uses
 var
   LogFile: TextFile;
 
-procedure dump(x: integer);
+procedure dump(x: int64);
 begin
   showmessage(IntToStr(x));
 end;
