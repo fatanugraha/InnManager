@@ -1,16 +1,14 @@
 object frmMain: TfrmMain
-  Left = 373
+  Left = 300
   Height = 581
-  Top = 74
+  Top = 66
   Width = 865
   Caption = 'frmMain'
   ClientHeight = 581
   ClientWidth = 865
   OnShow = FormShow
   Position = poDesktopCenter
-  ShowInTaskBar = stAlways
   LCLVersion = '1.6.0.4'
-  WindowState = wsMaximized
   object pnlHeader: TPanel
     Left = 0
     Height = 92
@@ -21,7 +19,7 @@ object frmMain: TfrmMain
     ClientHeight = 92
     ClientWidth = 865
     Color = clWhite
-    Font.Color = clWhite
+    Font.Color = clBlack
     ParentColor = False
     ParentFont = False
     TabOrder = 0
@@ -36,10 +34,11 @@ object frmMain: TfrmMain
       Transparent = False
     end
     object lblUserName: TLabel
-      Left = 776
+      Left = 784
       Height = 15
-      Top = 40
+      Top = 39
       Width = 68
+      Alignment = taRightJustify
       Anchors = [akTop, akRight]
       Caption = 'lblUserName'
       Font.Color = clBlack
@@ -288,6 +287,39 @@ object frmMain: TfrmMain
       ParentFont = False
       OnClick = imgUsersClick
     end
+    object Image1: TImage
+      Left = 409
+      Height = 76
+      Top = 0
+      Width = 76
+      AutoSize = True
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B477261706869638A01000089504E47
+        0D0A1A0A0000000D494844520000004C0000004C0806000000C797512B000000
+        017352474200AECE1CE90000000467414D410000B18F0BFC6105000000097048
+        597300000EC300000EC301C76FA8640000011F49444154785EEDD7610F822014
+        8561EB3FD7DFAFDC707325C8E1DE8B98EFB3313E142027AEE604000000000000
+        0039B7D4477BA53E5AF87EEEA9472502131198E8A87B98D7BA51F36671C24404
+        262230118189080CB13C1EC3BD5E7BBC98F64C498A084C446022021345DDF4C3
+        DFE92AB95F1B274C4460220213119888C044BD029B9F564BF31639F78F5E7F2B
+        D6DF593EB36E706B9ED2BA0BD39E29491181894CC733692D492F94E4C8084C14
+        55926BF31A5B65B3376ECFD63CDF6B6D31ED991326223091E97826AD25E98592
+        1C99F7AF9DD3F384853A22B092F5F5D49656D7C0284951AFC09EA987E0F16973
+        F9945A0BEBF8A1ED85D6C23A7E78A5D05A58C79F422EB416D6F1A751734F53DB
+        DFF30EED123C43030000000000B894697A03E8B985855E380D1D000000004945
+        4E44AE426082
+      }
+    end
+    object Label6: TLabel
+      Left = 409
+      Height = 15
+      Top = 69
+      Width = 76
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Cetak Nota'
+      ParentColor = False
+    end
   end
   object pnlContainer: TPanel
     Left = 0
@@ -299,5 +331,6 @@ object frmMain: TfrmMain
     Color = clBtnFace
     ParentColor = False
     TabOrder = 1
+    OnClick = pnlContainerClick
   end
 end

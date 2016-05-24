@@ -7,12 +7,13 @@ object frmCalendar: TfrmCalendar
   ClientHeight = 506
   ClientWidth = 826
   OnCreate = FormCreate
+  OnResize = FormResize
   OnShow = FormShow
   LCLVersion = '1.6.0.4'
   object Grid: TStringGrid
-    Left = 8
-    Height = 458
-    Top = 40
+    Left = 9
+    Height = 442
+    Top = 56
     Width = 809
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
@@ -22,43 +23,34 @@ object frmCalendar: TfrmCalendar
     TabOrder = 0
   end
   object lblNow: TLabel
-    Left = 80
-    Height = 15
-    Top = 13
-    Width = 58
-    Caption = '%BULAN%'
-    ParentColor = False
-  end
-  object Button1: TButton
-    Left = 8
-    Height = 25
+    Left = 344
+    Height = 42
     Top = 8
+    Width = 147
+    Caption = '%BULAN%'
+    Font.Height = -31
+    Font.Name = 'Segoe UI'
+    Font.Quality = fqCleartype
+    ParentColor = False
+    ParentFont = False
+  end
+  object btnPrev: TButton
+    Left = 9
+    Height = 25
+    Top = 13
     Width = 32
     Caption = '<'
-    OnClick = Button1Click
+    OnClick = btnPrevClick
     TabOrder = 1
   end
-  object Button2: TButton
-    Left = 40
+  object btnNext: TButton
+    Left = 786
     Height = 25
-    Top = 8
-    Width = 32
-    Caption = '>'
-    OnClick = Button2Click
-    TabOrder = 2
-  end
-  object lblTime: TLabel
-    Left = 744
-    Height = 15
     Top = 13
-    Width = 74
+    Width = 32
     Anchors = [akTop, akRight]
-    Caption = '%TANGGAL%'
-    ParentColor = False
-  end
-  object Timer1: TTimer
-    OnTimer = Timer1Timer
-    left = 696
-    top = 8
+    Caption = '>'
+    OnClick = btnNextClick
+    TabOrder = 2
   end
 end

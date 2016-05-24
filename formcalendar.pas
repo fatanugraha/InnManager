@@ -12,16 +12,15 @@ type
   { TfrmCalendar }
 
   TfrmCalendar = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
+    btnPrev: TButton;
+    btnNext: TButton;
     lblNow: TLabel;
-    lblTime: TLabel;
     Grid: TStringGrid;
-    Timer1: TTimer;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure btnPrevClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -80,6 +79,7 @@ const
   FEBRUARY = 1;
   FIXED_COL = 1;
   FIXED_ROW = 1;
+
 var
   tmp: char;
   i, cur: integer;
@@ -88,18 +88,18 @@ begin
   size := FIXED_COL + MONTH_SIZE[month];
 
   if (month = FEBRUARY) and IsLeapYear(year) then
-    inc(size);
+    Inc(size);
 
-  Grid.Clean(FIXED_COL, FIXED_ROW, Grid.ColCount-1, Grid.RowCount-1, [gzNormal]);
+  Grid.Clean(FIXED_COL, FIXED_ROW, Grid.ColCount - 1, Grid.RowCount - 1, [gzNormal]);
   Grid.ColCount := size;
 
   DefaultFormatSettings.ShortDateFormat := 'dd/MM/yyyy';
   tmp := DefaultFormatSettings.DateSeparator;
-  cur := TokenizeDay(FormatDateTime('dddd', StrToDate(Format('01/%d/%d', [month+1, year]))));
-  for i := 1 to size-1 do
+  cur := TokenizeDay(FormatDateTime('dddd', StrToDate(Format('01/%d/%d', [month + 1, year]))));
+  for i := 1 to size - 1 do
   begin
     Grid.Cells[i, 0] := Format('%d - %s', [i, DAY_IDN[cur]]);
-    cur := (cur+1) mod 7;
+    cur := (cur + 1) mod DAY_IN_MONTH;
   end;
 
   lblNow.Caption := Format('%s %d', [MONTH_IDN[month], year]);
@@ -107,7 +107,7 @@ end;
 
 procedure TfrmCalendar.FormShow(Sender: TObject);
 begin
-  CurrentMonth := StrToInt(FormatDateTime('mm', now))-1;
+  CurrentMonth := StrToInt(FormatDateTime('mm', now)) - 1;
   CurrentYear := StrToInt(FormatDateTime('yyyy', now));
 
   UpdateFixed;
@@ -116,7 +116,7 @@ end;
 
 procedure TfrmCalendar.Timer1Timer(Sender: TObject);
 begin
-  lblTime.Caption := FormatDateTime('hh:nn:ss - dddd, dd mmmm yyyy', now);
+
 end;
 
 procedure TfrmCalendar.FormCreate(Sender: TObject);
@@ -124,30 +124,47 @@ begin
 
 end;
 
+procedure TfrmCalendar.FormResize(Sender: TObject);
+begin
+  //cosmetics
+  lblNow.Left := Width div 2 - LblNow.Width div 2;
+  LblNow.Top := Grid.Top div 2 - LblNow.Height div 2;
+
+  btnNext.Top := Grid.Top div 2 - btnNext.Height div 2;
+  btnPrev.Top := btnNext.Top;
+end;
+
 procedure TfrmCalendar.Button3Click(Sender: TObject);
 begin
 
 end;
 
-procedure TfrmCalendar.Button1Click(Sender: TObject);
+procedure TfrmCalendar.btnPrevClick(Sender: TObject);
 begin
-  dec(CurrentMonth);
-  if (CurrentMonth < 0) then begin
-    inc(CurrentMonth, 12);
-    dec(CurrentYear);
+  Dec(CurrentMonth);
+
+  if (CurrentMonth < 0) then
+  begin
+    Inc(CurrentMonth, 12);
+    Dec(CurrentYear);
   end;
+
   ChangeDate(CurrentMonth, CurrentYear);
+  FormResize(nil);
 end;
 
-procedure TfrmCalendar.Button2Click(Sender: TObject);
+procedure TfrmCalendar.btnNextClick(Sender: TObject);
 begin
-  inc(CurrentMonth);
+  Inc(CurrentMonth);
+
   if (CurrentMonth = 12) then
   begin
     CurrentMonth := 0;
-    inc(Currentyear);
+    Inc(Currentyear);
   end;
+
   ChangeDate(CurrentMonth, Currentyear);
+  FormResize(nil);
 end;
 
 end.

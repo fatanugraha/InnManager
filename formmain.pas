@@ -14,6 +14,7 @@ type
   PForm = ^TForm;
 
   TfrmMain = class(TForm)
+    Image1: TImage;
     imgType: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
@@ -24,19 +25,23 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;
     pnlHeader: TPanel;
+    procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure imgTypeClick(Sender: TObject);
     procedure imgCalendarClick(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
+    procedure pnlContainerClick(Sender: TObject);
   private
     prev: PForm;
   public
+    //embed form to pnlContainer and select current tab
     procedure OpenTab(Form: PForm; Sender: TObject);
   end;
 
@@ -50,7 +55,8 @@ implementation
 { TfrmMain }
 
 uses
-  FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger;
+  FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger, FormCustomer
+  ,formAddroom;
 
 procedure TfrmMain.OpenTab(Form: PForm; Sender: TObject);
 begin
@@ -77,8 +83,13 @@ begin
   //cosmetics
   lblSelected.left := 0;
   imgCalendarClick(imgCalendar);
+  lblUserName.Caption := CurrentSession.Username;
+  WindowState := wsMaximized;
+end;
 
-  //
+procedure TfrmMain.Button1Click(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmMain.imgTypeClick(Sender: TObject);
@@ -93,7 +104,7 @@ end;
 
 procedure TfrmMain.imgCustomerClick(Sender: TObject);
 begin
-
+  OpenTab(@frmCustomer, Sender);
 end;
 
 procedure TfrmMain.imgProductClick(Sender: TObject);
@@ -110,6 +121,11 @@ begin
 
   Enabled := false;
   frmUsers.Show;
+end;
+
+procedure TfrmMain.pnlContainerClick(Sender: TObject);
+begin
+
 end;
 
 end.

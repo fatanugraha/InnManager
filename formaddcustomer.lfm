@@ -1,0 +1,498 @@
+object frmAddCustomer: TfrmAddCustomer
+  Left = 713
+  Height = 599
+  Top = 98
+  Width = 849
+  BorderStyle = bsSingle
+  Caption = 'frmAddCustomer'
+  ClientHeight = 599
+  ClientWidth = 849
+  LCLVersion = '1.6.0.4'
+  object GroupBox1: TGroupBox
+    Left = 8
+    Height = 321
+    Top = 8
+    Width = 400
+    Caption = 'Informasi Pelanggan'
+    ClientHeight = 301
+    ClientWidth = 396
+    TabOrder = 0
+    object LabeledEdit1: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 24
+      Width = 272
+      EditLabel.AnchorSideLeft.Control = LabeledEdit1
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit1
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 6
+      EditLabel.Width = 272
+      EditLabel.Caption = 'Nama*'
+      EditLabel.ParentColor = False
+      TabOrder = 0
+      Text = 'LabeledEdit1'
+    end
+    object LabeledEdit2: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 72
+      Width = 379
+      EditLabel.AnchorSideLeft.Control = LabeledEdit2
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit2
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit2
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 54
+      EditLabel.Width = 379
+      EditLabel.Caption = 'Instansi/Kota'
+      EditLabel.ParentColor = False
+      TabOrder = 1
+      Text = 'LabeledEdit2'
+    end
+    object Label1: TLabel
+      Left = 287
+      Height = 15
+      Top = 6
+      Width = 27
+      Caption = 'Gelar'
+      ParentColor = False
+    end
+    object ComboBox1: TComboBox
+      Left = 287
+      Height = 23
+      Top = 24
+      Width = 100
+      ItemHeight = 15
+      Items.Strings = (
+        ''
+        'Bapak'
+        'Ibu'
+        'Saudara'
+        'Saudari'
+      )
+      TabOrder = 2
+      Text = 'ComboBox1'
+    end
+    object Label2: TLabel
+      Left = 9
+      Height = 15
+      Top = 160
+      Width = 63
+      Caption = 'Keterangan:'
+      ParentColor = False
+    end
+    object Memo1: TMemo
+      Left = 8
+      Height = 113
+      Top = 178
+      Width = 379
+      Lines.Strings = (
+        'Memo1'
+      )
+      OnChange = Memo1Change
+      TabOrder = 3
+    end
+    object LabeledEdit3: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 120
+      Width = 178
+      EditLabel.AnchorSideLeft.Control = LabeledEdit3
+      EditLabel.AnchorSideRight.Control = LabeledEdit3
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit3
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 102
+      EditLabel.Width = 178
+      EditLabel.Caption = 'Kontak 1*'
+      EditLabel.ParentColor = False
+      TabOrder = 4
+      Text = 'LabeledEdit3'
+    end
+    object LabeledEdit4: TLabeledEdit
+      Left = 200
+      Height = 23
+      Top = 120
+      Width = 187
+      EditLabel.AnchorSideLeft.Control = LabeledEdit4
+      EditLabel.AnchorSideRight.Control = LabeledEdit4
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = LabeledEdit4
+      EditLabel.Left = 200
+      EditLabel.Height = 15
+      EditLabel.Top = 102
+      EditLabel.Width = 187
+      EditLabel.Caption = 'Kontak 2'
+      EditLabel.ParentColor = False
+      TabOrder = 5
+      Text = 'LabeledEdit4'
+    end
+    object Bevel1: TBevel
+      Left = 8
+      Height = 10
+      Top = 144
+      Width = 379
+      Shape = bsBottomLine
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 416
+    Height = 321
+    Top = 8
+    Width = 424
+    Caption = 'Pembayaran'
+    ClientHeight = 301
+    ClientWidth = 420
+    TabOrder = 1
+    OnClick = GroupBox2Click
+    object Label3: TLabel
+      Left = 8
+      Height = 15
+      Top = 11
+      Width = 47
+      Caption = 'Ruangan'
+      ParentColor = False
+    end
+    object Label4: TLabel
+      Left = 8
+      Height = 15
+      Top = 39
+      Width = 142
+      Caption = 'Makanan/Minuman/Snack'
+      ParentColor = False
+    end
+    object LabeledEdit5: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 7
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit5
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit5
+      EditLabel.AnchorSideBottom.Control = LabeledEdit5
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 11
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      ReadOnly = True
+      TabOrder = 0
+      Text = 'LabeledEdit5'
+    end
+    object LabeledEdit6: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 35
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit6
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit6
+      EditLabel.AnchorSideBottom.Control = LabeledEdit6
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 39
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      TabOrder = 1
+      Text = 'LabeledEdit6'
+    end
+    object Label5: TLabel
+      Left = 8
+      Height = 15
+      Top = 67
+      Width = 46
+      Caption = 'Lain-lain'
+      ParentColor = False
+    end
+    object LabeledEdit7: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 63
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit7
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit7
+      EditLabel.AnchorSideBottom.Control = LabeledEdit7
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 67
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      TabOrder = 2
+      Text = 'LabeledEdit7'
+    end
+    object Bevel2: TBevel
+      Left = 8
+      Height = 10
+      Top = 86
+      Width = 400
+      Anchors = [akTop, akLeft, akRight]
+      Shape = bsBottomLine
+    end
+    object Label6: TLabel
+      Left = 374
+      Height = 15
+      Top = 104
+      Width = 36
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      Caption = 'Label6'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 8
+      Height = 15
+      Top = 104
+      Width = 47
+      Caption = 'Sub total'
+      ParentColor = False
+    end
+    object Label8: TLabel
+      Left = 8
+      Height = 15
+      Top = 132
+      Width = 64
+      Caption = 'Extra charge'
+      ParentColor = False
+    end
+    object Label9: TLabel
+      Left = 8
+      Height = 15
+      Top = 160
+      Width = 36
+      Caption = 'Diskon'
+      ParentColor = False
+    end
+    object LabeledEdit8: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 156
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit8
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit8
+      EditLabel.AnchorSideBottom.Control = LabeledEdit8
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 160
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      TabOrder = 3
+      Text = 'LabeledEdit8'
+    end
+    object LabeledEdit9: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 128
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit9
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit9
+      EditLabel.AnchorSideBottom.Control = LabeledEdit9
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 132
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      ReadOnly = True
+      TabOrder = 4
+      Text = 'LabeledEdit9'
+    end
+    object Label10: TLabel
+      Left = 8
+      Height = 15
+      Top = 195
+      Width = 27
+      Caption = 'Total'
+      ParentColor = False
+    end
+    object Bevel3: TBevel
+      Left = 8
+      Height = 10
+      Top = 177
+      Width = 400
+      Anchors = [akTop, akLeft, akRight]
+      Shape = bsBottomLine
+    end
+    object Label11: TLabel
+      Left = 365
+      Height = 15
+      Top = 195
+      Width = 43
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      Caption = 'Label11'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 8
+      Height = 15
+      Top = 228
+      Width = 61
+      Caption = 'Uang Muka'
+      ParentColor = False
+    end
+    object LabeledEdit10: TLabeledEdit
+      Left = 304
+      Height = 23
+      Top = 224
+      Width = 104
+      Anchors = [akTop, akRight]
+      EditLabel.AnchorSideTop.Control = LabeledEdit10
+      EditLabel.AnchorSideTop.Side = asrCenter
+      EditLabel.AnchorSideRight.Control = LabeledEdit10
+      EditLabel.AnchorSideBottom.Control = LabeledEdit10
+      EditLabel.AnchorSideBottom.Side = asrBottom
+      EditLabel.Left = 281
+      EditLabel.Height = 15
+      EditLabel.Top = 228
+      EditLabel.Width = 20
+      EditLabel.Caption = 'Rp. '
+      EditLabel.ParentColor = False
+      LabelPosition = lpLeft
+      ReadOnly = True
+      TabOrder = 5
+      Text = 'LabeledEdit10'
+    end
+    object Label13: TLabel
+      Left = 349
+      Height = 21
+      Top = 266
+      Width = 59
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      Caption = 'Label13'
+      Font.Color = clRed
+      Font.Height = -16
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Bevel4: TBevel
+      Left = 8
+      Height = 10
+      Top = 248
+      Width = 400
+      Anchors = [akTop, akLeft, akRight]
+      Shape = bsBottomLine
+    end
+    object Label14: TLabel
+      Left = 8
+      Height = 15
+      Top = 269
+      Width = 52
+      Caption = 'Sisa Bayar'
+      ParentColor = False
+    end
+  end
+  object GroupBox3: TGroupBox
+    Left = 8
+    Height = 256
+    Top = 336
+    Width = 832
+    Caption = 'Ruangan yang dipesan'
+    ClientHeight = 236
+    ClientWidth = 828
+    TabOrder = 2
+    object ListView1: TListView
+      Left = 8
+      Height = 184
+      Top = 8
+      Width = 632
+      Columns = <      
+        item
+          Caption = 'No.'
+          Width = 40
+        end      
+        item
+          Caption = 'Kamar'
+          Width = 80
+        end      
+        item
+          Caption = 'Jenis'
+          Width = 100
+        end      
+        item
+          Caption = 'Harga'
+          Width = 100
+        end      
+        item
+          Caption = 'Check-In'
+          Width = 100
+        end      
+        item
+          Caption = 'Check-Out'
+          Width = 100
+        end      
+        item
+          Caption = 'Total Biaya'
+          Width = 100
+        end>
+      TabOrder = 0
+      ViewStyle = vsReport
+    end
+    object ListView2: TListView
+      Left = 648
+      Height = 217
+      Top = 8
+      Width = 170
+      Columns = <      
+        item
+          Caption = 'Jenis Ruangan'
+          Width = 100
+        end      
+        item
+          Caption = 'Total'
+        end>
+      TabOrder = 1
+      ViewStyle = vsReport
+    end
+    object Button1: TButton
+      Left = 8
+      Height = 25
+      Top = 200
+      Width = 75
+      Caption = 'Tambah'
+      TabOrder = 2
+    end
+    object Button2: TButton
+      Left = 565
+      Height = 25
+      Top = 200
+      Width = 75
+      Caption = 'Hapus'
+      TabOrder = 3
+    end
+  end
+end

@@ -1,0 +1,107 @@
+object frmAddRoom: TfrmAddRoom
+  Left = 233
+  Height = 257
+  Top = 141
+  Width = 409
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'frmAddRoom'
+  ClientHeight = 257
+  ClientWidth = 409
+  OnCreate = FormCreate
+  LCLVersion = '1.6.0.4'
+  object CheckListBox1: TCheckListBox
+    Left = 8
+    Height = 216
+    Top = 32
+    Width = 136
+    ItemHeight = 0
+    TabOrder = 0
+  end
+  object DateEdit1: TDateEdit
+    Left = 176
+    Height = 23
+    Top = 32
+    Width = 226
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DateOrder = doNone
+    DateFormat = 'dd/MM/yyyy'
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    OnKeyPress = DateEdit2KeyPress
+    TabOrder = 1
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 9
+    Width = 50
+    Caption = 'Ruangan:'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 176
+    Height = 15
+    Top = 9
+    Width = 94
+    Caption = 'Tanggal Check-In'
+    ParentColor = False
+  end
+  object Bevel1: TBevel
+    Left = 160
+    Height = 239
+    Top = 9
+    Width = 10
+    Shape = bsLeftLine
+  end
+  object DateEdit2: TDateEdit
+    Left = 176
+    Height = 23
+    Top = 87
+    Width = 226
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DateOrder = doNone
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    OnKeyPress = DateEdit2KeyPress
+    TabOrder = 2
+  end
+  object Label3: TLabel
+    Left = 176
+    Height = 15
+    Top = 64
+    Width = 104
+    Caption = 'Tanggal Check-Out'
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 327
+    Height = 25
+    Top = 223
+    Width = 75
+    Caption = 'OK'
+    TabOrder = 3
+  end
+  object Button2: TButton
+    Left = 176
+    Height = 25
+    Top = 223
+    Width = 75
+    Caption = 'Batal'
+    TabOrder = 4
+  end
+  object Label4: TLabel
+    Left = 178
+    Height = 15
+    Top = 128
+    Width = 75
+    Caption = 'Total Hari: %d'
+    ParentColor = False
+  end
+end

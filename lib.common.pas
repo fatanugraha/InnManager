@@ -21,41 +21,41 @@ const
   AUTH_SEE_USER = 4;
   AUTH_EDIT_USER = 8;
 
-  MONTH_SIZE: array [0..11] of integer = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-  DAY_ENG   : array [0..6] of string   = ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-  DAY_IDN   : array [0..6] of string   = ('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu');
+  DAY_IN_MONTH = 7;
+  MONTH_IN_YEAR = 12;
 
-  //sesuai KBBI lol
-  MONTH_IDN : array [0..11] of string  = ('Januari', 'Feburari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
-                                          'September', 'Oktober', 'November', 'Desember');
-  currency = 'Rp';
+  MONTH_SIZE: array [0..MONTH_IN_YEAR-1] of integer = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+  MONTH_IDN:  array [0..MONTH_IN_YEAR-1] of string  = ('Januari', 'Feburari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+                                                       'Agustus', 'September', 'Oktober', 'November', 'Desember');
 
+  DAY_ENG: array [0..DAY_IN_MONTH-1] of string = ('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                                                  'Saturday');
+  DAY_IDN: array [0..DAY_IN_MONTH-1] of string = ('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu');
+
+  CURRENCY = 'Rp';
+
+//check if core files is exists
 function VerifyFiles: integer;
+//get current working directory
 function CurrentDir: string;
+//check is current TEdit is empty and set focus to it if empty
 function IsFieldEmpty(Sender: TObject): boolean;
+//hash current password with MD5 + added some salt
 function HashPassword(password: string): string;
+//format current integer to more readable format
 function FormatCurrency(currency: string; x: int64): string;
 
+//check is this year is leap
 function IsLeapYear(year: integer): boolean;
+//convert current day from string (Only supported ID and EN locale) to 0-based integer
 function TokenizeDay(day: string): integer;
-function IndonesianDay(day: string): string;
 
 implementation
 
 uses
   lib.logger;
 
-function IndonesianDay(day: string): string;
-var
-  i: integer;
-begin
-  Result := day;
-  for i := 0 to 6 do
-    if (DAY_ENG[i] = day) then
-      Result := DAY_IDN[i];
-end;
-
-function TokenizeDay(day: string):integer;
+function TokenizeDay(day: string): integer;
 var
   i: integer;
 begin
@@ -130,6 +130,7 @@ begin
   if (not FileExists(CurrentDir + FILE_COREDB)) then
     exit(1);
 
+  //check sqlite driver
   if (not FileExists(CurrentDir + FILE_DRIVER)) then
     exit(2);
 

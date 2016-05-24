@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="16">
       <Unit0>
         <Filename Value="innManager.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -123,6 +123,26 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="formCalendar"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="formcustomer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCustomer"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="formCustomer"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="formaddcustomer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAddCustomer"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="formaddroom.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAddRoom"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit15>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
