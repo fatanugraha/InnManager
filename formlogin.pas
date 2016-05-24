@@ -19,11 +19,9 @@ type
     dbCoreConnection: TSQLite3Connection;
     dbCoreTransaction: TSQLTransaction;
     procedure btnLoginClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure edtPasswordExit(Sender: TObject);
     procedure edtUserNameEnter(Sender: TObject);
-    procedure edtUserNameKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure edtUserNameKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -53,7 +51,7 @@ uses
 
 procedure TfrmLogin.edtUserNameEnter(Sender: TObject);
 begin
-  if (TEdit(Sender).Font.Color = clSilver) then
+  if (TEdit(Sender).Font.Color = clGray) then
   begin
     TEdit(Sender).Text := '';
     TEdit(Sender).Font.Color := clBlack;
@@ -89,7 +87,7 @@ begin
     else
       TEdit(Sender).Text := 'username';
 
-    TEdit(Sender).Font.Color := clSilver;
+    TEdit(Sender).Font.Color := clGray;
 
     if (Sender = edtPassword) then
       TEdit(Sender).PasswordChar := #0;
@@ -154,11 +152,6 @@ begin
 
   query.close;
   query.Free;
-end;
-
-procedure TfrmLogin.Button1Click(Sender: TObject);
-begin
-
 end;
 
 end.

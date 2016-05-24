@@ -86,14 +86,14 @@ procedure TfrmType.btnAddClick(Sender: TObject);
 begin
   FrmAddType.ID := '';
   frmAddType.Show;
-  Enabled := False;
+  frmMain.Enabled := false;
 end;
 
 procedure TfrmType.btnEditClick(Sender: TObject);
 begin
   FrmAddType.ID := lvType.ItemFocused.Caption;
   frmAddType.Show;
-  Enabled := False;
+  frmMain.Enabled := false;
 end;
 
 procedure TfrmType.btnRemoveClick(Sender: TObject);
@@ -112,16 +112,12 @@ begin
     query.SQL.Text := 'DELETE FROM `product_type` WHERE `id` = :id';
     query.ParamByName('id').AsString := lvType.ItemFocused.Caption;
     query.ExecSQL;
-    query.SQL.Text := 'DELETE FROM `product` WHERE `typenama` = :id';
+    query.SQL.Text := 'DELETE FROM `product` WHERE `typename` = :id';
     query.ParamByName('id').AsString := lvType.ItemFocused.SubItems[0];
     query.ExecSQL;
 
     frmLogin.dbCoreTransaction.Commit;
     query.Free;
-
-
-    Application.MessageBox(PChar(Format('Jenis produk %s berhasil dihapus', [lvType.ItemFocused.SubItems[0]])),
-      'Sukses', MB_ICONINFORMATION);
     LoadData;
   end;
 end;

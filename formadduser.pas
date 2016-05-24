@@ -148,7 +148,6 @@ begin
       query.ExecSQL;
       frmLogin.dbCoreTransaction.Commit;
 
-      Application.MessageBox('User berhasil ditambahkan.', 'Sukses', MB_ICONINFORMATION);
       Close;
     end;
   end
@@ -189,8 +188,6 @@ begin
       query.paramByName('fullname').AsString := edtName.Text;
       query.ExecSQL;
       frmLogin.dbCoreTransaction.Commit;
-
-      Application.MessageBox('Data user berhasil diubah.', 'Sukses', MB_ICONINFORMATION);
 
       //cek kalau user yang sekarang affected
       if (IntToStr(CurrentSession.ID) = ID) then

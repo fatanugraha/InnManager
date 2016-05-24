@@ -8,18 +8,18 @@ object frmLogin: TfrmLogin
   Caption = 'Log Masuk'
   ClientHeight = 233
   ClientWidth = 384
-  Color = 2238503
+  Color = clWhite
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '1.6.0.4'
   object Label1: TLabel
     Left = 72
-    Height = 37
+    Height = 42
     Top = 40
-    Width = 120
+    Width = 140
     Caption = 'Log Masuk'
-    Font.Color = clWhite
-    Font.Height = -27
+    Font.Color = clBlack
+    Font.Height = -31
     Font.Name = 'Segoe UI Light'
     Font.Quality = fqCleartype
     ParentColor = False
@@ -30,7 +30,7 @@ object frmLogin: TfrmLogin
     Height = 23
     Top = 88
     Width = 240
-    Font.Color = clSilver
+    Font.Color = clGray
     OnEnter = edtUserNameEnter
     OnExit = edtPasswordExit
     OnKeyDown = edtUserNameKeyDown
@@ -43,7 +43,7 @@ object frmLogin: TfrmLogin
     Height = 23
     Top = 120
     Width = 240
-    Font.Color = clSilver
+    Font.Color = clGray
     OnEnter = edtUserNameEnter
     OnExit = edtPasswordExit
     OnKeyDown = edtUserNameKeyDown

@@ -6,14 +6,15 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls;
+  StdCtrls, Grids;
 
 type
 
   { TfrmMain }
+  PForm = ^TForm;
 
   TfrmMain = class(TForm)
-    Image1: TImage;
+    imgType: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
     imgCalendar: TImage;
@@ -23,19 +24,20 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;
     pnlHeader: TPanel;
-    procedure Button1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure imgTypeClick(Sender: TObject);
+    procedure imgCalendarClick(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
   private
-    { private declarations }
+    prev: PForm;
   public
-    { public declarations }
+    procedure OpenTab(Form: PForm; Sender: TObject);
   end;
 
 var
@@ -48,17 +50,45 @@ implementation
 { TfrmMain }
 
 uses
-  FormUser, FormLogin, lib.common, FormType, FormProduct;
+  FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger;
 
-procedure TfrmMain.FormCreate(Sender: TObject);
+procedure TfrmMain.OpenTab(Form: PForm; Sender: TObject);
 begin
+  if (lblSelected.Left = Tlabel(Sender).Left) then
+    exit;
 
+  if (prev <> nil) then
+    prev^.close;
+
+  with Form^ do
+  begin
+    prev := Form;
+    Align := alClient;
+    BorderStyle := bsNone;
+    Parent := pnlContainer;
+    Show;
+  end;
+
+  lblSelected.Left := TLabel(Sender).left;
 end;
 
-procedure TfrmMain.Image1Click(Sender: TObject);
+procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  Enabled := false;
-  frmType.Show;
+  //cosmetics
+  lblSelected.left := 0;
+  imgCalendarClick(imgCalendar);
+
+  //
+end;
+
+procedure TfrmMain.imgTypeClick(Sender: TObject);
+begin
+  OpenTab(@frmType, Sender);
+end;
+
+procedure TfrmMain.imgCalendarClick(Sender: TObject);
+begin
+  OpenTab(@frmCalendar, Sender);
 end;
 
 procedure TfrmMain.imgCustomerClick(Sender: TObject);
@@ -68,13 +98,7 @@ end;
 
 procedure TfrmMain.imgProductClick(Sender: TObject);
 begin
-  enabled := false;
-  frmProduct.Show;
-end;
-
-procedure TfrmMain.Button1Click(Sender: TObject);
-begin
-
+  OpenTab(@frmProduct, Sender);
 end;
 
 procedure TfrmMain.imgUsersClick(Sender: TObject);

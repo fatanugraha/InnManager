@@ -40,7 +40,7 @@ implementation
 { TfrmAddProduct }
 
 uses
-  lib.database, FormLogin, lib.logger, lib.common, FormProduct;
+  lib.database, FormLogin, lib.logger, lib.common, FormProduct, FormMain;
 
 var
   tmp: TStringList;
@@ -87,7 +87,6 @@ begin
       query.ExecSQL;
       frmLogin.dbCoreTransaction.Commit;
 
-      Application.MessageBox('Produk berhasil di tambahkan.', 'Sukses', MB_ICONINFORMATION);
       frmProduct.LoadData;
       Close;
     end;
@@ -113,7 +112,6 @@ begin
       query.ExecSQL;
       frmLogin.dbCoreTransaction.Commit;
 
-      Application.MessageBox('Produk berhasil diubah.', 'Sukses', MB_ICONINFORMATION);
       frmProduct.LoadData;
       Close;
     end;
@@ -124,7 +122,7 @@ end;
 procedure TfrmAddProduct.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-  frmProduct.enabled := true;
+  frmMain.Enabled := true;
   tmp.free;
 end;
 

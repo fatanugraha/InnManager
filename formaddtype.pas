@@ -43,7 +43,7 @@ implementation
 { TfrmAddType }
 
 uses
-  lib.database, FormLogin, lib.common, FormType, lib.logger;
+  lib.database, FormLogin, lib.common, FormType, lib.logger, FormMain;
 
 var
   prev: string;
@@ -109,7 +109,6 @@ begin
       query.ExecSQL;
       frmLogin.dbCoreTransaction.Commit;
 
-      Application.MessageBox('Jenis produk berhasil di tambahkan.', 'Sukses', MB_ICONINFORMATION);
       FrmType.LoadData;
       Close;
     end;
@@ -143,7 +142,6 @@ begin
       end;
 
       frmLogin.dbCoreTransaction.Commit;
-      Application.MessageBox('Jenis produk berhasil di ubah.', 'Sukses', MB_ICONINFORMATION);
       FrmType.LoadData;
       Close;
     end;
@@ -177,7 +175,7 @@ end;
 
 procedure TfrmAddType.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  frmType.Enabled := true;
+  frmMain.Enabled := true;
 end;
 
 end.

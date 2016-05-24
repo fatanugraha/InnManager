@@ -100,14 +100,14 @@ procedure TfrmProduct.Button1Click(Sender: TObject);
 begin
   frmAddProduct.ID := '';
   frmAddProduct.Show;
-  Enabled := false;
+  frmMain.Enabled := false;
 end;
 
 procedure TfrmProduct.btnEditClick(Sender: TObject);
 begin
   frmAddProduct.ID := lvProduct.ItemFocused.Caption;
   frmAddProduct.Show;
-  Enabled := false;
+  frmMain.Enabled := false;
 end;
 
 procedure TfrmProduct.btnRemoveClick(Sender: TObject);

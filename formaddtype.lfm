@@ -92,7 +92,7 @@ object frmAddType: TfrmAddType
     ParentColor = False
   end
   object btnOK: TButton
-    Left = 301
+    Left = 304
     Height = 25
     Top = 312
     Width = 75

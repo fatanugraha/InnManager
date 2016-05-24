@@ -18,7 +18,6 @@ object frmType: TfrmType
     Top = 8
     Width = 586
     Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoWidthLastColumn = True
     Columns = <    
       item
         Caption = 'ID'
@@ -38,7 +37,7 @@ object frmType: TfrmType
       end    
       item
         Caption = 'Deskripsi'
-        Width = 192
+        Width = 500
       end>
     ReadOnly = True
     RowSelect = True

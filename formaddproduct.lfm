@@ -9,6 +9,7 @@ object frmAddProduct: TfrmAddProduct
   ClientWidth = 319
   Constraints.MaxHeight = 281
   Constraints.MinHeight = 281
+  FormStyle = fsStayOnTop
   OnClose = FormClose
   OnShow = FormShow
   Position = poMainFormCenter

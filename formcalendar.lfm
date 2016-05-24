@@ -1,0 +1,64 @@
+object frmCalendar: TfrmCalendar
+  Left = 445
+  Height = 506
+  Top = 137
+  Width = 826
+  Caption = 'frmCalendar'
+  ClientHeight = 506
+  ClientWidth = 826
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.6.0.4'
+  object Grid: TStringGrid
+    Left = 8
+    Height = 458
+    Top = 40
+    Width = 809
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoEdit = False
+    DefaultColWidth = 80
+    ExtendedSelect = False
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
+    TabOrder = 0
+  end
+  object lblNow: TLabel
+    Left = 80
+    Height = 15
+    Top = 13
+    Width = 58
+    Caption = '%BULAN%'
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 8
+    Width = 32
+    Caption = '<'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 40
+    Height = 25
+    Top = 8
+    Width = 32
+    Caption = '>'
+    OnClick = Button2Click
+    TabOrder = 2
+  end
+  object lblTime: TLabel
+    Left = 744
+    Height = 15
+    Top = 13
+    Width = 74
+    Anchors = [akTop, akRight]
+    Caption = '%TANGGAL%'
+    ParentColor = False
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    left = 696
+    top = 8
+  end
+end

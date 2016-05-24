@@ -1,7 +1,7 @@
 object frmProduct: TfrmProduct
-  Left = 566
+  Left = 559
   Height = 400
-  Top = 158
+  Top = 167
   Width = 600
   Caption = 'frmProduct'
   ClientHeight = 400
@@ -13,11 +13,10 @@ object frmProduct: TfrmProduct
   LCLVersion = '1.6.0.4'
   object lvProduct: TListView
     Left = 8
-    Height = 354
+    Height = 351
     Top = 8
     Width = 584
     Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoWidthLastColumn = True
     Columns = <    
       item
         Caption = 'ID'
@@ -25,15 +24,15 @@ object frmProduct: TfrmProduct
       end    
       item
         Caption = 'Nama'
-        Width = 75
+        Width = 125
       end    
       item
         Caption = 'Jenis'
-        Width = 100
+        Width = 125
       end    
       item
         Caption = 'Deskripsi'
-        Width = 365
+        Width = 400
       end>
     ReadOnly = True
     RowSelect = True
