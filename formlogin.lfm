@@ -8,7 +8,7 @@ object frmLogin: TfrmLogin
   Caption = 'Log Masuk'
   ClientHeight = 233
   ClientWidth = 384
-  Color = clWhite
+  Color = 2238503
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '1.6.0.4'
@@ -18,7 +18,7 @@ object frmLogin: TfrmLogin
     Top = 40
     Width = 140
     Caption = 'Log Masuk'
-    Font.Color = clBlack
+    Font.Color = clWhite
     Font.Height = -31
     Font.Name = 'Segoe UI Light'
     Font.Quality = fqCleartype

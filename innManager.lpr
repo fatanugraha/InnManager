@@ -6,7 +6,7 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Interfaces, // this includes the LCL widgetset
+  Interfaces, SysUtils, // this includes the LCL widgetset
   Forms, formLogin, lib.database, lib.common, lib.logger, formmain, formuser,
   formAddUser, formproduct, formtype, formaddtype, formAddProduct, formCalendar,
   formCustomer, formaddcustomer, formaddroom;
@@ -14,12 +14,16 @@ uses
 {$R *.res}
 
 begin
-  InitLogger;
+   InitLogger;
+  //pastiin semua formatnya sama
+  DefaultFormatSettings.ShortDateFormat := 'dd/mm/yyyy';
 
   //cek semua file ada atau ngga
   case (VerifyFiles) of
   1: RaiseCriticalError('DB01: database inti tidak ditemukan', 1);
   2: RaiseCriticalError('DB02: driver database sqlite3 tidak ditemukan', 1);
+  3: RaiseCriticalError('DB03: database ruangan tidak ditemukan', 1);
+  4: RaiseCriticalError('DB04: database pelanggan tidak ditemukan', 1);
   end;
 
   //passed all checkpoint

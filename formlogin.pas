@@ -21,8 +21,9 @@ type
     procedure btnLoginClick(Sender: TObject);
     procedure edtPasswordExit(Sender: TObject);
     procedure edtUserNameEnter(Sender: TObject);
-    procedure edtUserNameKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edtUserNameKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { private declarations }
   public
@@ -61,8 +62,7 @@ begin
   end;
 end;
 
-procedure TfrmLogin.edtUserNameKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmLogin.edtUserNameKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if (key = 13) then
     btnLogin.Click;
@@ -71,11 +71,16 @@ end;
 procedure TfrmLogin.FormCreate(Sender: TObject);
 begin
   //keep alive aja yah
-  dbCoreConnection.DatabaseName:= CurrentDir+FILE_COREDB;
-  dbCoreConnection.Connected := true;
+  dbCoreConnection.DatabaseName := CurrentDir + FILE_COREDB;
+  dbCoreConnection.Connected := True;
 
   //cosmetics
   Caption := Format('%s | Log Masuk', [APP_NAME]);
+end;
+
+procedure TfrmLogin.FormDestroy(Sender: TObject);
+begin
+  dbCoreConnection.Connected := False;
 end;
 
 procedure TfrmLogin.edtPasswordExit(Sender: TObject);
@@ -103,14 +108,14 @@ begin
   if (edtUsername.Font.Color = clGray) or (Trim(edtUsername.Text) = '') then
   begin
     Application.MessageBox('Username belum di isi.', 'Log Masuk', MB_ICONEXCLAMATION);
-    edtUsername.setfocus;
+    edtUsername.SetFocus;
     exit;
   end;
 
   if (edtPassword.Font.Color = clGray) or (Trim(edtPassword.Text) = '') then
   begin
     Application.MessageBox('Username belum di isi.', 'Log Masuk', MB_ICONEXCLAMATION);
-    edtPassword.setfocus;
+    edtPassword.SetFocus;
     exit;
   end;
 
@@ -137,7 +142,7 @@ begin
       CurrentSession.Password := query.FieldByName('password').AsString;
       CurrentSession.ID := query.FieldByName('ID').AsInteger;
       dbCoreConnection.ExecuteDirect(Format('UPDATE `users` SET `lastlogin` = ''%s'' WHERE `id` = %d',
-                                            [DateTimeToStr(Now), query.FieldByName('id').AsInteger]));
+        [DateTimeToStr(Now), query.FieldByName('id').AsInteger]));
       dbCoreTransaction.Commit;
       frmMain.Show;
       hide;
@@ -150,9 +155,10 @@ begin
     end;
   end;
 
-  query.close;
+  query.Close;
   query.Free;
 end;
 
 end.
+
 

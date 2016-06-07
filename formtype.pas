@@ -58,7 +58,7 @@ begin
     item := TListItem.Create(lvType.Items);
     item.Caption := query.FieldByName('id').AsString;
     item.SubItems.Add(query.FieldByName('Name').AsString);
-    item.SubItems.Add(FormatCurrency(currency, query.FieldByName('price').AsInteger));
+    item.SubItems.Add(GroupDigits(query.FieldByName('price').AsInteger));
     item.SubItems.Add(query.FieldByName('feature').AsString);
     item.SubItems.Add(query.FieldByName('description').AsString);
 

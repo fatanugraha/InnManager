@@ -1,12 +1,15 @@
 object frmAddCustomer: TfrmAddCustomer
-  Left = 713
-  Height = 599
-  Top = 98
-  Width = 849
+  Left = -22
+  Height = 601
+  Top = 22
+  Width = 850
   BorderStyle = bsSingle
   Caption = 'frmAddCustomer'
-  ClientHeight = 599
-  ClientWidth = 849
+  ClientHeight = 601
+  ClientWidth = 850
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poDesktopCenter
   LCLVersion = '1.6.0.4'
   object GroupBox1: TGroupBox
     Left = 8
@@ -17,35 +20,35 @@ object frmAddCustomer: TfrmAddCustomer
     ClientHeight = 301
     ClientWidth = 396
     TabOrder = 0
-    object LabeledEdit1: TLabeledEdit
+    object edtName: TLabeledEdit
       Left = 8
       Height = 23
       Top = 24
-      Width = 272
-      EditLabel.AnchorSideLeft.Control = LabeledEdit1
+      Width = 379
+      EditLabel.AnchorSideLeft.Control = edtName
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit1
+      EditLabel.AnchorSideRight.Control = edtName
       EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit1
+      EditLabel.AnchorSideBottom.Control = edtName
       EditLabel.Left = 8
       EditLabel.Height = 15
       EditLabel.Top = 6
-      EditLabel.Width = 272
+      EditLabel.Width = 379
       EditLabel.Caption = 'Nama*'
       EditLabel.ParentColor = False
       TabOrder = 0
-      Text = 'LabeledEdit1'
+      Text = 'edtName'
     end
-    object LabeledEdit2: TLabeledEdit
+    object edtInstance: TLabeledEdit
       Left = 8
       Height = 23
       Top = 72
       Width = 379
-      EditLabel.AnchorSideLeft.Control = LabeledEdit2
+      EditLabel.AnchorSideLeft.Control = edtInstance
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit2
+      EditLabel.AnchorSideRight.Control = edtInstance
       EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit2
+      EditLabel.AnchorSideBottom.Control = edtInstance
       EditLabel.Left = 8
       EditLabel.Height = 15
       EditLabel.Top = 54
@@ -53,31 +56,7 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.Caption = 'Instansi/Kota'
       EditLabel.ParentColor = False
       TabOrder = 1
-      Text = 'LabeledEdit2'
-    end
-    object Label1: TLabel
-      Left = 287
-      Height = 15
-      Top = 6
-      Width = 27
-      Caption = 'Gelar'
-      ParentColor = False
-    end
-    object ComboBox1: TComboBox
-      Left = 287
-      Height = 23
-      Top = 24
-      Width = 100
-      ItemHeight = 15
-      Items.Strings = (
-        ''
-        'Bapak'
-        'Ibu'
-        'Saudara'
-        'Saudari'
-      )
-      TabOrder = 2
-      Text = 'ComboBox1'
+      Text = 'edtInstance'
     end
     object Label2: TLabel
       Left = 9
@@ -87,52 +66,51 @@ object frmAddCustomer: TfrmAddCustomer
       Caption = 'Keterangan:'
       ParentColor = False
     end
-    object Memo1: TMemo
+    object mmNote: TMemo
       Left = 8
       Height = 113
       Top = 178
       Width = 379
       Lines.Strings = (
-        'Memo1'
+        'mmNote'
       )
-      OnChange = Memo1Change
-      TabOrder = 3
+      TabOrder = 2
     end
-    object LabeledEdit3: TLabeledEdit
+    object edtContact1: TLabeledEdit
       Left = 8
       Height = 23
       Top = 120
       Width = 178
-      EditLabel.AnchorSideLeft.Control = LabeledEdit3
-      EditLabel.AnchorSideRight.Control = LabeledEdit3
+      EditLabel.AnchorSideLeft.Control = edtContact1
+      EditLabel.AnchorSideRight.Control = edtContact1
       EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit3
+      EditLabel.AnchorSideBottom.Control = edtContact1
       EditLabel.Left = 8
       EditLabel.Height = 15
       EditLabel.Top = 102
       EditLabel.Width = 178
       EditLabel.Caption = 'Kontak 1*'
       EditLabel.ParentColor = False
-      TabOrder = 4
-      Text = 'LabeledEdit3'
+      TabOrder = 3
+      Text = 'edtContact1'
     end
-    object LabeledEdit4: TLabeledEdit
+    object edtContact2: TLabeledEdit
       Left = 200
       Height = 23
       Top = 120
       Width = 187
-      EditLabel.AnchorSideLeft.Control = LabeledEdit4
-      EditLabel.AnchorSideRight.Control = LabeledEdit4
+      EditLabel.AnchorSideLeft.Control = edtContact2
+      EditLabel.AnchorSideRight.Control = edtContact2
       EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = LabeledEdit4
+      EditLabel.AnchorSideBottom.Control = edtContact2
       EditLabel.Left = 200
       EditLabel.Height = 15
       EditLabel.Top = 102
       EditLabel.Width = 187
       EditLabel.Caption = 'Kontak 2'
       EditLabel.ParentColor = False
-      TabOrder = 5
-      Text = 'LabeledEdit4'
+      TabOrder = 4
+      Text = 'edtContact2'
     end
     object Bevel1: TBevel
       Left = 8
@@ -151,7 +129,6 @@ object frmAddCustomer: TfrmAddCustomer
     ClientHeight = 301
     ClientWidth = 420
     TabOrder = 1
-    OnClick = GroupBox2Click
     object Label3: TLabel
       Left = 8
       Height = 15
@@ -168,16 +145,16 @@ object frmAddCustomer: TfrmAddCustomer
       Caption = 'Makanan/Minuman/Snack'
       ParentColor = False
     end
-    object LabeledEdit5: TLabeledEdit
+    object edtPriceRoom: TLabeledEdit
       Left = 304
       Height = 23
       Top = 7
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit5
+      EditLabel.AnchorSideTop.Control = edtPriceRoom
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit5
-      EditLabel.AnchorSideBottom.Control = LabeledEdit5
+      EditLabel.AnchorSideRight.Control = edtPriceRoom
+      EditLabel.AnchorSideBottom.Control = edtPriceRoom
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -188,18 +165,20 @@ object frmAddCustomer: TfrmAddCustomer
       LabelPosition = lpLeft
       ReadOnly = True
       TabOrder = 0
-      Text = 'LabeledEdit5'
+      Text = 'edtPriceRoom'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
-    object LabeledEdit6: TLabeledEdit
+    object edtPriceFood: TLabeledEdit
       Left = 304
       Height = 23
       Top = 35
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit6
+      EditLabel.AnchorSideTop.Control = edtPriceFood
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit6
-      EditLabel.AnchorSideBottom.Control = LabeledEdit6
+      EditLabel.AnchorSideRight.Control = edtPriceFood
+      EditLabel.AnchorSideBottom.Control = edtPriceFood
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -209,7 +188,9 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.ParentColor = False
       LabelPosition = lpLeft
       TabOrder = 1
-      Text = 'LabeledEdit6'
+      Text = 'edtPriceFood'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
     object Label5: TLabel
       Left = 8
@@ -219,16 +200,16 @@ object frmAddCustomer: TfrmAddCustomer
       Caption = 'Lain-lain'
       ParentColor = False
     end
-    object LabeledEdit7: TLabeledEdit
+    object edtPriceMisc: TLabeledEdit
       Left = 304
       Height = 23
       Top = 63
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit7
+      EditLabel.AnchorSideTop.Control = edtPriceMisc
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit7
-      EditLabel.AnchorSideBottom.Control = LabeledEdit7
+      EditLabel.AnchorSideRight.Control = edtPriceMisc
+      EditLabel.AnchorSideBottom.Control = edtPriceMisc
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -238,7 +219,9 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.ParentColor = False
       LabelPosition = lpLeft
       TabOrder = 2
-      Text = 'LabeledEdit7'
+      Text = 'edtPriceMisc'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
     object Bevel2: TBevel
       Left = 8
@@ -249,7 +232,7 @@ object frmAddCustomer: TfrmAddCustomer
       Shape = bsBottomLine
     end
     object Label6: TLabel
-      Left = 374
+      Left = 372
       Height = 15
       Top = 104
       Width = 36
@@ -284,16 +267,16 @@ object frmAddCustomer: TfrmAddCustomer
       Caption = 'Diskon'
       ParentColor = False
     end
-    object LabeledEdit8: TLabeledEdit
+    object edtPriceRem: TLabeledEdit
       Left = 304
       Height = 23
       Top = 156
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit8
+      EditLabel.AnchorSideTop.Control = edtPriceRem
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit8
-      EditLabel.AnchorSideBottom.Control = LabeledEdit8
+      EditLabel.AnchorSideRight.Control = edtPriceRem
+      EditLabel.AnchorSideBottom.Control = edtPriceRem
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -303,18 +286,20 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.ParentColor = False
       LabelPosition = lpLeft
       TabOrder = 3
-      Text = 'LabeledEdit8'
+      Text = 'edtPriceRem'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
-    object LabeledEdit9: TLabeledEdit
+    object edtPriceAdd: TLabeledEdit
       Left = 304
       Height = 23
       Top = 128
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit9
+      EditLabel.AnchorSideTop.Control = edtPriceAdd
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit9
-      EditLabel.AnchorSideBottom.Control = LabeledEdit9
+      EditLabel.AnchorSideRight.Control = edtPriceAdd
+      EditLabel.AnchorSideBottom.Control = edtPriceAdd
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -323,9 +308,10 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.Caption = 'Rp. '
       EditLabel.ParentColor = False
       LabelPosition = lpLeft
-      ReadOnly = True
       TabOrder = 4
-      Text = 'LabeledEdit9'
+      Text = 'edtPriceAdd'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
     object Label10: TLabel
       Left = 8
@@ -363,16 +349,16 @@ object frmAddCustomer: TfrmAddCustomer
       Caption = 'Uang Muka'
       ParentColor = False
     end
-    object LabeledEdit10: TLabeledEdit
+    object edtPriceFront: TLabeledEdit
       Left = 304
       Height = 23
       Top = 224
       Width = 104
       Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = LabeledEdit10
+      EditLabel.AnchorSideTop.Control = edtPriceFront
       EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = LabeledEdit10
-      EditLabel.AnchorSideBottom.Control = LabeledEdit10
+      EditLabel.AnchorSideRight.Control = edtPriceFront
+      EditLabel.AnchorSideBottom.Control = edtPriceFront
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
@@ -381,9 +367,10 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.Caption = 'Rp. '
       EditLabel.ParentColor = False
       LabelPosition = lpLeft
-      ReadOnly = True
       TabOrder = 5
-      Text = 'LabeledEdit10'
+      Text = 'edtPriceFront'
+      OnChange = edtPriceAddChange
+      OnKeyPress = edtPriceRoomKeyPress
     end
     object Label13: TLabel
       Left = 349
@@ -418,18 +405,18 @@ object frmAddCustomer: TfrmAddCustomer
   end
   object GroupBox3: TGroupBox
     Left = 8
-    Height = 256
+    Height = 224
     Top = 336
     Width = 832
     Caption = 'Ruangan yang dipesan'
-    ClientHeight = 236
+    ClientHeight = 204
     ClientWidth = 828
     TabOrder = 2
-    object ListView1: TListView
+    object lvRooms: TListView
       Left = 8
       Height = 184
       Top = 8
-      Width = 632
+      Width = 728
       Columns = <      
         item
           Caption = 'No.'
@@ -444,10 +431,6 @@ object frmAddCustomer: TfrmAddCustomer
           Width = 100
         end      
         item
-          Caption = 'Harga'
-          Width = 100
-        end      
-        item
           Caption = 'Check-In'
           Width = 100
         end      
@@ -456,43 +439,57 @@ object frmAddCustomer: TfrmAddCustomer
           Width = 100
         end      
         item
-          Caption = 'Total Biaya'
-          Width = 100
-        end>
-      TabOrder = 0
-      ViewStyle = vsReport
-    end
-    object ListView2: TListView
-      Left = 648
-      Height = 217
-      Top = 8
-      Width = 170
-      Columns = <      
-        item
-          Caption = 'Jenis Ruangan'
+          Caption = 'Harga'
           Width = 100
         end      
         item
-          Caption = 'Total'
+          Caption = 'Hari'
+        end      
+        item
+          Caption = 'Total Biaya'
+          Width = 100
         end>
-      TabOrder = 1
+      ReadOnly = True
+      RowSelect = True
+      TabOrder = 0
       ViewStyle = vsReport
+      OnClick = lvRoomsClick
     end
-    object Button1: TButton
-      Left = 8
+    object btnAddRoom: TButton
+      Left = 744
       Height = 25
-      Top = 200
+      Top = 167
       Width = 75
       Caption = 'Tambah'
-      TabOrder = 2
+      OnClick = btnAddRoomClick
+      TabOrder = 1
     end
-    object Button2: TButton
-      Left = 565
+    object btnRemoveRoom: TButton
+      Left = 744
       Height = 25
-      Top = 200
+      Top = 136
       Width = 75
       Caption = 'Hapus'
-      TabOrder = 3
+      OnClick = btnRemoveRoomClick
+      TabOrder = 2
     end
+  end
+  object Button1: TButton
+    Left = 765
+    Height = 25
+    Top = 568
+    Width = 75
+    Caption = 'OK'
+    OnClick = Button1Click
+    TabOrder = 3
+  end
+  object Button2: TButton
+    Left = 8
+    Height = 25
+    Top = 568
+    Width = 75
+    Caption = 'Batal'
+    OnClick = Button2Click
+    TabOrder = 4
   end
 end

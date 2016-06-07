@@ -5,8 +5,8 @@ unit formmain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Grids;
+  Classes, SysUtils, sqlite3conn, sqldb, FileUtil, Forms, Controls, Graphics,
+  Dialogs, ExtCtrls, StdCtrls, Grids;
 
 type
 
@@ -14,7 +14,7 @@ type
   PForm = ^TForm;
 
   TfrmMain = class(TForm)
-    Image1: TImage;
+				Image2: TImage;
     imgType: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
@@ -25,19 +25,23 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
+		Label7: TLabel;
     lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;
     pnlHeader: TPanel;
-    procedure Button1Click(Sender: TObject);
+    dbOrdersConnection: TSQLite3Connection;
+    dbOrdersTransaction: TSQLTransaction;
+    dbCustomersConnection: TSQLite3Connection;
+    dbCustomersTransaction: TSQLTransaction;
+    dbOrdersQuery: TSQLQuery;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure imgTypeClick(Sender: TObject);
     procedure imgCalendarClick(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
-    procedure pnlContainerClick(Sender: TObject);
   private
     prev: PForm;
   public
@@ -60,7 +64,7 @@ uses
 
 procedure TfrmMain.OpenTab(Form: PForm; Sender: TObject);
 begin
-  if (lblSelected.Left = Tlabel(Sender).Left) then
+  if (lblSelected.Left = Tlabel(Sender).Left-2) then
     exit;
 
   if (prev <> nil) then
@@ -75,11 +79,18 @@ begin
     Show;
   end;
 
-  lblSelected.Left := TLabel(Sender).left;
+  lblSelected.Left := TLabel(Sender).left-2;
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+  //connect to database keep-alive until form closed
+  dbOrdersConnection.DatabaseName := CurrentDir + FILE_ORDERS;
+  dbOrdersConnection.Connected := true;
+  dbCustomersConnection.DatabaseName := CurrentDir + FILE_CUSTOMERS;
+  dbCustomersConnection.Connected := true;
+  dbOrdersQuery.Open;
+
   //cosmetics
   lblSelected.left := 0;
   imgCalendarClick(imgCalendar);
@@ -87,9 +98,12 @@ begin
   WindowState := wsMaximized;
 end;
 
-procedure TfrmMain.Button1Click(Sender: TObject);
+procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-
+  //let's hope i sober when coding and always commit everything
+  dbCustomersConnection.Connected := false;
+  dbOrdersConnection.Connected := false;
+  Application.Terminate;
 end;
 
 procedure TfrmMain.imgTypeClick(Sender: TObject);
@@ -121,11 +135,6 @@ begin
 
   Enabled := false;
   frmUsers.Show;
-end;
-
-procedure TfrmMain.pnlContainerClick(Sender: TObject);
-begin
-
 end;
 
 end.

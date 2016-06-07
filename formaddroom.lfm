@@ -2,37 +2,24 @@ object frmAddRoom: TfrmAddRoom
   Left = 233
   Height = 257
   Top = 141
-  Width = 409
+  Width = 473
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmAddRoom'
   ClientHeight = 257
-  ClientWidth = 409
+  ClientWidth = 473
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poDesktopCenter
   LCLVersion = '1.6.0.4'
   object CheckListBox1: TCheckListBox
     Left = 8
     Height = 216
     Top = 32
-    Width = 136
+    Width = 208
     ItemHeight = 0
     TabOrder = 0
-  end
-  object DateEdit1: TDateEdit
-    Left = 176
-    Height = 23
-    Top = 32
-    Width = 226
-    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-    OKCaption = 'OK'
-    CancelCaption = 'Cancel'
-    DateOrder = doNone
-    DateFormat = 'dd/MM/yyyy'
-    ButtonWidth = 23
-    NumGlyphs = 1
-    MaxLength = 0
-    OnKeyPress = DateEdit2KeyPress
-    TabOrder = 1
   end
   object Label1: TLabel
     Left = 8
@@ -43,7 +30,7 @@ object frmAddRoom: TfrmAddRoom
     ParentColor = False
   end
   object Label2: TLabel
-    Left = 176
+    Left = 240
     Height = 15
     Top = 9
     Width = 94
@@ -51,29 +38,14 @@ object frmAddRoom: TfrmAddRoom
     ParentColor = False
   end
   object Bevel1: TBevel
-    Left = 160
+    Left = 224
     Height = 239
     Top = 9
     Width = 10
     Shape = bsLeftLine
   end
-  object DateEdit2: TDateEdit
-    Left = 176
-    Height = 23
-    Top = 87
-    Width = 226
-    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-    OKCaption = 'OK'
-    CancelCaption = 'Cancel'
-    DateOrder = doNone
-    ButtonWidth = 23
-    NumGlyphs = 1
-    MaxLength = 0
-    OnKeyPress = DateEdit2KeyPress
-    TabOrder = 2
-  end
   object Label3: TLabel
-    Left = 176
+    Left = 240
     Height = 15
     Top = 64
     Width = 104
@@ -81,27 +53,63 @@ object frmAddRoom: TfrmAddRoom
     ParentColor = False
   end
   object Button1: TButton
-    Left = 327
+    Left = 391
     Height = 25
     Top = 223
     Width = 75
     Caption = 'OK'
-    TabOrder = 3
+    OnClick = Button1Click
+    TabOrder = 1
   end
   object Button2: TButton
-    Left = 176
+    Left = 240
     Height = 25
     Top = 223
     Width = 75
     Caption = 'Batal'
-    TabOrder = 4
+    OnClick = Button2Click
+    TabOrder = 2
   end
   object Label4: TLabel
-    Left = 178
+    Left = 240
     Height = 15
     Top = 128
     Width = 75
     Caption = 'Total Hari: %d'
     ParentColor = False
+  end
+  object DateEdit1: TDateEdit
+    Left = 240
+    Height = 23
+    Top = 32
+    Width = 224
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OnAcceptDate = DateEdit1AcceptDate
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DefaultToday = True
+    DateOrder = doNone
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    OnChange = DateEdit1Change
+    OnKeyPress = DateEdit1KeyPress
+    TabOrder = 3
+  end
+  object DateEdit2: TDateEdit
+    Left = 240
+    Height = 23
+    Top = 87
+    Width = 224
+    CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+    OnAcceptDate = DateEdit2AcceptDate
+    OKCaption = 'OK'
+    CancelCaption = 'Cancel'
+    DateOrder = doNone
+    ButtonWidth = 23
+    NumGlyphs = 1
+    MaxLength = 0
+    OnKeyPress = DateEdit1KeyPress
+    TabOrder = 4
   end
 end

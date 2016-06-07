@@ -6,6 +6,7 @@ object frmProduct: TfrmProduct
   Caption = 'frmProduct'
   ClientHeight = 400
   ClientWidth = 600
+  Color = 5793637
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow

@@ -1,167 +1,88 @@
 object frmCustomer: TfrmCustomer
-  Left = 113
-  Height = 496
-  Top = 84
-  Width = 761
+  Left = 145
+  Height = 280
+  Top = 425
+  Width = 1176
   Caption = 'frmCustomer'
-  ClientHeight = 496
-  ClientWidth = 761
+  ClientHeight = 280
+  ClientWidth = 1176
+  Color = 5793637
+  OnShow = FormShow
   LCLVersion = '1.6.0.4'
-  object PageControl1: TPageControl
+  object ListView1: TListView
     Left = 8
-    Height = 479
+    Height = 231
     Top = 8
-    Width = 744
-    ActivePage = TabSheet1
+    Width = 1159
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    Columns = <    
+      item
+        Caption = 'ID'
+        Width = 40
+      end    
+      item
+        Caption = 'Nama'
+        Width = 150
+      end    
+      item
+        Caption = 'Instansi'
+        Width = 120
+      end    
+      item
+        Caption = 'Kontak 1'
+        Width = 120
+      end    
+      item
+        Caption = 'Kontak 2'
+        Width = 120
+      end    
+      item
+        Caption = 'Keterangan'
+        Width = 150
+      end    
+      item
+        Caption = 'Total Tagihan'
+        Width = 150
+      end    
+      item
+        Caption = 'Sisa Pembayaran'
+        Width = 150
+      end    
+      item
+        Caption = 'Status'
+        Width = 150
+      end>
+    ReadOnly = True
+    RowSelect = True
     TabOrder = 0
-    object TabSheet1: TTabSheet
-      Caption = 'Aktif'
-      ClientHeight = 451
-      ClientWidth = 736
-      object ListView1: TListView
-        Left = 8
-        Height = 407
-        Top = 8
-        Width = 720
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Columns = <        
-          item
-            Caption = 'ID'
-            Width = 40
-          end        
-          item
-            Caption = 'Nama'
-            Width = 150
-          end        
-          item
-            Caption = 'Instansi'
-            Width = 120
-          end        
-          item
-            Caption = 'Kontak 1'
-            Width = 120
-          end        
-          item
-            Caption = 'Kontak 2'
-            Width = 120
-          end        
-          item
-            Caption = 'Keterangan'
-            Width = 150
-          end        
-          item
-            Caption = 'Total Tagihan'
-            Width = 150
-          end        
-          item
-            Caption = 'Sisa Pembayaran'
-            Width = 150
-          end        
-          item
-            Caption = 'Status'
-            Width = 150
-          end>
-        TabOrder = 0
-        ViewStyle = vsReport
-      end
-      object Button1: TButton
-        Left = 8
-        Height = 25
-        Top = 423
-        Width = 75
-        Anchors = [akLeft, akBottom]
-        Caption = 'Tambah'
-        TabOrder = 1
-      end
-      object Button2: TButton
-        Left = 653
-        Height = 25
-        Top = 423
-        Width = 75
-        Anchors = [akRight, akBottom]
-        Caption = 'Hapus'
-        TabOrder = 2
-      end
-      object Button3: TButton
-        Left = 576
-        Height = 25
-        Top = 423
-        Width = 75
-        Anchors = [akRight, akBottom]
-        Caption = 'Ubah'
-        TabOrder = 3
-      end
-    end
-    object TabSheet2: TTabSheet
-      Caption = 'Arsip Pelanggan'
-      ClientHeight = 451
-      ClientWidth = 736
-      object ListView2: TListView
-        Left = 8
-        Height = 407
-        Top = 8
-        Width = 720
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Columns = <        
-          item
-            Caption = 'ID'
-            Width = 40
-          end        
-          item
-            Caption = 'Nama'
-            Width = 150
-          end        
-          item
-            Caption = 'Instansi'
-            Width = 120
-          end        
-          item
-            Caption = 'Kontak 1'
-            Width = 120
-          end        
-          item
-            Caption = 'Kontak 2'
-            Width = 120
-          end        
-          item
-            Caption = 'Keterangan'
-            Width = 150
-          end        
-          item
-            Caption = 'Total Tagihan'
-            Width = 150
-          end        
-          item
-            Caption = 'Sisa Pembayaran'
-            Width = 150
-          end        
-          item
-            Caption = 'Status'
-            Width = 150
-          end>
-        TabOrder = 0
-        ViewStyle = vsReport
-      end
-      object Button4: TButton
-        Left = 576
-        Height = 25
-        Top = 423
-        Width = 75
-        Anchors = [akRight, akBottom]
-        Caption = 'Lihat Detil'
-        TabOrder = 1
-      end
-      object Button5: TButton
-        Left = 653
-        Height = 25
-        Top = 423
-        Width = 75
-        Anchors = [akRight, akBottom]
-        Caption = 'Hapus'
-        TabOrder = 2
-      end
-    end
+    ViewStyle = vsReport
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 247
+    Width = 75
+    Anchors = [akLeft, akBottom]
+    Caption = 'Tambah'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Button3: TButton
+    Left = 1015
+    Height = 25
+    Top = 247
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Ubah'
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 1092
+    Height = 25
+    Top = 247
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Hapus'
+    TabOrder = 3
   end
 end

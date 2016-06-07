@@ -135,12 +135,14 @@
         <Filename Value="formaddcustomer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAddCustomer"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit14>
       <Unit15>
         <Filename Value="formaddroom.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAddRoom"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit15>
     </Units>
@@ -149,7 +151,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="innManager"/>
+      <Filename Value="bin\innManager"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

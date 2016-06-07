@@ -1,11 +1,12 @@
 object frmCalendar: TfrmCalendar
-  Left = 445
+  Left = 491
   Height = 506
-  Top = 137
+  Top = 73
   Width = 826
   Caption = 'frmCalendar'
   ClientHeight = 506
   ClientWidth = 826
+  Color = 5793637
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
@@ -17,20 +18,31 @@ object frmCalendar: TfrmCalendar
     Width = 809
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
-    DefaultColWidth = 80
+    DefaultColWidth = 100
+    DefaultRowHeight = 50
     ExtendedSelect = False
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
+    Flat = True
+    Font.Height = -9
+    Font.Quality = fqCleartype
+    MouseWheelOption = mwGrid
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSizing, goColSizing, goSmoothScroll]
+    ParentFont = False
     TabOrder = 0
+    TitleFont.Height = -9
+    TitleFont.Quality = fqCleartype
+    OnDrawCell = GridDrawCell
   end
   object lblNow: TLabel
     Left = 344
-    Height = 42
+    Height = 37
     Top = 8
-    Width = 147
+    Width = 129
     Caption = '%BULAN%'
-    Font.Height = -31
-    Font.Name = 'Segoe UI'
+    Font.Color = clWhite
+    Font.Height = -27
+    Font.Name = 'Segoe UI Light'
     Font.Quality = fqCleartype
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
