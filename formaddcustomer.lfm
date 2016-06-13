@@ -1,7 +1,7 @@
 object frmAddCustomer: TfrmAddCustomer
-  Left = -22
+  Left = 333
   Height = 601
-  Top = 22
+  Top = 65
   Width = 850
   BorderStyle = bsSingle
   Caption = 'frmAddCustomer'
@@ -9,15 +9,15 @@ object frmAddCustomer: TfrmAddCustomer
   ClientWidth = 850
   OnClose = FormClose
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poScreenCenter
   LCLVersion = '1.6.0.4'
   object GroupBox1: TGroupBox
     Left = 8
-    Height = 321
+    Height = 345
     Top = 8
     Width = 400
     Caption = 'Informasi Pelanggan'
-    ClientHeight = 301
+    ClientHeight = 325
     ClientWidth = 396
     TabOrder = 0
     object edtName: TLabeledEdit
@@ -68,7 +68,7 @@ object frmAddCustomer: TfrmAddCustomer
     end
     object mmNote: TMemo
       Left = 8
-      Height = 113
+      Height = 95
       Top = 178
       Width = 379
       Lines.Strings = (
@@ -119,14 +119,53 @@ object frmAddCustomer: TfrmAddCustomer
       Width = 379
       Shape = bsBottomLine
     end
+    object edtIdentity: TLabeledEdit
+      Left = 9
+      Height = 23
+      Top = 296
+      Width = 177
+      EditLabel.AnchorSideLeft.Control = edtIdentity
+      EditLabel.AnchorSideRight.Control = edtIdentity
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = edtIdentity
+      EditLabel.Left = 9
+      EditLabel.Height = 15
+      EditLabel.Top = 278
+      EditLabel.Width = 177
+      EditLabel.Caption = 'Identitas yang dititipkan:'
+      EditLabel.ParentColor = False
+      TabOrder = 5
+      Text = 'edtIdentity'
+    end
+    object cbStatus: TComboBox
+      Left = 200
+      Height = 23
+      Top = 296
+      Width = 187
+      ItemHeight = 15
+      Items.Strings = (
+        'Dipesan'
+        'Check-In'
+      )
+      Style = csDropDownList
+      TabOrder = 6
+    end
+    object Label1: TLabel
+      Left = 203
+      Height = 15
+      Top = 280
+      Width = 32
+      Caption = 'Status'
+      ParentColor = False
+    end
   end
   object GroupBox2: TGroupBox
     Left = 416
-    Height = 321
+    Height = 345
     Top = 8
     Width = 424
     Caption = 'Pembayaran'
-    ClientHeight = 301
+    ClientHeight = 325
     ClientWidth = 420
     TabOrder = 1
     object Label3: TLabel
@@ -254,7 +293,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label8: TLabel
       Left = 8
       Height = 15
-      Top = 132
+      Top = 148
       Width = 64
       Caption = 'Extra charge'
       ParentColor = False
@@ -262,7 +301,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label9: TLabel
       Left = 8
       Height = 15
-      Top = 160
+      Top = 176
       Width = 36
       Caption = 'Diskon'
       ParentColor = False
@@ -270,7 +309,7 @@ object frmAddCustomer: TfrmAddCustomer
     object edtPriceRem: TLabeledEdit
       Left = 304
       Height = 23
-      Top = 156
+      Top = 172
       Width = 104
       Anchors = [akTop, akRight]
       EditLabel.AnchorSideTop.Control = edtPriceRem
@@ -280,7 +319,7 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
-      EditLabel.Top = 160
+      EditLabel.Top = 176
       EditLabel.Width = 20
       EditLabel.Caption = 'Rp. '
       EditLabel.ParentColor = False
@@ -293,7 +332,7 @@ object frmAddCustomer: TfrmAddCustomer
     object edtPriceAdd: TLabeledEdit
       Left = 304
       Height = 23
-      Top = 128
+      Top = 144
       Width = 104
       Anchors = [akTop, akRight]
       EditLabel.AnchorSideTop.Control = edtPriceAdd
@@ -303,7 +342,7 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
-      EditLabel.Top = 132
+      EditLabel.Top = 148
       EditLabel.Width = 20
       EditLabel.Caption = 'Rp. '
       EditLabel.ParentColor = False
@@ -316,7 +355,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label10: TLabel
       Left = 8
       Height = 15
-      Top = 195
+      Top = 211
       Width = 27
       Caption = 'Total'
       ParentColor = False
@@ -324,7 +363,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Bevel3: TBevel
       Left = 8
       Height = 10
-      Top = 177
+      Top = 193
       Width = 400
       Anchors = [akTop, akLeft, akRight]
       Shape = bsBottomLine
@@ -332,7 +371,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label11: TLabel
       Left = 365
       Height = 15
-      Top = 195
+      Top = 211
       Width = 43
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -344,7 +383,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label12: TLabel
       Left = 8
       Height = 15
-      Top = 228
+      Top = 252
       Width = 61
       Caption = 'Uang Muka'
       ParentColor = False
@@ -352,7 +391,7 @@ object frmAddCustomer: TfrmAddCustomer
     object edtPriceFront: TLabeledEdit
       Left = 304
       Height = 23
-      Top = 224
+      Top = 248
       Width = 104
       Anchors = [akTop, akRight]
       EditLabel.AnchorSideTop.Control = edtPriceFront
@@ -362,7 +401,7 @@ object frmAddCustomer: TfrmAddCustomer
       EditLabel.AnchorSideBottom.Side = asrBottom
       EditLabel.Left = 281
       EditLabel.Height = 15
-      EditLabel.Top = 228
+      EditLabel.Top = 252
       EditLabel.Width = 20
       EditLabel.Caption = 'Rp. '
       EditLabel.ParentColor = False
@@ -375,7 +414,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label13: TLabel
       Left = 349
       Height = 21
-      Top = 266
+      Top = 290
       Width = 59
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -389,7 +428,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Bevel4: TBevel
       Left = 8
       Height = 10
-      Top = 248
+      Top = 272
       Width = 400
       Anchors = [akTop, akLeft, akRight]
       Shape = bsBottomLine
@@ -397,7 +436,7 @@ object frmAddCustomer: TfrmAddCustomer
     object Label14: TLabel
       Left = 8
       Height = 15
-      Top = 269
+      Top = 293
       Width = 52
       Caption = 'Sisa Bayar'
       ParentColor = False
@@ -405,16 +444,16 @@ object frmAddCustomer: TfrmAddCustomer
   end
   object GroupBox3: TGroupBox
     Left = 8
-    Height = 224
-    Top = 336
+    Height = 200
+    Top = 360
     Width = 832
     Caption = 'Ruangan yang dipesan'
-    ClientHeight = 204
+    ClientHeight = 180
     ClientWidth = 828
     TabOrder = 2
     object lvRooms: TListView
       Left = 8
-      Height = 184
+      Height = 160
       Top = 8
       Width = 728
       Columns = <      
@@ -457,8 +496,8 @@ object frmAddCustomer: TfrmAddCustomer
     end
     object btnAddRoom: TButton
       Left = 744
-      Height = 25
-      Top = 167
+      Height = 22
+      Top = 146
       Width = 75
       Caption = 'Tambah'
       OnClick = btnAddRoomClick
@@ -466,8 +505,8 @@ object frmAddCustomer: TfrmAddCustomer
     end
     object btnRemoveRoom: TButton
       Left = 744
-      Height = 25
-      Top = 136
+      Height = 22
+      Top = 119
       Width = 75
       Caption = 'Hapus'
       OnClick = btnRemoveRoomClick

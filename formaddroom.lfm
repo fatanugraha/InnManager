@@ -11,7 +11,7 @@ object frmAddRoom: TfrmAddRoom
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poScreenCenter
   LCLVersion = '1.6.0.4'
   object CheckListBox1: TCheckListBox
     Left = 8

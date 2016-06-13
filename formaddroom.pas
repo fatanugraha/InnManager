@@ -54,9 +54,6 @@ uses
   FormMain, FormAddCustomer, lib.database, FormLogin, lib.logger, lib.common;
 
 var
-  tmp: array of integer;
-  nama: array of string;
-  jenis: array of string;
   valid: boolean;
 
 procedure TfrmAddRoom.DateEdit2KeyPress(Sender: TObject; var Key: char);
@@ -103,13 +100,13 @@ begin
   query.SQL.Text := 'SELECT `checkin`,`checkout` FROM `orders` WHERE';
 
   cnt := 0;
-  for i := 0 to Length(tmp)-1 do
+  for i := 0 to Length(frmAddCustomer.tmp_id)-1 do
   begin
     if (CheckListBox1.Checked[i]) then
     begin
       if (cnt > 0) then
         query.SQL.Text := query.SQL.Text + ' OR';
-      query.SQL.Text := query.SQL.Text + Format('`room_id` = %d', [tmp[i]]);
+      query.SQL.Text := query.SQL.Text + Format('`room_id` = %d', [frmAddCustomer.tmp_id[i]]);
       inc(cnt);
     end;
   end;
@@ -149,14 +146,14 @@ begin
   lookup.SQL.Text := 'SELECT `price` FROM `product_type` WHERE `name` = :name';
 
   //cek intersect sama yang udah -> O(N*M)
-  for i := 0 to Length(tmp)-1 do
+  for i := 0 to Length(frmAddCustomer.tmp_id)-1 do
   begin
     if not CheckListBox1.Checked[i] then
       continue;
 
     for j := 0 to Length(frmAddCustomer.tmpOrder)-1 do
     begin
-      if frmAddCustomer.tmpOrder[j].id = tmp[i] then
+      if frmAddCustomer.tmpOrder[j].id = frmAddCustomer.tmp_id[i] then
       begin
         X := StrToDate(frmAddCustomer.tmpOrder[j].checkin);
         Y := IncDay(StrToDate(frmAddCustomer.tmpOrder[j].checkout), -1);
@@ -178,21 +175,21 @@ begin
   end;
 
 	//masukin ke temporary dulu
-  for i := 0 to Length(tmp)-1 do
+  for i := 0 to Length(frmAddCustomer.tmp_id)-1 do
   begin
     if (CheckListBox1.Checked[i]) then
     begin
       sz := Length(frmAddCustomer.tmpOrder);
       SetLength(frmAddCustomer.tmpOrder, sz+1);
 
-      lookup.ParamByName('name').AsString := jenis[i];
+      lookup.ParamByName('name').AsString := frmAddCustomer.tmp_jenis[i];
       lookup.Open;
       frmAddCustomer.tmpOrder[sz].Harga := Lookup.FieldByName('price').AsInteger;
       Lookup.Close;
 
-      frmAddCustomer.tmpOrder[sz].id := tmp[i];
-      frmAddCustomer.tmpOrder[sz].name := nama[i];
-      frmAddCustomer.tmpOrder[sz].jenis := jenis[i];
+      frmAddCustomer.tmpOrder[sz].id := frmAddCustomer.tmp_id[i];
+      frmAddCustomer.tmpOrder[sz].name := frmAddCustomer.tmp_nama[i];
+      frmAddCustomer.tmpOrder[sz].jenis := frmAddCustomer.tmp_jenis[i];
       frmAddCustomer.tmpOrder[sz].Days := DaysBetween(DateEdit1.Date, DateEdit2.Date);
       frmAddCustomer.tmpOrder[sz].sum := frmAddCustomer.tmpOrder[sz].Harga*frmAddCustomer.tmpOrder[sz].Days;
       frmAddCustomer.tmpOrder[sz].checkin := DateEdit1.Text;
@@ -246,38 +243,14 @@ end;
 
 procedure TfrmAddRoom.FormShow(Sender: TObject);
 var
-  query: TSQLQuery;
+  i: integer;
 begin
-  query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
-  query.SQL.Text := 'SELECT `id`,`name`,`typename` FROM `product`';
-  query.open;
-
-  SetLength(tmp, 0);
-  SetLength(nama, 0);
-  SetLength(jenis, 0);
-
   CheckListBox1.Clear;
+  for i := 0 to Length(frmAddCustomer.tmp_id)-1 do
+  	CheckListBox1.Items.Add(Format('%s (%s)', [frmAddCustomer.tmp_nama[i], frmAddCustomer.tmp_jenis[i]]));
+
   DateEdit1.Clear;
   DateEdit2.Clear;
-
-  while not query.eof do
-  begin
-    CheckListBox1.Items.Add(Format('%s (%s)', [query.FieldByName('name').AsString, query.FieldByName('typename').AsString]));
-    SetLength(tmp, Length(tmp)+1);
-    tmp[length(tmp)-1] := query.FieldByName('id').AsInteger;
-
-    SetLength(nama, Length(nama)+1);
-    nama[length(nama)-1] := query.FieldByName('name').AsString;
-
-    SetLength(jenis, Length(jenis)+1);
-    jenis[length(jenis)-1] := query.FieldByName('typename').AsString;
-
-    query.Next;
-  end;
-
-  query.close;
-  query.Free;
-
   Label4.Caption := 'Total Hari: 0';
   DateEdit2.Enabled := false;
 

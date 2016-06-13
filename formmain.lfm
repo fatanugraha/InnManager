@@ -8,7 +8,7 @@ object frmMain: TfrmMain
   ClientWidth = 865
   OnClose = FormClose
   OnShow = FormShow
-  Position = poDesktopCenter
+  Position = poScreenCenter
   ShowInTaskBar = stAlways
   LCLVersion = '1.6.0.4'
   object pnlHeader: TPanel

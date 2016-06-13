@@ -74,6 +74,7 @@ object frmCustomer: TfrmCustomer
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Ubah'
+    OnClick = Button3Click
     TabOrder = 2
   end
   object Button2: TButton

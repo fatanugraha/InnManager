@@ -18,8 +18,9 @@ type
     Button3: TButton;
     ListView1: TListView;
     procedure Button1Click(Sender: TObject);
+		procedure Button3Click(Sender: TObject);
 		procedure FormShow(Sender: TObject);
-  private
+  public
     procedure LoadData(lv: TListView; param: integer);
   public
 
@@ -41,7 +42,7 @@ procedure TfrmCustomer.LoadData(lv: TListView; param: integer);
 var
   query: TSQLQuery;
   item: TListItem;
-  sum, paid: integer;
+  sum: integer;
 begin
   lv.Clear;
 
@@ -64,8 +65,8 @@ begin
     Inc(sum, query.FieldByName('bill_misc').AsInteger);
     Inc(sum, query.FieldByName('bill_add').AsInteger);
     Dec(sum, query.FieldByName('bill_rem').AsInteger);
-    item.SubItems.Add(IntToStr(sum));
-    item.SubItems.Add(query.FieldByName('bill_front').AsString);
+    item.SubItems.Add(GroupDigits(sum));
+    item.SubItems.Add(GroupDigits(query.FieldByName('bill_front').AsInteger));
 
     if query.FieldByName('bill_front').AsInteger = 0 then
       item.SubItems.Add('Belum Bayar')
@@ -85,12 +86,20 @@ end;
 procedure TfrmCustomer.Button1Click(Sender: TObject);
 begin
   frmMain.enabled := false;
+  frmAddCustomer.EditID := 0;
+  frmAddCustomer.Show;
+end;
+
+procedure TfrmCustomer.Button3Click(Sender: TObject);
+begin
+  frmMain.enabled := false;
+  frmAddCustomer.EditID := StrToInt(ListView1.Selected.Caption);
   frmAddCustomer.Show;
 end;
 
 procedure TfrmCustomer.FormShow(Sender: TObject);
 begin
-      LoadData(listview1, 1);
+  LoadData(listview1, 1);
 end;
 
 end.
