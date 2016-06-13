@@ -1,534 +1,569 @@
 object frmAddCustomer: TfrmAddCustomer
-  Left = 333
+  Left = 271
   Height = 601
-  Top = 65
-  Width = 850
+  Top = 260
+  Width = 845
   BorderStyle = bsSingle
   Caption = 'frmAddCustomer'
   ClientHeight = 601
-  ClientWidth = 850
+  ClientWidth = 845
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.6.0.4'
-  object GroupBox1: TGroupBox
-    Left = 8
-    Height = 345
-    Top = 8
-    Width = 400
-    Caption = 'Informasi Pelanggan'
-    ClientHeight = 325
-    ClientWidth = 396
+  object Panel1: TPanel
+    Left = 0
+    Height = 559
+    Top = 42
+    Width = 845
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 559
+    ClientWidth = 845
     TabOrder = 0
-    object edtName: TLabeledEdit
-      Left = 8
-      Height = 23
-      Top = 24
-      Width = 379
-      EditLabel.AnchorSideLeft.Control = edtName
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtName
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = edtName
-      EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 6
-      EditLabel.Width = 379
-      EditLabel.Caption = 'Nama*'
-      EditLabel.ParentColor = False
-      TabOrder = 0
-      Text = 'edtName'
-    end
-    object edtInstance: TLabeledEdit
-      Left = 8
-      Height = 23
-      Top = 72
-      Width = 379
-      EditLabel.AnchorSideLeft.Control = edtInstance
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtInstance
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = edtInstance
-      EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 54
-      EditLabel.Width = 379
-      EditLabel.Caption = 'Instansi/Kota'
-      EditLabel.ParentColor = False
-      TabOrder = 1
-      Text = 'edtInstance'
-    end
-    object Label2: TLabel
-      Left = 9
-      Height = 15
-      Top = 160
-      Width = 63
-      Caption = 'Keterangan:'
-      ParentColor = False
-    end
-    object mmNote: TMemo
-      Left = 8
-      Height = 95
-      Top = 178
-      Width = 379
-      Lines.Strings = (
-        'mmNote'
-      )
-      TabOrder = 2
-    end
-    object edtContact1: TLabeledEdit
-      Left = 8
-      Height = 23
-      Top = 120
-      Width = 178
-      EditLabel.AnchorSideLeft.Control = edtContact1
-      EditLabel.AnchorSideRight.Control = edtContact1
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = edtContact1
-      EditLabel.Left = 8
-      EditLabel.Height = 15
-      EditLabel.Top = 102
-      EditLabel.Width = 178
-      EditLabel.Caption = 'Kontak 1*'
-      EditLabel.ParentColor = False
-      TabOrder = 3
-      Text = 'edtContact1'
-    end
-    object edtContact2: TLabeledEdit
-      Left = 200
-      Height = 23
-      Top = 120
-      Width = 187
-      EditLabel.AnchorSideLeft.Control = edtContact2
-      EditLabel.AnchorSideRight.Control = edtContact2
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = edtContact2
-      EditLabel.Left = 200
-      EditLabel.Height = 15
-      EditLabel.Top = 102
-      EditLabel.Width = 187
-      EditLabel.Caption = 'Kontak 2'
-      EditLabel.ParentColor = False
-      TabOrder = 4
-      Text = 'edtContact2'
-    end
-    object Bevel1: TBevel
-      Left = 8
-      Height = 10
-      Top = 144
-      Width = 379
-      Shape = bsBottomLine
-    end
-    object edtIdentity: TLabeledEdit
-      Left = 9
-      Height = 23
-      Top = 296
-      Width = 177
-      EditLabel.AnchorSideLeft.Control = edtIdentity
-      EditLabel.AnchorSideRight.Control = edtIdentity
-      EditLabel.AnchorSideRight.Side = asrBottom
-      EditLabel.AnchorSideBottom.Control = edtIdentity
-      EditLabel.Left = 9
-      EditLabel.Height = 15
-      EditLabel.Top = 278
-      EditLabel.Width = 177
-      EditLabel.Caption = 'Identitas yang dititipkan:'
-      EditLabel.ParentColor = False
-      TabOrder = 5
-      Text = 'edtIdentity'
-    end
-    object cbStatus: TComboBox
-      Left = 200
-      Height = 23
-      Top = 296
-      Width = 187
-      ItemHeight = 15
-      Items.Strings = (
-        'Dipesan'
-        'Check-In'
-      )
-      Style = csDropDownList
-      TabOrder = 6
-    end
-    object Label1: TLabel
-      Left = 203
-      Height = 15
-      Top = 280
-      Width = 32
-      Caption = 'Status'
-      ParentColor = False
-    end
-  end
-  object GroupBox2: TGroupBox
-    Left = 416
-    Height = 345
-    Top = 8
-    Width = 424
-    Caption = 'Pembayaran'
-    ClientHeight = 325
-    ClientWidth = 420
-    TabOrder = 1
-    object Label3: TLabel
-      Left = 8
-      Height = 15
-      Top = 11
-      Width = 47
-      Caption = 'Ruangan'
-      ParentColor = False
-    end
-    object Label4: TLabel
-      Left = 8
-      Height = 15
-      Top = 39
-      Width = 142
-      Caption = 'Makanan/Minuman/Snack'
-      ParentColor = False
-    end
-    object edtPriceRoom: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 7
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceRoom
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceRoom
-      EditLabel.AnchorSideBottom.Control = edtPriceRoom
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 11
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      ReadOnly = True
-      TabOrder = 0
-      Text = 'edtPriceRoom'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object edtPriceFood: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 35
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceFood
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceFood
-      EditLabel.AnchorSideBottom.Control = edtPriceFood
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 39
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      TabOrder = 1
-      Text = 'edtPriceFood'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object Label5: TLabel
-      Left = 8
-      Height = 15
-      Top = 67
-      Width = 46
-      Caption = 'Lain-lain'
-      ParentColor = False
-    end
-    object edtPriceMisc: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 63
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceMisc
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceMisc
-      EditLabel.AnchorSideBottom.Control = edtPriceMisc
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 67
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      TabOrder = 2
-      Text = 'edtPriceMisc'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object Bevel2: TBevel
-      Left = 8
-      Height = 10
-      Top = 86
-      Width = 400
-      Anchors = [akTop, akLeft, akRight]
-      Shape = bsBottomLine
-    end
-    object Label6: TLabel
-      Left = 372
-      Height = 15
-      Top = 104
-      Width = 36
-      Alignment = taRightJustify
-      Anchors = [akTop, akRight]
-      Caption = 'Label6'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object Label7: TLabel
-      Left = 8
-      Height = 15
-      Top = 104
-      Width = 47
-      Caption = 'Sub total'
-      ParentColor = False
-    end
-    object Label8: TLabel
-      Left = 8
-      Height = 15
-      Top = 148
-      Width = 64
-      Caption = 'Extra charge'
-      ParentColor = False
-    end
-    object Label9: TLabel
-      Left = 8
-      Height = 15
-      Top = 176
-      Width = 36
-      Caption = 'Diskon'
-      ParentColor = False
-    end
-    object edtPriceRem: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 172
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceRem
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceRem
-      EditLabel.AnchorSideBottom.Control = edtPriceRem
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 176
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      TabOrder = 3
-      Text = 'edtPriceRem'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object edtPriceAdd: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 144
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceAdd
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceAdd
-      EditLabel.AnchorSideBottom.Control = edtPriceAdd
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 148
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      TabOrder = 4
-      Text = 'edtPriceAdd'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object Label10: TLabel
-      Left = 8
-      Height = 15
-      Top = 211
-      Width = 27
-      Caption = 'Total'
-      ParentColor = False
-    end
-    object Bevel3: TBevel
-      Left = 8
-      Height = 10
-      Top = 193
-      Width = 400
-      Anchors = [akTop, akLeft, akRight]
-      Shape = bsBottomLine
-    end
-    object Label11: TLabel
-      Left = 365
-      Height = 15
-      Top = 211
-      Width = 43
-      Alignment = taRightJustify
-      Anchors = [akTop, akRight]
-      Caption = 'Label11'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object Label12: TLabel
-      Left = 8
-      Height = 15
-      Top = 252
-      Width = 61
-      Caption = 'Uang Muka'
-      ParentColor = False
-    end
-    object edtPriceFront: TLabeledEdit
-      Left = 304
-      Height = 23
-      Top = 248
-      Width = 104
-      Anchors = [akTop, akRight]
-      EditLabel.AnchorSideTop.Control = edtPriceFront
-      EditLabel.AnchorSideTop.Side = asrCenter
-      EditLabel.AnchorSideRight.Control = edtPriceFront
-      EditLabel.AnchorSideBottom.Control = edtPriceFront
-      EditLabel.AnchorSideBottom.Side = asrBottom
-      EditLabel.Left = 281
-      EditLabel.Height = 15
-      EditLabel.Top = 252
-      EditLabel.Width = 20
-      EditLabel.Caption = 'Rp. '
-      EditLabel.ParentColor = False
-      LabelPosition = lpLeft
-      TabOrder = 5
-      Text = 'edtPriceFront'
-      OnChange = edtPriceAddChange
-      OnKeyPress = edtPriceRoomKeyPress
-    end
-    object Label13: TLabel
-      Left = 349
-      Height = 21
-      Top = 290
-      Width = 59
-      Alignment = taRightJustify
-      Anchors = [akTop, akRight]
-      Caption = 'Label13'
-      Font.Color = clRed
-      Font.Height = -16
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object Bevel4: TBevel
-      Left = 8
-      Height = 10
-      Top = 272
-      Width = 400
-      Anchors = [akTop, akLeft, akRight]
-      Shape = bsBottomLine
-    end
-    object Label14: TLabel
-      Left = 8
-      Height = 15
-      Top = 293
-      Width = 52
-      Caption = 'Sisa Bayar'
-      ParentColor = False
-    end
-  end
-  object GroupBox3: TGroupBox
-    Left = 8
-    Height = 200
-    Top = 360
-    Width = 832
-    Caption = 'Ruangan yang dipesan'
-    ClientHeight = 180
-    ClientWidth = 828
-    TabOrder = 2
-    object lvRooms: TListView
-      Left = 8
-      Height = 160
+    object GroupBox2: TGroupBox
+      Left = 416
+      Height = 345
       Top = 8
-      Width = 728
-      Columns = <      
-        item
-          Caption = 'No.'
-          Width = 40
-        end      
-        item
-          Caption = 'Kamar'
-          Width = 80
-        end      
-        item
-          Caption = 'Jenis'
-          Width = 100
-        end      
-        item
-          Caption = 'Check-In'
-          Width = 100
-        end      
-        item
-          Caption = 'Check-Out'
-          Width = 100
-        end      
-        item
-          Caption = 'Harga'
-          Width = 100
-        end      
-        item
-          Caption = 'Hari'
-        end      
-        item
-          Caption = 'Total Biaya'
-          Width = 100
-        end>
-      ReadOnly = True
-      RowSelect = True
+      Width = 424
+      Caption = 'Pembayaran'
+      ClientHeight = 325
+      ClientWidth = 420
       TabOrder = 0
-      ViewStyle = vsReport
-      OnClick = lvRoomsClick
+      object Label3: TLabel
+        Left = 8
+        Height = 15
+        Top = 11
+        Width = 47
+        Caption = 'Ruangan'
+        ParentColor = False
+      end
+      object Label4: TLabel
+        Left = 8
+        Height = 15
+        Top = 39
+        Width = 142
+        Caption = 'Makanan/Minuman/Snack'
+        ParentColor = False
+      end
+      object edtPriceRoom: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 7
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceRoom
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceRoom
+        EditLabel.AnchorSideBottom.Control = edtPriceRoom
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 11
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 0
+        Text = 'edtPriceRoom'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object edtPriceFood: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 35
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceFood
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceFood
+        EditLabel.AnchorSideBottom.Control = edtPriceFood
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 39
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 1
+        Text = 'edtPriceFood'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object Label5: TLabel
+        Left = 8
+        Height = 15
+        Top = 67
+        Width = 46
+        Caption = 'Lain-lain'
+        ParentColor = False
+      end
+      object edtPriceMisc: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 63
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceMisc
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceMisc
+        EditLabel.AnchorSideBottom.Control = edtPriceMisc
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 67
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 2
+        Text = 'edtPriceMisc'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object Bevel2: TBevel
+        Left = 8
+        Height = 10
+        Top = 86
+        Width = 400
+        Anchors = [akTop, akLeft, akRight]
+        Shape = bsBottomLine
+      end
+      object Label6: TLabel
+        Left = 372
+        Height = 15
+        Top = 104
+        Width = 36
+        Alignment = taRightJustify
+        Anchors = [akTop, akRight]
+        Caption = 'Label6'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label7: TLabel
+        Left = 8
+        Height = 15
+        Top = 104
+        Width = 47
+        Caption = 'Sub total'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 8
+        Height = 15
+        Top = 148
+        Width = 64
+        Caption = 'Extra charge'
+        ParentColor = False
+      end
+      object Label9: TLabel
+        Left = 8
+        Height = 15
+        Top = 176
+        Width = 36
+        Caption = 'Diskon'
+        ParentColor = False
+      end
+      object edtPriceRem: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 172
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceRem
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceRem
+        EditLabel.AnchorSideBottom.Control = edtPriceRem
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 176
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 3
+        Text = 'edtPriceRem'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object edtPriceAdd: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 144
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceAdd
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceAdd
+        EditLabel.AnchorSideBottom.Control = edtPriceAdd
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 148
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 4
+        Text = 'edtPriceAdd'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object Label10: TLabel
+        Left = 8
+        Height = 15
+        Top = 211
+        Width = 26
+        Caption = 'Total'
+        ParentColor = False
+      end
+      object Bevel3: TBevel
+        Left = 8
+        Height = 10
+        Top = 193
+        Width = 400
+        Anchors = [akTop, akLeft, akRight]
+        Shape = bsBottomLine
+      end
+      object Label11: TLabel
+        Left = 365
+        Height = 15
+        Top = 211
+        Width = 43
+        Alignment = taRightJustify
+        Anchors = [akTop, akRight]
+        Caption = 'Label11'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label12: TLabel
+        Left = 8
+        Height = 15
+        Top = 252
+        Width = 61
+        Caption = 'Uang Muka'
+        ParentColor = False
+      end
+      object edtPriceFront: TLabeledEdit
+        Left = 304
+        Height = 23
+        Top = 248
+        Width = 104
+        Anchors = [akTop, akRight]
+        EditLabel.AnchorSideTop.Control = edtPriceFront
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtPriceFront
+        EditLabel.AnchorSideBottom.Control = edtPriceFront
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 281
+        EditLabel.Height = 15
+        EditLabel.Top = 252
+        EditLabel.Width = 20
+        EditLabel.Caption = 'Rp. '
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 5
+        Text = 'edtPriceFront'
+        OnChange = edtPriceAddChange
+        OnKeyPress = edtPriceRoomKeyPress
+      end
+      object Label13: TLabel
+        Left = 349
+        Height = 21
+        Top = 290
+        Width = 59
+        Alignment = taRightJustify
+        Anchors = [akTop, akRight]
+        Caption = 'Label13'
+        Font.Color = clRed
+        Font.Height = -16
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel4: TBevel
+        Left = 8
+        Height = 10
+        Top = 272
+        Width = 400
+        Anchors = [akTop, akLeft, akRight]
+        Shape = bsBottomLine
+      end
+      object Label14: TLabel
+        Left = 8
+        Height = 15
+        Top = 293
+        Width = 52
+        Caption = 'Sisa Bayar'
+        ParentColor = False
+      end
     end
-    object btnAddRoom: TButton
-      Left = 744
-      Height = 22
-      Top = 146
+    object GroupBox1: TGroupBox
+      Left = 8
+      Height = 345
+      Top = 8
+      Width = 400
+      Caption = 'Informasi Pelanggan'
+      ClientHeight = 325
+      ClientWidth = 396
+      TabOrder = 1
+      object edtName: TLabeledEdit
+        Left = 8
+        Height = 23
+        Top = 24
+        Width = 379
+        EditLabel.AnchorSideLeft.Control = edtName
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtName
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = edtName
+        EditLabel.Left = 8
+        EditLabel.Height = 15
+        EditLabel.Top = 6
+        EditLabel.Width = 379
+        EditLabel.Caption = 'Nama*'
+        EditLabel.ParentColor = False
+        TabOrder = 0
+        Text = 'edtName'
+      end
+      object edtInstance: TLabeledEdit
+        Left = 8
+        Height = 23
+        Top = 72
+        Width = 379
+        EditLabel.AnchorSideLeft.Control = edtInstance
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtInstance
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = edtInstance
+        EditLabel.Left = 8
+        EditLabel.Height = 15
+        EditLabel.Top = 54
+        EditLabel.Width = 379
+        EditLabel.Caption = 'Instansi/Kota'
+        EditLabel.ParentColor = False
+        TabOrder = 1
+        Text = 'edtInstance'
+      end
+      object Label2: TLabel
+        Left = 9
+        Height = 15
+        Top = 160
+        Width = 63
+        Caption = 'Keterangan:'
+        ParentColor = False
+      end
+      object mmNote: TMemo
+        Left = 8
+        Height = 95
+        Top = 178
+        Width = 379
+        Lines.Strings = (
+          'mmNote'
+        )
+        TabOrder = 4
+      end
+      object edtContact1: TLabeledEdit
+        Left = 8
+        Height = 23
+        Top = 120
+        Width = 178
+        EditLabel.AnchorSideLeft.Control = edtContact1
+        EditLabel.AnchorSideRight.Control = edtContact1
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = edtContact1
+        EditLabel.Left = 8
+        EditLabel.Height = 15
+        EditLabel.Top = 102
+        EditLabel.Width = 178
+        EditLabel.Caption = 'Kontak 1*'
+        EditLabel.ParentColor = False
+        TabOrder = 2
+        Text = 'edtContact1'
+      end
+      object edtContact2: TLabeledEdit
+        Left = 200
+        Height = 23
+        Top = 120
+        Width = 187
+        EditLabel.AnchorSideLeft.Control = edtContact2
+        EditLabel.AnchorSideRight.Control = edtContact2
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = edtContact2
+        EditLabel.Left = 200
+        EditLabel.Height = 15
+        EditLabel.Top = 102
+        EditLabel.Width = 187
+        EditLabel.Caption = 'Kontak 2'
+        EditLabel.ParentColor = False
+        TabOrder = 3
+        Text = 'edtContact2'
+      end
+      object Bevel1: TBevel
+        Left = 8
+        Height = 10
+        Top = 144
+        Width = 379
+        Shape = bsBottomLine
+      end
+      object edtIdentity: TLabeledEdit
+        Left = 8
+        Height = 23
+        Top = 296
+        Width = 379
+        EditLabel.AnchorSideLeft.Control = edtIdentity
+        EditLabel.AnchorSideRight.Control = edtIdentity
+        EditLabel.AnchorSideRight.Side = asrBottom
+        EditLabel.AnchorSideBottom.Control = edtIdentity
+        EditLabel.Left = 8
+        EditLabel.Height = 15
+        EditLabel.Top = 278
+        EditLabel.Width = 379
+        EditLabel.Caption = 'Identitas yang dititipkan*'
+        EditLabel.ParentColor = False
+        TabOrder = 5
+        Text = 'edtIdentity'
+      end
+    end
+    object GroupBox3: TGroupBox
+      Left = 8
+      Height = 200
+      Top = 360
+      Width = 832
+      Caption = 'Ruangan yang dipesan'
+      ClientHeight = 180
+      ClientWidth = 828
+      TabOrder = 2
+      object lvRooms: TListView
+        Left = 8
+        Height = 160
+        Top = 8
+        Width = 728
+        Columns = <        
+          item
+            Caption = 'No.'
+            Width = 40
+          end        
+          item
+            Caption = 'Kamar'
+            Width = 80
+          end        
+          item
+            Caption = 'Jenis'
+            Width = 100
+          end        
+          item
+            Caption = 'Check-In'
+            Width = 100
+          end        
+          item
+            Caption = 'Check-Out'
+            Width = 100
+          end        
+          item
+            Caption = 'Harga'
+            Width = 100
+          end        
+          item
+            Caption = 'Hari'
+          end        
+          item
+            Caption = 'Total Biaya'
+            Width = 100
+          end>
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+        OnClick = lvRoomsClick
+      end
+      object btnAddRoom: TButton
+        Left = 744
+        Height = 22
+        Top = 146
+        Width = 75
+        Caption = 'Tambah'
+        OnClick = btnAddRoomClick
+        TabOrder = 1
+      end
+      object btnRemoveRoom: TButton
+        Left = 744
+        Height = 22
+        Top = 119
+        Width = 75
+        Caption = 'Hapus'
+        OnClick = btnRemoveRoomClick
+        TabOrder = 2
+      end
+    end
+    object Button2: TButton
+      Left = 8
+      Height = 25
+      Top = 568
       Width = 75
-      Caption = 'Tambah'
-      OnClick = btnAddRoomClick
+      Caption = 'Batal'
+      OnClick = Button2Click
+      TabOrder = 3
+    end
+    object Button1: TButton
+      Left = 765
+      Height = 25
+      Top = 568
+      Width = 75
+      Caption = 'OK'
+      OnClick = Button1Click
+      TabOrder = 4
+    end
+  end
+  object pnlEdit: TPanel
+    Left = 0
+    Height = 42
+    Top = 0
+    Width = 845
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 42
+    ClientWidth = 845
+    Color = 2238503
+    ParentColor = False
+    TabOrder = 1
+    object Button3: TButton
+      Left = 8
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Cetak Nota DP'
+      TabOrder = 0
+    end
+    object Button4: TButton
+      Left = 128
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Cetak Nota Final'
       TabOrder = 1
     end
-    object btnRemoveRoom: TButton
-      Left = 744
-      Height = 22
-      Top = 119
-      Width = 75
-      Caption = 'Hapus'
-      OnClick = btnRemoveRoomClick
+    object Button5: TButton
+      Left = 608
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Tandai Lunas'
       TabOrder = 2
     end
-  end
-  object Button1: TButton
-    Left = 765
-    Height = 25
-    Top = 568
-    Width = 75
-    Caption = 'OK'
-    OnClick = Button1Click
-    TabOrder = 3
-  end
-  object Button2: TButton
-    Left = 8
-    Height = 25
-    Top = 568
-    Width = 75
-    Caption = 'Batal'
-    OnClick = Button2Click
-    TabOrder = 4
+    object Button6: TButton
+      Left = 728
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Finalisasi Transaksi'
+      TabOrder = 3
+    end
   end
 end

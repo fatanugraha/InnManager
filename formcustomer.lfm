@@ -56,34 +56,36 @@ object frmCustomer: TfrmCustomer
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
+    OnClick = ListView1Click
   end
-  object Button1: TButton
+  object btnAdd: TButton
     Left = 8
     Height = 25
     Top = 247
     Width = 75
     Anchors = [akLeft, akBottom]
     Caption = 'Tambah'
-    OnClick = Button1Click
+    OnClick = btnAddClick
     TabOrder = 1
   end
-  object Button3: TButton
+  object btnEdit: TButton
     Left = 1015
     Height = 25
     Top = 247
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Ubah'
-    OnClick = Button3Click
+    OnClick = btnEditClick
     TabOrder = 2
   end
-  object Button2: TButton
+  object btnRemove: TButton
     Left = 1092
     Height = 25
     Top = 247
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Hapus'
+    OnClick = btnRemoveClick
     TabOrder = 3
   end
 end

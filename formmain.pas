@@ -14,7 +14,7 @@ type
   PForm = ^TForm;
 
   TfrmMain = class(TForm)
-				Image2: TImage;
+    Image2: TImage;
     imgType: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
@@ -25,7 +25,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-		Label7: TLabel;
+    Label7: TLabel;
     lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;

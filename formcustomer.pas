@@ -5,25 +5,24 @@ unit formCustomer;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls, sqldb,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls, sqldb, LCLType,
   StdCtrls;
 
 type
 
   { TfrmCustomer }
-
   TfrmCustomer = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    btnAdd: TButton;
+    btnRemove: TButton;
+    btnEdit: TButton;
     ListView1: TListView;
-    procedure Button1Click(Sender: TObject);
-		procedure Button3Click(Sender: TObject);
-		procedure FormShow(Sender: TObject);
+    procedure btnAddClick(Sender: TObject);
+    procedure btnRemoveClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ListView1Click(Sender: TObject);
   public
-    procedure LoadData(lv: TListView; param: integer);
-  public
-
+    procedure LoadData(param: integer);
   end;
 
 var
@@ -38,13 +37,13 @@ uses
 
 { TfrmCustomer }
 
-procedure TfrmCustomer.LoadData(lv: TListView; param: integer);
+procedure TfrmCustomer.LoadData(param: integer);
 var
   query: TSQLQuery;
   item: TListItem;
   sum: integer;
 begin
-  lv.Clear;
+  listview1.Clear;
 
   query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
   query.SQL.Text := 'SELECT * FROM `data` WHERE `active` = :param';
@@ -53,7 +52,7 @@ begin
 
   while (not query.EOF) do
   begin
-    item := TListItem.Create(lv.Items);
+    item := TListItem.Create(listview1.Items);
     item.Caption := query.FieldByName('id').AsString;
     item.SubItems.Add(query.FieldByName('name').AsString);
     item.SubItems.Add(query.FieldByName('instance').AsString);
@@ -66,16 +65,16 @@ begin
     Inc(sum, query.FieldByName('bill_add').AsInteger);
     Dec(sum, query.FieldByName('bill_rem').AsInteger);
     item.SubItems.Add(GroupDigits(sum));
-    item.SubItems.Add(GroupDigits(query.FieldByName('bill_front').AsInteger));
+    item.SubItems.Add(GroupDigits(sum-query.FieldByName('bill_front').AsInteger));
 
-    if query.FieldByName('bill_front').AsInteger = 0 then
+    if (query.FieldByName('bill_front').AsInteger = sum) or (query.FieldByName('done').AsInteger = 1) then
+      item.SubItems.Add('Lunas')
+    else if query.FieldByName('bill_front').AsInteger = 0 then
       item.SubItems.Add('Belum Bayar')
-    else if query.FieldByName('bill_front').AsInteger < sum then
-      item.SubItems.Add('Parsial (DP)')
     else
-      item.SubItems.Add('Lunas');
+      item.SubItems.Add('Parsial (DP)');
 
-    lv.Items.AddItem(item);
+    listview1.Items.AddItem(item);
     query.Next;
   end;
 
@@ -83,15 +82,53 @@ begin
   query.Free;
 end;
 
-procedure TfrmCustomer.Button1Click(Sender: TObject);
+procedure TfrmCustomer.btnAddClick(Sender: TObject);
 begin
   frmMain.enabled := false;
   frmAddCustomer.EditID := 0;
   frmAddCustomer.Show;
 end;
 
-procedure TfrmCustomer.Button3Click(Sender: TObject);
+procedure TfrmCustomer.btnRemoveClick(Sender: TObject);
+var
+  ret: integer;
+  query: TSQLQuery;
 begin
+  if listview1.ItemIndex = -1 then
+    exit;
+
+  ret := Application.MessageBox('Apakah anda yakin untuk menghapus data pelanggan ini?'+LineEnding+
+                                'Semua pesanan pelanggan ini juga akan dihapus.', 'Konfirmasi', MB_ICONQUESTION or MB_YESNOCANCEL);
+  if ret <> ID_YES then
+    exit;
+
+  frmMain.dbOrdersQuery.Close;
+
+  query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
+  query.SQL.Text := 'DELETE FROM `data` WHERE `id` = :id';
+  query.ParamByName('id').AsString := ListView1.ItemFocused.Caption;
+  query.ExecSQL;
+  frmMain.dbCustomersTransaction.Commit;
+  query.Free;
+
+  query := CreateQuery(frmMain.dbOrdersConnection, frmMain.dbOrdersTransaction);
+  query.SQL.Text := 'DELETE FROM `orders` WHERE `owner_id` = :id';
+  query.ParamByName('id').AsString := ListView1.ItemFocused.Caption;
+  query.ExecSQL;
+  frmMain.dbOrdersTransaction.Commit;
+  query.Free;
+
+  LoadData(1);
+  ListView1Click(nil);
+
+  frmMain.dbOrdersQuery.Open;
+end;
+
+procedure TfrmCustomer.btnEditClick(Sender: TObject);
+begin
+  if listview1.itemindex = -1 then
+    exit;
+
   frmMain.enabled := false;
   frmAddCustomer.EditID := StrToInt(ListView1.Selected.Caption);
   frmAddCustomer.Show;
@@ -99,7 +136,15 @@ end;
 
 procedure TfrmCustomer.FormShow(Sender: TObject);
 begin
-  LoadData(listview1, 1);
+  btnRemove.Visible := false;
+  btnEdit.Visible := false;
+  LoadData(1);
+end;
+
+procedure TfrmCustomer.ListView1Click(Sender: TObject);
+begin
+  btnEdit.Visible := listview1.ItemIndex <> -1;
+  btnRemove.Visible := listview1.ItemIndex <> -1;
 end;
 
 end.
