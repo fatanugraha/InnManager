@@ -5,8 +5,9 @@ unit formaddcustomer;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls, sqldb, LCLType, dateUtils,
-  ExtCtrls, ComCtrls, CheckLst;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  sqldb, memds, LCLType, dateUtils, ExtCtrls, ComCtrls, CheckLst, LR_Desgn,
+  LR_Class, LR_DBSet;
 
 type
   { TfrmAddCustomer }
@@ -34,9 +35,8 @@ type
     btnRemoveRoom: TButton;
     Button1: TButton;
     Button2: TButton;
-    Button3: TButton;
-    Button4: TButton;
-    Button5: TButton;
+    btnPrintAdv: TButton;
+    btnPrintFull: TButton;
     Button6: TButton;
     edtContact1: TLabeledEdit;
     edtContact2: TLabeledEdit;
@@ -49,6 +49,9 @@ type
     edtPriceMisc: TLabeledEdit;
     edtPriceRem: TLabeledEdit;
     edtPriceRoom: TLabeledEdit;
+    frDBDataSet1: TfrDBDataSet;
+    frDBDataSet2: TfrDBDataSet;
+    frReport1: TfrReport;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
@@ -66,6 +69,8 @@ type
     Label8: TLabel;
     Label9: TLabel;
     lvRooms: TListView;
+    ds1: TMemDataset;
+    ds2: TMemDataset;
     mmNote: TMemo;
     Panel1: TPanel;
     pnlEdit: TPanel;
@@ -73,10 +78,14 @@ type
     procedure btnRemoveRoomClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure btnPrintAdvClick(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
     procedure edtPriceAddChange(Sender: TObject);
     procedure edtPriceRoomKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure frDesigner1LoadReport(Report: TfrReport; var ReportName: String);
+    procedure GroupBox2Click(Sender: TObject);
     procedure lvRoomsClick(Sender: TObject);
   private
     { private declarations }
@@ -274,6 +283,17 @@ begin
 
     UpdateOrders;
   end;
+end;
+
+procedure TfrmAddCustomer.frDesigner1LoadReport(Report: TfrReport;
+  var ReportName: String);
+begin
+
+end;
+
+procedure TfrmAddCustomer.GroupBox2Click(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmAddCustomer.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -478,7 +498,7 @@ begin
   Query1.Free;
 
   //refresh orders
-  frmCustomer.LoadData(1);
+  frmCustomer.LoadData;
 
   //buka lagi querynya setelah update
   frmMain.dbOrdersQuery.Open;
@@ -489,6 +509,77 @@ end;
 procedure TfrmAddCustomer.Button2Click(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmAddCustomer.btnPrintAdvClick(Sender: TObject);
+var
+  i: integer;
+begin
+  with ds1 do
+  begin
+    ds1.Clear(false);
+    Append;
+    Fields[0].AsString    := edtName.Text + ' - ' + edtInstance.Text;
+
+    if Sender = btnPrintAdv then
+      Fields[1].AsString := 'Rp' + edtPriceFront.Text
+    else
+      Fields[1].AsString := 'Rp' + Label13.Caption;
+
+    Fields[2].AsString :=  edtIdentity.Text;
+    Fields[3].AsString := 'Rp' + edtPriceRoom.Text;
+    Fields[4].AsString := 'Rp' + edtPricefood.Text;
+    Fields[5].AsString := 'Rp' + edtPricemisc.Text;
+    Fields[6].AsString := 'Rp' + edtPriceAdd.Text;
+    Fields[7].AsString := 'Rp' + edtPriceRem.Text;
+    Fields[8].AsString := 'Rp' + edtPricefront.Text;
+    Fields[9].AsString := 'Rp' + label13.Caption;
+    Fields[10].AsString := CurrentSession.FullName;
+    Fields[11].AsString := FormatDateTime('dddd, dd mmmm yyyy', now);
+    Fields[11].AsString := 'Rp' + label11.Caption;
+  end;
+
+  ds2.Clear(false);
+  for i := 0 to LvRooms.Items.Count-1 do
+  begin
+    with ds2 do
+    begin
+      Append;
+      Fields[0].AsInteger := i+1;
+      Fields[1].AsString := lvRooms.Items[i].SubItems[0];
+      Fields[2].AsString := lvRooms.Items[i].SubItems[1];
+      Fields[3].AsString := lvRooms.Items[i].SubItems[4];
+      Fields[4].AsString := lvRooms.Items[i].SubItems[2];
+      Fields[5].AsString := lvRooms.Items[i].SubItems[3];
+      Fields[6].AsString := lvRooms.Items[i].SubItems[5];
+      Fields[7].AsString := lvRooms.Items[i].SubItems[6];
+    end;
+  end;
+
+  if Sender = btnPrintAdv then
+    frReport1.LoadFromFile(CurrentDir+FILE_INV_ADV)
+  else
+    frReport1.LoadFromFile(CurrentDir+FILE_INV_FULL);
+  frReport1.ShowReport;
+end;
+
+procedure TfrmAddCustomer.Button6Click(Sender: TObject);
+var
+  ret: integer;
+  query: TSQLQuery;
+begin
+  ret := Application.MessageBox('Apakah anda ingin menandai kustomer ini telah selesai transaksi dan telah melunasi pembayaran?',
+                                'Konfirmasi', MB_ICONQUESTION or MB_YESNOCANCEL);
+
+  if ret <> ID_YES then
+    exit;
+
+  query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
+  query.SQL.Text := 'UPDATE `data` SET `done` = 1, `active` = 0 WHERE `id` = :id';
+  query.ParamByName('id').AsInteger := EditId;
+  query.ExecSQL;
+  frmMain.dbCustomersTransaction.Commit;
+  query.Free;
 end;
 
 procedure TfrmAddCustomer.edtPriceAddChange(Sender: TObject);

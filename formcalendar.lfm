@@ -30,6 +30,7 @@ object frmCalendar: TfrmCalendar
     TabOrder = 0
     TitleFont.Height = -9
     TitleFont.Quality = fqCleartype
+    OnDblClick = GridDblClick
     OnDrawCell = GridDrawCell
     OnSelection = GridSelection
   end

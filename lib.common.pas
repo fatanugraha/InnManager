@@ -13,6 +13,8 @@ const
   FILE_DRIVER = 'sqlite3.dll';
   FILE_CUSTOMERS = 'customers.sqlite3';
   FILE_ORDERS = 'orders.sqlite3';
+  FILE_INV_ADV = 'advance_receipt.lrf';
+  FILE_INV_FULL = 'full_receipt.lrf';
 
   //salt for hashing
   SALT_PREFIX = 'kucing_';
@@ -199,6 +201,12 @@ begin
 
   if (not FileExists(CurrentDir + FILE_ORDERS)) then
     exit(4);
+
+  if (not FileExists(CurrentDir + FILE_INV_ADV)) then
+    exit(5);
+
+  if (not FileExists(CurrentDir + FILE_INV_FULL)) then
+    exit(7);
 
   exit(0);
 end;

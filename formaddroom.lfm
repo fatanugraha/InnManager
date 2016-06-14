@@ -1,13 +1,13 @@
 object frmAddRoom: TfrmAddRoom
-  Left = 233
+  Left = 232
   Height = 257
   Top = 141
-  Width = 473
+  Width = 474
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmAddRoom'
   ClientHeight = 257
-  ClientWidth = 473
+  ClientWidth = 474
   FormStyle = fsStayOnTop
   OnClose = FormClose
   OnShow = FormShow

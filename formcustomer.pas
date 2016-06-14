@@ -5,8 +5,8 @@ unit formCustomer;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls, sqldb, LCLType,
-  StdCtrls;
+  Classes, SysUtils, FileUtil, CheckBoxThemed, ListViewFilterEdit, Forms,
+  Controls, Graphics, Dialogs, ComCtrls, sqldb, LCLType, StdCtrls;
 
 type
 
@@ -15,14 +15,18 @@ type
     btnAdd: TButton;
     btnRemove: TButton;
     btnEdit: TButton;
+    CheckBox1: TCheckBox;
     ListView1: TListView;
     procedure btnAddClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
+    procedure CheckBox1Change(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ListView1Click(Sender: TObject);
   public
-    procedure LoadData(param: integer);
+    filt: integer;
+    procedure LoadData;
   end;
 
 var
@@ -37,7 +41,7 @@ uses
 
 { TfrmCustomer }
 
-procedure TfrmCustomer.LoadData(param: integer);
+procedure TfrmCustomer.LoadData;
 var
   query: TSQLQuery;
   item: TListItem;
@@ -46,8 +50,10 @@ begin
   listview1.Clear;
 
   query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
-  query.SQL.Text := 'SELECT * FROM `data` WHERE `active` = :param';
-  query.ParamByName('param').AsInteger := param;
+  if filt = 1 then
+    query.SQL.Text := 'SELECT * FROM `data` WHERE `active` = 1'
+  else
+    query.SQL.Text := 'SELECT * FROM `data`';
   query.open;
 
   while (not query.EOF) do
@@ -118,7 +124,7 @@ begin
   frmMain.dbOrdersTransaction.Commit;
   query.Free;
 
-  LoadData(1);
+  LoadData;
   ListView1Click(nil);
 
   frmMain.dbOrdersQuery.Open;
@@ -134,11 +140,25 @@ begin
   frmAddCustomer.Show;
 end;
 
+procedure TfrmCustomer.CheckBox1Change(Sender: TObject);
+begin
+  if checkbox1.Checked then
+    filt := 0
+  else
+    filt := 1;
+  LoadData;
+end;
+
+procedure TfrmCustomer.FormCreate(Sender: TObject);
+begin
+  filt := 1;
+end;
+
 procedure TfrmCustomer.FormShow(Sender: TObject);
 begin
   btnRemove.Visible := false;
   btnEdit.Visible := false;
-  LoadData(1);
+  LoadData;
 end;
 
 procedure TfrmCustomer.ListView1Click(Sender: TObject);

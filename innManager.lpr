@@ -7,9 +7,10 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, SysUtils, // this includes the LCL widgetset
-  Forms, formLogin, lib.database, lib.common, lib.logger, formmain, formuser,
-  formAddUser, formproduct, formtype, formaddtype, formAddProduct, formCalendar,
-  formCustomer, formaddcustomer, formaddroom, FormOrderCard;
+  Forms, memdslaz, lazcontrols, formLogin, lib.database, lib.common, lib.logger,
+  formmain, formuser, formAddUser, formproduct, formtype, formaddtype,
+  formAddProduct, formCalendar, formCustomer, formaddcustomer, formaddroom,
+  FormOrderCard;
 
 {$R *.res}
 
@@ -24,6 +25,9 @@ begin
   2: RaiseCriticalError('DB02: driver database sqlite3 tidak ditemukan', 1);
   3: RaiseCriticalError('DB03: database ruangan tidak ditemukan', 1);
   4: RaiseCriticalError('DB04: database pelanggan tidak ditemukan', 1);
+  5: RaiseCriticalError('DB05: database pesanan tidak ditemukan', 1);
+  6: RaiseCriticalError('DB07: file nota uang muka tidak ditemukan', 1);
+  7: RaiseCriticalError('DB08: file nota pelunasan tidak ditemukan', 1);
   end;
 
   //passed all checkpoint

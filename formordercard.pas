@@ -77,6 +77,7 @@ type
   private
     { private declarations }
   public
+    Col, Row: integer;
     ID: integer;
   end;
 
@@ -90,7 +91,7 @@ implementation
 { TfrmOrderCard }
 
 uses
-  lib.common, lib.logger, lib.database, FormMain, FormAddCustomer, FormLogin;
+  lib.common, lib.logger, lib.database, FormMain, FormAddCustomer, FormLogin, FormCalendar;
 
 var
   OwnerID, RoomID, status, price, cStatus, cDue, cPaid, cExtra, cFood, cMisc: integer;
@@ -120,6 +121,7 @@ begin
   query.Free;
 
   frmMain.dbOrdersQuery.Open;
+  frmCalendar.UpdateStatus(Col, Row, ORDERS_BOOKED);
 end;
 
 procedure TfrmOrderCard.btnAddChargeClick(Sender: TObject);
@@ -174,6 +176,7 @@ begin
   query.Free;
 
   frmMain.dbOrdersQuery.Open;
+  frmCalendar.UpdateStatus(Col, Row, ORDERS_CHECKIN);
 end;
 
 procedure TfrmOrderCard.btnCheckOutClick(Sender: TObject);
@@ -195,6 +198,7 @@ begin
   query.Free;
 
   frmMain.dbOrdersQuery.Open;
+  frmCalendar.UpdateStatus(Col, Row, ORDERS_CHECKOUT);
 end;
 
 procedure TfrmOrderCard.btnMemoRevertClick(Sender: TObject);

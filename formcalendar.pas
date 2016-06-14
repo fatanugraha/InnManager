@@ -23,6 +23,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure GridDblClick(Sender: TObject);
     procedure GridDrawCell(Sender: TObject; aCol, aRow: integer; aRect: TRect; aState: TGridDrawState);
     procedure GridSelection(Sender: TObject; aCol, aRow: Integer);
   private
@@ -31,12 +32,17 @@ type
     CellsID: array of integer;
     //simpan orderid setiap cell
     BoardData: array of array of integer;
+    //simpen nih sel itu statusnya apa (ORDER)
+    StatusData: array of array of integer;
     //tulis ulang yang di fixed row sama kolom
     procedure UpdateFixed;
     //change current calendar to prefered month/yr (0-based month)
     procedure ChangeDate(month, year: integer);
     //load from orders to string grid
     procedure LoadData(month, year: integer);
+  public
+    //floodfill ganti warna
+    procedure UpdateStatus(aCol, aRow, toStatus: integer);
   public
     { public declarations }
   end;
@@ -52,6 +58,19 @@ uses
   lib.logger, lib.database, FormLogin, lib.Common, FormMain, FormOrderCard, FormAddCustomer;
 
 { TfrmCalendar }
+
+procedure TfrmCalendar.UpdateStatus(aCol, aRow, toStatus: integer);
+begin
+  StatusData[acol, arow] := toStatus;
+
+  if aCol+1 < grid.ColCount then
+    if (StatusData[acol+1, arow] <> toStatus) and (BoardData[acol+1, arow] = BoardData[acol, arow]) then
+      UpdateStatus(acol+1, aRow, toStatus);
+
+  if aCol-1 >= 1 then
+    if (StatusData[acol-1, arow] <> toStatus) and (BoardData[acol-1, arow] = BoardData[acol, arow]) then
+      UpdateStatus(acol-1, aRow, toStatus);
+end;
 
 procedure TfrmCalendar.LoadData(month, year: integer);
 var
@@ -113,17 +132,12 @@ begin
         OwnerIns := lookup.FieldByName('instance').AsString;
         Lookup.Close;
 
-        case status mod 4 of
-        1: StatusStr := 'dipesan';
-        2: StatusStr := 'check-in';
-        3: StatusStr := 'check-out';
-        end;
-
         mid := frmMain.dbOrdersQuery.fieldByName('id').AsInteger;
         for i := DayOf(a) to DayOf(b) do
         begin
-          grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns + LineEnding + StatusStr;
+          grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns;
           BoardData[i, idx + 1] := mid;
+          StatusData[i, idx + 1] := status;
         end;
       end;
 
@@ -208,9 +222,14 @@ begin
   lblNow.Caption := Format('%s %d', [MONTH_IDN[month], year]);
 
   SetLength(BoardData, Grid.ColCount, Grid.RowCount);
+  SetLength(StatusData, Grid.ColCount, Grid.RowCount);
+
   for i := 0 to grid.ColCount-1 do
     for j := 0 to grid.RowCount-1 do
+    begin
       BoardData[i,j] := 0;
+      StatusData[i,j] := 0;
+    end;
 
   LoadData(month, year);
 end;
@@ -223,6 +242,10 @@ begin
 
   UpdateFixed;
   ChangeDate(CurrentMonth, CurrentYear);
+end;
+
+procedure TfrmCalendar.GridDblClick(Sender: TObject);
+begin
 end;
 
 procedure TfrmCalendar.GridDrawCell(Sender: TObject; aCol, aRow: integer; aRect: TRect; aState: TGridDrawState);
@@ -248,12 +271,12 @@ begin
   	end;
 
     cl := Canvas.Brush.Color;
-    if not ((Length(Cells[aCol, aRow]) = 0) or (aCol = 0) or (aRow = 0)) then
-      if Cells[aCol, aRow][Length(Cells[aCol, aRow])-1] = 'a' then //booked
+    if not ((aCol = 0) or (aRow = 0)) then
+      if StatusData[acol, arow] = 1 then //booked
         canvas.Brush.color := COLOR_BOOKED
-      else if Cells[aCol, aRow][Length(Cells[aCol, aRow])-1] = 'i' then //check-in
+      else if StatusData[acol, arow] = 2 then //check-in
         canvas.Brush.color := COLOR_CHECKIN
-      else if Cells[aCol, aRow][Length(Cells[aCol, aRow])-1] = 'u' then //check-out
+      else if StatusData[acol, arow] = 3 then //check-out
         canvas.Brush.color := COLOR_CHECKOUT;
 
     h := DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
@@ -292,6 +315,8 @@ begin
     frmMain.Enabled := false;
   end else begin
     frmOrderCard.ID := BoardData[aCol, aRow];
+    frmOrderCard.Col := aCol;
+    frmOrderCard.Row := aRow;
     frmOrderCard.Show;
     frmMain.Enabled := false;
   end;
@@ -346,4 +371,3 @@ begin
 end;
 
 end.
-
