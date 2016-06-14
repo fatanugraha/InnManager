@@ -31,12 +31,13 @@ object frmCalendar: TfrmCalendar
     TitleFont.Height = -9
     TitleFont.Quality = fqCleartype
     OnDrawCell = GridDrawCell
+    OnSelection = GridSelection
   end
   object lblNow: TLabel
     Left = 344
     Height = 37
     Top = 8
-    Width = 129
+    Width = 130
     Caption = '%BULAN%'
     Font.Color = clWhite
     Font.Height = -27

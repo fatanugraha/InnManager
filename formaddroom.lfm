@@ -8,6 +8,7 @@ object frmAddRoom: TfrmAddRoom
   Caption = 'frmAddRoom'
   ClientHeight = 257
   ClientWidth = 473
+  FormStyle = fsStayOnTop
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter

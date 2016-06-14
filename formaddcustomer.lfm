@@ -3,10 +3,11 @@ object frmAddCustomer: TfrmAddCustomer
   Height = 601
   Top = 260
   Width = 845
-  BorderStyle = bsSingle
+  BorderIcons = [biSystemMenu]
   Caption = 'frmAddCustomer'
   ClientHeight = 601
   ClientWidth = 845
+  FormStyle = fsStayOnTop
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter

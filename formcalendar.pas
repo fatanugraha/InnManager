@@ -24,11 +24,13 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure GridDrawCell(Sender: TObject; aCol, aRow: integer; aRect: TRect; aState: TGridDrawState);
+    procedure GridSelection(Sender: TObject; aCol, aRow: Integer);
   private
     CurrentMonth: integer;
     CurrentYear: integer;
     CellsID: array of integer;
-
+    //simpan orderid setiap cell
+    BoardData: array of array of integer;
     //tulis ulang yang di fixed row sama kolom
     procedure UpdateFixed;
     //change current calendar to prefered month/yr (0-based month)
@@ -47,7 +49,7 @@ implementation
 {$R *.lfm}
 
 uses
-  lib.logger, lib.database, FormLogin, lib.Common, FormMain;
+  lib.logger, lib.database, FormLogin, lib.Common, FormMain, FormOrderCard, FormAddCustomer;
 
 { TfrmCalendar }
 
@@ -117,9 +119,13 @@ begin
         3: StatusStr := 'check-out';
         end;
 
+        mid := frmMain.dbOrdersQuery.fieldByName('id').AsInteger;
         for i := DayOf(a) to DayOf(b) do
+        begin
           grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns + LineEnding + StatusStr;
-			end;
+          BoardData[i, idx + 1] := mid;
+        end;
+      end;
 
       dbOrdersQuery.Next;
     end;
@@ -133,7 +139,7 @@ const
   FIXED_COL_SIZE = 120;
 var
   query: TSQLQuery;
-  cnt, x: integer;
+  cnt, x, i: integer;
 begin
   query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
 
@@ -174,7 +180,7 @@ const
   FIXED_ROW = 1;
 var
   tmp: char;
-  i, cur, size, user: integer;
+  i, j, cur, size, user: integer;
   exists: boolean;
 begin
   size := FIXED_COL + MONTH_SIZE[month];
@@ -200,6 +206,11 @@ begin
 
   //update title
   lblNow.Caption := Format('%s %d', [MONTH_IDN[month], year]);
+
+  SetLength(BoardData, Grid.ColCount, Grid.RowCount);
+  for i := 0 to grid.ColCount-1 do
+    for j := 0 to grid.RowCount-1 do
+      BoardData[i,j] := 0;
 
   LoadData(month, year);
 end;
@@ -269,6 +280,23 @@ begin
 	end;
 end;
 
+procedure TfrmCalendar.GridSelection(Sender: TObject; aCol, aRow: Integer);
+begin
+  if (aCol = 0) or (aRow = 0) then
+    exit;
+
+  if BoardData[aCol, aRow] = 0 then
+  begin
+    frmAddCustomer.EditID := 0;
+    frmAddCustomer.Show;
+    frmMain.Enabled := false;
+  end else begin
+    frmOrderCard.ID := BoardData[aCol, aRow];
+    frmOrderCard.Show;
+    frmMain.Enabled := false;
+  end;
+end;
+
 procedure TfrmCalendar.FormResize(Sender: TObject);
 begin
   //cosmetics
@@ -315,7 +343,7 @@ end;
 
 procedure TfrmCalendar.FormCreate(Sender: TObject);
 begin
-
 end;
 
 end.
+

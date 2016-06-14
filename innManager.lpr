@@ -9,7 +9,7 @@ uses
   Interfaces, SysUtils, // this includes the LCL widgetset
   Forms, formLogin, lib.database, lib.common, lib.logger, formmain, formuser,
   formAddUser, formproduct, formtype, formaddtype, formAddProduct, formCalendar,
-  formCustomer, formaddcustomer, formaddroom;
+  formCustomer, formaddcustomer, formaddroom, FormOrderCard;
 
 {$R *.res}
 
@@ -41,6 +41,7 @@ begin
   Application.CreateForm(TfrmCustomer, frmCustomer);
   Application.CreateForm(TfrmAddCustomer, frmAddCustomer);
   Application.CreateForm(TfrmAddRoom, frmAddRoom);
+  Application.CreateForm(TfrmOrderCard, frmOrderCard);
   Application.Run;
 end.
 

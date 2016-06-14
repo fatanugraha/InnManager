@@ -416,7 +416,7 @@ begin
     Query1.ParamByName('bill_add').AsInteger    := UngroupDigits(edtPriceadd.Text);
     Query1.ParamByName('bill_rem').AsInteger    := UngroupDigits(edtPricerem.Text);
     Query1.ParamByName('bill_front').AsInteger  := UngroupDigits(edtPricefront.Text);
-    Query1.ParamByName('date_created').AsString := FormatDateTime('dd/mm/yyyy', now);
+    Query1.ParamByName('date_created').AsString := FormatDateTime('dddd, dd/mm/yyyy hh:nn:ss', now);
     Query1.ParamByName('order_data').AsString   := OrderData;
     Query1.ParamByName('bywho').AsString        := Format('%s (%s)', [CurrentSession.FullName, CurrentSession.Username]);
     Query1.ParamByName('stuffs').AsString       := edtIdentity.Text;

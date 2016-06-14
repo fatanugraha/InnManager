@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="17">
       <Unit0>
         <Filename Value="innManager.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -145,6 +145,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="formordercard.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmOrderCard"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FormOrderCard"/>
+      </Unit16>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

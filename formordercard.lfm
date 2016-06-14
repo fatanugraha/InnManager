@@ -1,0 +1,443 @@
+object frmOrderCard: TfrmOrderCard
+  Left = 260
+  Height = 546
+  Top = 240
+  Width = 700
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'frmOrderCard'
+  ClientHeight = 546
+  ClientWidth = 700
+  FormStyle = fsStayOnTop
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.6.0.4'
+  object Label1: TLabel
+    Left = 8
+    Height = 21
+    Top = 8
+    Width = 255
+    Caption = '%nama_kamar% (%tipe_kamar%)'
+    Font.Height = -16
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 32
+    Width = 61
+    Caption = '@%harga%'
+    ParentColor = False
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 42
+    Top = 504
+    Width = 700
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 42
+    ClientWidth = 700
+    Color = 2238503
+    ParentColor = False
+    TabOrder = 0
+    object btnSwitch: TButton
+      Left = 8
+      Height = 25
+      Top = 8
+      Width = 168
+      Caption = 'Ubah/Lihat Data Pelanggan'
+      OnClick = btnSwitchClick
+      TabOrder = 0
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 8
+    Height = 233
+    Top = 263
+    Width = 427
+    Caption = 'Catatan'
+    ClientHeight = 213
+    ClientWidth = 423
+    TabOrder = 1
+    OnClick = GroupBox1Click
+    object Memo1: TMemo
+      Left = 8
+      Height = 176
+      Top = 0
+      Width = 408
+      Lines.Strings = (
+        'Memo1'
+      )
+      ScrollBars = ssAutoHorizontal
+      TabOrder = 0
+    end
+    object btnMemoSave: TButton
+      Left = 341
+      Height = 25
+      Top = 183
+      Width = 75
+      Caption = 'Simpan'
+      OnClick = btnMemoSaveClick
+      TabOrder = 1
+    end
+    object btnMemoRevert: TButton
+      Left = 8
+      Height = 25
+      Top = 183
+      Width = 75
+      Caption = 'Kembalikan'
+      OnClick = btnMemoRevertClick
+      TabOrder = 2
+    end
+  end
+  object Bevel1: TBevel
+    Left = 8
+    Height = 10
+    Top = 248
+    Width = 682
+    Shape = bsBottomLine
+  end
+  object GroupBox2: TGroupBox
+    Left = 440
+    Height = 232
+    Top = 264
+    Width = 250
+    Caption = 'Aksi'
+    ClientHeight = 212
+    ClientWidth = 246
+    TabOrder = 2
+    object Label5: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 66
+      Caption = 'Ubah Status:'
+      ParentColor = False
+    end
+    object edtAddCharge: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 184
+      Width = 155
+      EditLabel.AnchorSideLeft.Control = edtAddCharge
+      EditLabel.AnchorSideRight.Control = edtAddCharge
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = edtAddCharge
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 166
+      EditLabel.Width = 155
+      EditLabel.Caption = 'Tambahkan Extra Charge'
+      EditLabel.ParentColor = False
+      TabOrder = 0
+      Text = 'edtAddCharge'
+      OnChange = edtAddChargeChange
+      OnKeyPress = edtAddChargeKeyPress
+    end
+    object btnAddCharge: TButton
+      Left = 168
+      Height = 25
+      Top = 182
+      Width = 75
+      Caption = 'Tambahkan'
+      OnClick = btnAddChargeClick
+      TabOrder = 1
+    end
+    object btnBooked: TButton
+      Left = 8
+      Height = 25
+      Top = 27
+      Width = 75
+      Caption = 'dipesan'
+      OnClick = btnBookedClick
+      TabOrder = 2
+    end
+    object btnCheckIn: TButton
+      Left = 88
+      Height = 25
+      Top = 27
+      Width = 75
+      Caption = 'check-in'
+      OnClick = btnCheckInClick
+      TabOrder = 3
+    end
+    object btnCheckOut: TButton
+      Left = 168
+      Height = 25
+      Top = 27
+      Width = 75
+      Caption = 'check-out'
+      OnClick = btnCheckOutClick
+      TabOrder = 4
+    end
+    object edtAddFood: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 88
+      Width = 155
+      EditLabel.AnchorSideLeft.Control = edtAddFood
+      EditLabel.AnchorSideRight.Control = edtAddFood
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = edtAddFood
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 70
+      EditLabel.Width = 155
+      EditLabel.Caption = 'Tambahkan Biaya Makan'
+      EditLabel.ParentColor = False
+      TabOrder = 5
+      Text = 'edtAddFood'
+      OnChange = edtAddChargeChange
+      OnKeyPress = edtAddChargeKeyPress
+    end
+    object edtAddMisc: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 136
+      Width = 155
+      EditLabel.AnchorSideLeft.Control = edtAddMisc
+      EditLabel.AnchorSideRight.Control = edtAddMisc
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = edtAddMisc
+      EditLabel.Left = 8
+      EditLabel.Height = 15
+      EditLabel.Top = 118
+      EditLabel.Width = 155
+      EditLabel.Caption = 'Tambahkan Biaya Lain Lain'
+      EditLabel.ParentColor = False
+      TabOrder = 6
+      Text = 'edtAddMisc'
+      OnChange = edtAddChargeChange
+      OnKeyPress = edtAddChargeKeyPress
+    end
+    object Button1: TButton
+      Left = 168
+      Height = 25
+      Top = 86
+      Width = 75
+      Caption = 'Tambahkan'
+      OnClick = Button1Click
+      TabOrder = 7
+    end
+    object Button2: TButton
+      Left = 168
+      Height = 25
+      Top = 134
+      Width = 75
+      Caption = 'Tambahkan'
+      OnClick = Button2Click
+      TabOrder = 8
+    end
+  end
+  object Label10: TLabel
+    Left = 8
+    Height = 15
+    Top = 72
+    Width = 117
+    Caption = 'Informasi Pemesanan:'
+    ParentColor = False
+  end
+  object Bevel2: TBevel
+    Left = 8
+    Height = 18
+    Top = 72
+    Width = 338
+    Shape = bsBottomLine
+  end
+  object Label11: TLabel
+    Left = 8
+    Height = 15
+    Top = 96
+    Width = 32
+    Caption = 'Nama'
+    ParentColor = False
+  end
+  object Label12: TLabel
+    Left = 8
+    Height = 15
+    Top = 120
+    Width = 40
+    Caption = 'Instansi'
+    ParentColor = False
+  end
+  object Label13: TLabel
+    Left = 8
+    Height = 15
+    Top = 144
+    Width = 37
+    Caption = 'Kontak'
+    ParentColor = False
+  end
+  object Label14: TLabel
+    Left = 8
+    Height = 15
+    Top = 176
+    Width = 48
+    Caption = 'Check-In'
+    ParentColor = False
+  end
+  object Label15: TLabel
+    Left = 8
+    Height = 15
+    Top = 200
+    Width = 58
+    Caption = 'Check-Out'
+    ParentColor = False
+  end
+  object Label16: TLabel
+    Left = 8
+    Height = 15
+    Top = 224
+    Width = 33
+    Caption = 'Durasi'
+    ParentColor = False
+  end
+  object lblNama: TLabel
+    Left = 88
+    Height = 15
+    Top = 96
+    Width = 45
+    Caption = 'lblNama'
+    ParentColor = False
+  end
+  object lblInst: TLabel
+    Left = 88
+    Height = 15
+    Top = 120
+    Width = 32
+    Caption = 'lblInst'
+    ParentColor = False
+  end
+  object lblContact: TLabel
+    Left = 88
+    Height = 15
+    Top = 144
+    Width = 55
+    Caption = 'lblContact'
+    ParentColor = False
+  end
+  object lblCheckIn: TLabel
+    Left = 88
+    Height = 15
+    Top = 176
+    Width = 56
+    Caption = 'lblCheckIn'
+    ParentColor = False
+  end
+  object lblCheckOut: TLabel
+    Left = 88
+    Height = 15
+    Top = 200
+    Width = 66
+    Caption = 'lblCheckOut'
+    ParentColor = False
+  end
+  object lblDuration: TLabel
+    Left = 88
+    Height = 15
+    Top = 224
+    Width = 59
+    Caption = 'lblDuration'
+    ParentColor = False
+  end
+  object Label17: TLabel
+    Left = 352
+    Height = 15
+    Top = 72
+    Width = 32
+    Caption = 'Status'
+    ParentColor = False
+  end
+  object Bevel3: TBevel
+    Left = 352
+    Height = 18
+    Top = 72
+    Width = 338
+    Shape = bsBottomLine
+  end
+  object Label3: TLabel
+    Left = 352
+    Height = 15
+    Top = 96
+    Width = 82
+    Caption = 'Status Ruangan'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 352
+    Height = 15
+    Top = 120
+    Width = 101
+    Caption = 'Status Pembayaran'
+    ParentColor = False
+  end
+  object Label18: TLabel
+    Left = 352
+    Height = 15
+    Top = 144
+    Width = 83
+    Caption = 'Status Transaksi'
+    ParentColor = False
+  end
+  object lblStatRoom: TLabel
+    Left = 472
+    Height = 15
+    Top = 96
+    Width = 65
+    Caption = 'lblStatRoom'
+    ParentColor = False
+  end
+  object lblStatBill: TLabel
+    Left = 472
+    Height = 15
+    Top = 120
+    Width = 49
+    Caption = 'lblStatBill'
+    ParentColor = False
+  end
+  object lblStatTrans: TLabel
+    Left = 472
+    Height = 15
+    Top = 144
+    Width = 61
+    Caption = 'lblStatTrans'
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 352
+    Height = 15
+    Top = 176
+    Width = 99
+    Caption = 'Ditambahkan Oleh'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 352
+    Height = 15
+    Top = 200
+    Width = 100
+    Caption = 'Ditambahkan Pada'
+    ParentColor = False
+  end
+  object lblByWho: TLabel
+    Left = 472
+    Height = 15
+    Top = 176
+    Width = 51
+    Caption = 'lblByWho'
+    ParentColor = False
+  end
+  object lblDate: TLabel
+    Left = 472
+    Height = 15
+    Top = 200
+    Width = 37
+    Caption = 'lblDate'
+    ParentColor = False
+  end
+end

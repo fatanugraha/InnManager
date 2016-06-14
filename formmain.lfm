@@ -379,6 +379,7 @@ object frmMain: TfrmMain
     ParentColor = False
     ParentFont = False
     TabOrder = 1
+    OnClick = pnlContainerClick
   end
   object dbOrdersConnection: TSQLite3Connection
     Connected = False

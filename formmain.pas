@@ -42,6 +42,7 @@ type
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
+    procedure pnlContainerClick(Sender: TObject);
   private
     prev: PForm;
   public
@@ -135,6 +136,11 @@ begin
 
   Enabled := false;
   frmUsers.Show;
+end;
+
+procedure TfrmMain.pnlContainerClick(Sender: TObject);
+begin
+
 end;
 
 end.
