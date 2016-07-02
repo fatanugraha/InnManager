@@ -1,7 +1,7 @@
 object frmOrderCard: TfrmOrderCard
-  Left = 260
+  Left = 1197
   Height = 546
-  Top = 240
+  Top = 80
   Width = 700
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
@@ -70,6 +70,7 @@ object frmOrderCard: TfrmOrderCard
       Height = 176
       Top = 0
       Width = 408
+      Anchors = [akTop, akLeft, akRight, akBottom]
       Lines.Strings = (
         'Memo1'
       )
@@ -81,6 +82,7 @@ object frmOrderCard: TfrmOrderCard
       Height = 25
       Top = 183
       Width = 75
+      Anchors = [akRight, akBottom]
       Caption = 'Simpan'
       OnClick = btnMemoSaveClick
       TabOrder = 1
@@ -90,6 +92,7 @@ object frmOrderCard: TfrmOrderCard
       Height = 25
       Top = 183
       Width = 75
+      Anchors = [akLeft, akBottom]
       Caption = 'Kembalikan'
       OnClick = btnMemoRevertClick
       TabOrder = 2
@@ -111,6 +114,7 @@ object frmOrderCard: TfrmOrderCard
     ClientHeight = 212
     ClientWidth = 246
     TabOrder = 2
+    OnClick = GroupBox2Click
     object Label5: TLabel
       Left = 8
       Height = 15

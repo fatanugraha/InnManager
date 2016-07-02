@@ -41,6 +41,7 @@ type
     //load from orders to string grid
     procedure LoadData(month, year: integer);
   public
+    procedure ReloadData;
     //floodfill ganti warna
     procedure UpdateStatus(aCol, aRow, toStatus: integer);
   public
@@ -58,6 +59,11 @@ uses
   lib.logger, lib.database, FormLogin, lib.Common, FormMain, FormOrderCard, FormAddCustomer;
 
 { TfrmCalendar }
+
+procedure TfrmCalendar.ReloadData;
+begin
+  LoadData(CurrentMonth, CurrentYear);
+end;
 
 procedure TfrmCalendar.UpdateStatus(aCol, aRow, toStatus: integer);
 begin
@@ -87,7 +93,6 @@ begin
 
   with frmMain do
   begin
-    dbOrdersQuery.Refresh;
     dbOrdersQuery.First;
 
     while (not dbOrdersQuery.EOF) do
@@ -124,23 +129,25 @@ begin
             l := mid + 1
           else
             idx := mid;
-				end;
+	end;
 
-        lookup.ParamByName('id').AsInteger := OwnerID;
-        lookup.Open;
-        OwnerName := lookup.FieldByName('name').AsString;
-        OwnerIns := lookup.FieldByName('instance').AsString;
-        Lookup.Close;
-
-        mid := frmMain.dbOrdersQuery.fieldByName('id').AsInteger;
-        for i := DayOf(a) to DayOf(b) do
+        if idx <> -1 then
         begin
-          grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns;
-          BoardData[i, idx + 1] := mid;
-          StatusData[i, idx + 1] := status;
+          lookup.ParamByName('id').AsInteger := OwnerID;
+          lookup.Open;
+          OwnerName := lookup.FieldByName('name').AsString;
+          OwnerIns := lookup.FieldByName('instance').AsString;
+          Lookup.Close;
+
+          mid := frmMain.dbOrdersQuery.fieldByName('id').AsInteger;
+          for i := DayOf(a) to DayOf(b) do
+          begin
+            grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns;
+            BoardData[i, idx + 1] := mid;
+            StatusData[i, idx + 1] := status;
+          end;
         end;
       end;
-
       dbOrdersQuery.Next;
     end;
   end;
@@ -158,14 +165,15 @@ begin
   query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
 
   //hitung banyanknya kamar yang tersedia
-  query.SQL.Text := 'SELECT COUNT(*) FROM PRODUCT';
+  query.SQL.Text := 'SELECT COUNT(*) FROM `product` WHERE `active` = 1';
   query.Open;
   Grid.RowCount := query.FieldByName('COUNT(*)').AsInteger + FIXED_COL_CNT;
   Grid.ColWidths[0] := FIXED_COL_SIZE;
   query.Close;
 
   //print nama kamar sama jenisnya
-  query.SQL.Text := 'SELECT `id`, `name`, `typename` FROM PRODUCT';
+  query.SQL.Text := 'SELECT `id`, `name`, `typename` FROM `product` '+
+    'WHERE `active` = 1';
   query.Open;
   cnt := FIXED_COL_CNT;
 
@@ -215,7 +223,7 @@ begin
   for i := 1 to size - 1 do
   begin
     Grid.Cells[i, 0] := Format('%s' + LineEnding + '%d', [DAY_IDN[cur], i]);
-    cur := (cur + 1) mod DAY_IN_MONTH;
+    cur := (cur + 1) mod 7;
   end;
 
   //update title
@@ -232,6 +240,13 @@ begin
     end;
 
   LoadData(month, year);
+
+  //cek kalau di bulan dan tahun sekarnag
+  if (month = monthOf(now)-1) and (year = YearOf(now)) then
+  begin
+    grid.Col := DayOf(now);
+    grid.Row := 0;
+  end;
 end;
 
 procedure TfrmCalendar.FormShow(Sender: TObject);
@@ -246,6 +261,22 @@ end;
 
 procedure TfrmCalendar.GridDblClick(Sender: TObject);
 begin
+   if (grid.col = 0) or (grid.row = 0) then
+    exit;
+
+  if BoardData[grid.col, grid.row] = 0 then
+  begin
+    frmAddCustomer.EditID := 0;
+    frmAddCustomer.FromCalendar := true;
+    frmAddCustomer.Show;
+    frmMain.Enabled := false;
+  end else begin
+    frmOrderCard.ID := BoardData[grid.col, grid.row];
+    frmOrderCard.Col := grid.col;
+    frmOrderCard.Row := grid.row;
+    frmOrderCard.Show;
+    frmMain.Enabled := false;
+  end;
 end;
 
 procedure TfrmCalendar.GridDrawCell(Sender: TObject; aCol, aRow: integer; aRect: TRect; aState: TGridDrawState);
@@ -258,7 +289,7 @@ var
   tmp: integer;
   cl : TColor;
 begin
-	with TStringGrid(Sender) do
+  with TStringGrid(Sender) do
   begin
     if (acol = 0) or (arow = 0) then //kalau dia fixed rows
     begin
@@ -268,9 +299,10 @@ begin
 
       if (aRow = 0) and (Copy(Cells[ACol, ARow], 1, 6) = 'Minggu') then // kalau minggu, warnai merah
         font.color := clRed;
-  	end;
+    end;
 
     cl := Canvas.Brush.Color;
+    canvas.Pen.color := clBlack;
     if not ((aCol = 0) or (aRow = 0)) then
       if StatusData[acol, arow] = 1 then //booked
         canvas.Brush.color := COLOR_BOOKED
@@ -292,34 +324,20 @@ begin
     DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
 
     if (acol = 0) or (arow = 0) then //normalize
-		begin
-		  grid.Font.size := tmp;
-		  grid.Font.Bold := false;
-		  if (aRow = 0) and (Copy(Cells[ACol, ARow], 1, 6) = 'Minggu') then
-		    font.color := clDefault;
+    begin
+      grid.Font.size := tmp;
+      grid.Font.Bold := false;
+      if (aRow = 0) and (Copy(Cells[ACol, ARow], 1, 6) = 'Minggu') then
+	font.color := clDefault;
     end;
 
     Canvas.Brush.Color := cl;
-	end;
+  end;
 end;
 
 procedure TfrmCalendar.GridSelection(Sender: TObject; aCol, aRow: Integer);
 begin
-  if (aCol = 0) or (aRow = 0) then
-    exit;
 
-  if BoardData[aCol, aRow] = 0 then
-  begin
-    frmAddCustomer.EditID := 0;
-    frmAddCustomer.Show;
-    frmMain.Enabled := false;
-  end else begin
-    frmOrderCard.ID := BoardData[aCol, aRow];
-    frmOrderCard.Col := aCol;
-    frmOrderCard.Row := aRow;
-    frmOrderCard.Show;
-    frmMain.Enabled := false;
-  end;
 end;
 
 procedure TfrmCalendar.FormResize(Sender: TObject);
@@ -339,7 +357,7 @@ begin
 
   if (CurrentMonth < 0) then
   begin
-    Inc(CurrentMonth, MONTH_IN_YEAR);
+    Inc(CurrentMonth, 12);
     Dec(CurrentYear);
   end;
 
@@ -351,7 +369,7 @@ procedure TfrmCalendar.btnNextClick(Sender: TObject);
 begin
   Inc(CurrentMonth);
 
-  if (CurrentMonth = MONTH_IN_YEAR) then
+  if (CurrentMonth = 12) then
   begin
     CurrentMonth := 0;
     Inc(Currentyear);

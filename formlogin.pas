@@ -1,3 +1,8 @@
+{
+  formlogin.pas
+  :: handles user login and establish database connection to FILE_COREDB
+}
+
 unit formLogin;
 
 {$mode objfpc}{$H+}
@@ -146,6 +151,11 @@ begin
       dbCoreTransaction.Commit;
       frmMain.Show;
       hide;
+
+      edtUsername.Text:='';
+      edtPassword.Text:='';
+      edtPasswordExit(edtUsername);
+      edtPasswordExit(edtPassword);
     end
     else
     begin

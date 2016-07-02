@@ -1,7 +1,7 @@
 object frmAddProduct: TfrmAddProduct
-  Left = 416
+  Left = 420
   Height = 281
-  Top = 254
+  Top = 256
   Width = 319
   BorderIcons = [biSystemMenu]
   Caption = 'frmAddProduct'

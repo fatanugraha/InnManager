@@ -1,13 +1,14 @@
 object frmAddCustomer: TfrmAddCustomer
-  Left = 251
+  Left = 1054
   Height = 601
-  Top = 338
+  Top = 235
   Width = 845
   BorderIcons = [biSystemMenu]
   Caption = 'frmAddCustomer'
   ClientHeight = 601
   ClientWidth = 845
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.6.0.4'
@@ -30,7 +31,6 @@ object frmAddCustomer: TfrmAddCustomer
       ClientHeight = 325
       ClientWidth = 420
       TabOrder = 0
-      OnClick = GroupBox2Click
       object Label3: TLabel
         Left = 8
         Height = 15

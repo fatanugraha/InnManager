@@ -39,7 +39,7 @@ implementation
 { TfrmAddUser }
 
 uses
-  lib.database, FormLogin, lib.Common, FormUser, lib.logger;
+  lib.database, FormLogin, lib.Common, FormUser, lib.logger, FormMain;
 
 procedure TfrmAddUser.FormCreate(Sender: TObject);
 begin
@@ -197,6 +197,8 @@ begin
         if (edtPassword.Text <> '') then
           currentSession.Password := HashPassword(edtPassword.Text);
         CurrentSession.FullName := edtName.Text;
+
+        frmMain.lblUserName.Caption := Format('%s (%s)', [edtName.Text, edtUsername.Text]);
       end;
       Close;
     end;

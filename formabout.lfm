@@ -1,0 +1,145 @@
+object frmAbout: TfrmAbout
+  Left = 709
+  Height = 473
+  Top = 180
+  Width = 537
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Tentang Piranti Lunak'
+  ClientHeight = 473
+  ClientWidth = 537
+  Color = 5793637
+  Font.Color = clWhite
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.6.0.4'
+  object lblVer: TLabel
+    Left = 18
+    Height = 15
+    Top = 88
+    Width = 29
+    Caption = 'lblVer'
+    Font.Color = clWhite
+    ParentColor = False
+    ParentFont = False
+  end
+  object lblDate: TLabel
+    Left = 17
+    Height = 15
+    Top = 104
+    Width = 37
+    Caption = 'lblDate'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 17
+    Height = 15
+    Top = 136
+    Width = 413
+    Caption = 'By Fata Nugraha (fatanugraha@outlook.com / www.github.com/fatanugraha)'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 17
+    Height = 15
+    Top = 168
+    Width = 145
+    Caption = 'This project lisenced under:'
+    ParentColor = False
+  end
+  object Memo1: TMemo
+    Left = 17
+    Height = 184
+    Top = 192
+    Width = 504
+    Font.Color = clBlack
+    Lines.Strings = (
+      'The MIT License (MIT)'
+      'Copyright (c) 2016 Fata Nugraha'
+      ''
+      'Permission is hereby granted, free of charge, to any person obtaining a copy of this '
+      'software and associated documentation files (the "Software"), to deal in the Software '
+      'without restriction, including without limitation the rights to use, copy, modify, merge, '
+      'publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons '
+      'to whom the Software is furnished to do so, subject to the following conditions:'
+      ''
+      'The above copyright notice and this permission notice shall be included in all copies or '
+      'substantial portions of the Software.'
+      ''
+      'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR '
+      'IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, '
+      'FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL '
+      'THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR '
+      'OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, '
+      'ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR '
+      'OTHER DEALINGS IN THE SOFTWARE.'
+    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object Label5: TLabel
+    Left = 18
+    Height = 15
+    Top = 384
+    Width = 71
+    Caption = 'Third-parties:'
+    ParentColor = False
+  end
+  object Memo2: TMemo
+    Left = 18
+    Height = 48
+    Top = 408
+    Width = 503
+    Font.Color = clBlack
+    Lines.Strings = (
+      'Icon pack by Modern UI Icons http://modernuiicons.com/. lisenced under the Creative '
+      'Commons license.'
+    )
+    OnChange = Memo2Change
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 72
+    Top = 0
+    Width = 537
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 72
+    ClientWidth = 537
+    Color = 2238503
+    ParentColor = False
+    TabOrder = 2
+    OnClick = Panel1Click
+    object Label1: TLabel
+      Left = 16
+      Height = 37
+      Top = 16
+      Width = 300
+      Caption = 'github.com/fatanugraha/'
+      Font.Color = clWhite
+      Font.Height = -27
+      Font.Quality = fqCleartype
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 317
+      Height = 37
+      Top = 16
+      Width = 156
+      Caption = 'InnManager'
+      Font.Color = clWhite
+      Font.Height = -27
+      Font.Quality = fqCleartype
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+end

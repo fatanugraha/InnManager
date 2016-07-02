@@ -1,7 +1,7 @@
 object frmType: TfrmType
-  Left = 303
+  Left = 306
   Height = 400
-  Top = 167
+  Top = 169
   Width = 603
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Jenis Produk'
@@ -9,7 +9,6 @@ object frmType: TfrmType
   ClientWidth = 603
   Color = 5793637
   OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
   LCLVersion = '1.6.0.4'
@@ -46,7 +45,6 @@ object frmType: TfrmType
     TabOrder = 0
     ViewStyle = vsReport
     OnClick = lvTypeClick
-    OnSelectItem = lvTypeSelectItem
   end
   object btnAdd: TButton
     Left = 8

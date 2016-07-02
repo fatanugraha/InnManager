@@ -74,8 +74,9 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure GroupBox1Click(Sender: TObject);
+    procedure GroupBox2Click(Sender: TObject);
   private
-    { private declarations }
+    final: boolean;
   public
     Col, Row: integer;
     ID: integer;
@@ -366,6 +367,7 @@ begin
 
   cByWho := query.FieldByName('by_who').AsString;
   cDate := query.FieldByName('date_created').AsString;
+  final := query.FieldByName('done').AsInteger = 1;
   query.Close;
   Query.Free;
 
@@ -375,6 +377,10 @@ begin
     cContact2 := '-';
 
   //load ke form
+  btnBooked.Enabled := true;
+  btnCheckIn.Enabled := true;
+  btnCheckOut.Enabled := true;
+
   Label1.Caption := Format('%s (%s)', [RoomName, RoomType]);
   Label2.Caption := Format('Rp%s /hari', [GroupDigits(price)]);
   if status = ORDERS_BOOKED then
@@ -417,9 +423,23 @@ begin
     lblStatTrans.caption := 'Transaksi Berlangsung';
 
   Memo1.Text := Notes;
+
+  groupbox2.visible := not final;
+  btnMemoRevert.Enabled:=not final;
+  btnMemoSave.Enabled:=not final;
+
+  if final then
+    GroupBox1.Width := Bevel1.Width
+  else
+    GroupBox1.Width := groupbox2.left-5-groupbox1.left;
 end;
 
 procedure TfrmOrderCard.GroupBox1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmOrderCard.GroupBox2Click(Sender: TObject);
 begin
 
 end;

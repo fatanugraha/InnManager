@@ -1,3 +1,8 @@
+{
+  formaddtype.pas
+  :: handles adding and editing product type.
+}
+
 unit formaddtype;
 
 {$mode objfpc}{$H+}
@@ -5,8 +10,8 @@ unit formaddtype;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls, sqldb, lclType,
-  MaskEdit, StdCtrls, ComCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  sqldb, lclType, StdCtrls;
 
 type
 
@@ -43,7 +48,7 @@ implementation
 { TfrmAddType }
 
 uses
-  lib.database, FormLogin, lib.common, FormType, lib.logger, FormMain;
+  lib.logger, lib.database, lib.common, FormLogin, FormType, FormMain;
 
 var
   prev: string;
@@ -52,32 +57,38 @@ procedure TfrmAddType.FormShow(Sender: TObject);
 var
   query: TSQLQuery;
 begin
+  frmMain.Enabled := true;
+
   edtName.Text := '';
   edtPrice.Text := '';
   mmFeature.Text := '';
   mmDesc.Text := '';
 
-  Caption := 'Tambahkan Jenis Produk';
+  if (id <> '') then begin //edit product type
+    Caption := Format('%s | %s', [APP_NAME, 'Ubah Jenis Produk']);
 
-  if (id <> '') then begin
-    Caption := 'Ubah Jenis Produk';
     query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
+
     query.SQL.Text := 'SELECT * FROM `product_type` WHERE `id` = :id';
     query.ParamByName('id').AsString := id;
     query.Open;
-    edtName.Text := query.FieldByName('name').AsString;
-    prev := query.FieldByName('name').AsString;
-    edtprice.Text := query.FieldByName('price').AsString;
+
+    edtName.Text   := query.FieldByName('name').AsString;
+    prev           := query.FieldByName('name').AsString;
+    edtprice.Text  := query.FieldByName('price').AsString;
     mmFeature.Text := query.FieldByName('feature').AsString;
-    mmDesc.Text := query.FieldByName('description').AsString;
+    mmDesc.Text    := query.FieldByName('description').AsString;
+
     query.Close;
     query.Free;
-  end;
+  end else
+    Caption := Format('%s | %s', [APP_NAME, 'Tambahkan Jenis Produk']);
 end;
 
 procedure TfrmAddType.btnOKClick(Sender: TObject);
 var
-  query : TSQLQuery;
+  query: TSQLQuery;
+  Exists: boolean;
 begin
   //validate
   if (isFieldEmpty(edtName)) then
@@ -85,68 +96,85 @@ begin
   if (isFieldEmpty(edtPrice)) then
     exit;
 
+  //cek dulu udah ada yang namanya sama dengan sekarang ato ngga
   query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
-  if (ID = '') then //tambahin
+  query.SQL.Text := 'SELECT * FROM `product_type` WHERE LOWER(`name`) = :name '+
+                    'AND `active` = 1 ';
+  query.ParamByName('name').AsString := lowercase(edtName.Text);
+
+  if ID <> '' then
   begin
-    //cek udah ada belom yang namanya sama
-    query.SQL.Text := 'SELECT * FROM `product_type` WHERE LOWER(`name`) = :name';
-    query.ParamByName('name').AsString := lowercase(edtName.Text);
-    query.Open;
-
-    if (not query.EOF) then
-    begin
-      query.close;
-      Application.MessageBox('Jenis produk telah ada di database.', 'Jenis Produk Sudah Ada', MB_ICONEXCLAMATION);
-      edtName.SetFocus;
-    end else begin
-      query.close;
-      query.SQL.Text := 'INSERT INTO `product_type` (`name`, `price`, `feature`, `description`) VALUES (:name, :price, '+
-                        ':feature, :description)';
-      query.ParamByName('name').AsString := edtName.Text;
-      query.ParamByName('price').AsString := edtPrice.Text;
-      query.ParamByName('feature').AsString := mmFeature.Text;
-      query.ParamByName('description').AsString := mmDesc.Text;
-      query.ExecSQL;
-      frmLogin.dbCoreTransaction.Commit;
-
-      FrmType.LoadData;
-      Close;
-    end;
-  end else begin //ganti cuy
-    query.SQL.Text := 'SELECT * FROM `product_type` WHERE LOWER(`name`) = :name AND `id` != :id';
-    query.ParamByName('name').AsString := lowercase(edtName.Text);
+    query.SQL.Text := query.SQL.Text + 'AND `id` != :id';
     query.ParamByName('id').AsString := ID;
-    query.Open;
+  end;
 
-    if (not query.EOF) then
-    begin
-      query.close;
-      Application.MessageBox('Jenis produk telah ada di database.', 'Jenis Produk Sudah Ada', MB_ICONEXCLAMATION);
-      edtName.SetFocus;
-    end else begin
-      query.close;
-      query.SQL.Text := 'UPDATE `product_type` SET `name` = :name, `price` = :price, `feature` = :feature, `description` = :description '+
-                        'WHERE `id` = :id';
-      query.ParamByName('name').AsString := edtName.Text;
-      query.ParamByName('price').AsString := edtPrice.Text;
-      query.ParamByName('feature').AsString := mmFeature.Text;
-      query.ParamByName('description').AsString := mmDesc.Text;
-      query.ParamByName('id').AsString := ID;
+  query.Open;
+  Exists := not query.EOF;
+  query.Close;
+
+  //udah ada di database
+  if Exists then
+  begin
+    query.close;
+    Application.MessageBox('Jenis produk telah ada di database.',
+                           'Jenis Produk Sudah Ada', MB_ICONEXCLAMATION);
+    edtName.SetFocus;
+    exit;
+  end;
+
+  //update ke database
+  if ID = '' then
+  begin
+    //tambahin
+    query.SQL.Text := 'INSERT INTO `product_type` (`name`, `price`, `feature`, '+
+                      '`description`) VALUES (:name, :price, :feature, '+
+                      ':description)';
+
+    query.ParamByName('name').AsString        := edtName.Text;
+    query.ParamByName('price').AsInteger      := UnGroupDigits(edtPrice.Text);
+    query.ParamByName('feature').AsString     := mmFeature.Text;
+    query.ParamByName('description').AsString := mmDesc.Text;
+
+    query.ExecSQL;
+  end
+  else
+  begin
+    //update
+    query.SQL.Text := 'UPDATE `product_type` SET `name` = :name, `price` = :price,'+
+                      '`feature` = :feature, `description` = :description '+
+                      'WHERE `id` = :id';
+
+    query.ParamByName('name').AsString        := edtName.Text;
+    query.ParamByName('price').AsInteger      := UnGroupDigits(edtPrice.Text);
+    query.ParamByName('feature').AsString     := mmFeature.Text;
+    query.ParamByName('description').AsString := mmDesc.Text;
+    query.ParamByName('id').AsString          := ID;
+
+    query.ExecSQL;
+
+    //TODO: should we change this refer to id, not by name?
+
+    if (prev <> edtName.Text) then begin
+      query.SQL.Text := 'UPDATE `product` SET `typename` = :new '+
+                        'WHERE `typename` = :old';
+
+      query.ParamByName('old').AsString := prev;
+      query.ParamByName('new').AsString := edtName.Text;
+
       query.ExecSQL;
-
-      if (prev <> edtName.Text) then begin
-        query.SQL.Text := 'UPDATE `product` SET `typename` = :new WHERE `typename` = :old';
-        query.ParamByName('old').AsString := prev;
-        query.ParamByName('new').AsString := edtName.Text;
-        query.ExecSQL;
-      end;
-
-      frmLogin.dbCoreTransaction.Commit;
-      FrmType.LoadData;
-      Close;
     end;
   end;
+  frmLogin.dbCoreTransaction.Commit;
   query.Free;
+
+  FrmType.LoadData;
+  Close;
+end;
+
+procedure TfrmAddType.edtPriceChange(Sender: TObject);
+begin
+  TEdit(Sender).Text     := GroupDigits(UnGroupDigits(TEdit(Sender).Text));
+  TEdit(sender).SelStart := Length(TEdit(Sender).Text);
 end;
 
 procedure TfrmAddType.btnCancelClick(Sender: TObject);
@@ -154,23 +182,11 @@ begin
   close;
 end;
 
-procedure TfrmAddType.edtPriceChange(Sender: TObject);
-begin
-
-end;
-
 procedure TfrmAddType.edtPriceKeyPress(Sender: TObject; var Key: char);
 begin
+  //reject non numeric keys
   if not(('0' <= key) and (key <= '9') or (key = #8) or (key = #9)) then
-  begin
     key := #0;
-    exit;
-  end;
-
-  if (length(edtPrice.Text) = 8) and (('0' <= key) and (key <= '9')) then begin
-     key := #0;
-     exit;
-  end;
 end;
 
 procedure TfrmAddType.FormClose(Sender: TObject; var CloseAction: TCloseAction);

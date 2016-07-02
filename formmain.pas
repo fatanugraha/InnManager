@@ -14,7 +14,7 @@ type
   PForm = ^TForm;
 
   TfrmMain = class(TForm)
-    Image2: TImage;
+    Image3: TImage;
     imgType: TImage;
     imgUsers: TImage;
     imgProduct: TImage;
@@ -25,7 +25,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label7: TLabel;
+    Label8: TLabel;
     lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;
@@ -37,12 +37,12 @@ type
     dbOrdersQuery: TSQLQuery;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
     procedure imgTypeClick(Sender: TObject);
     procedure imgCalendarClick(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
-    procedure pnlContainerClick(Sender: TObject);
   private
     prev: PForm;
   public
@@ -60,8 +60,8 @@ implementation
 { TfrmMain }
 
 uses
-  FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger, FormCustomer
-  ,formAddroom;
+  FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger, FormCustomer, formAddroom,
+  FormAbout;
 
 procedure TfrmMain.OpenTab(Form: PForm; Sender: TObject);
 begin
@@ -95,16 +95,22 @@ begin
   //cosmetics
   lblSelected.left := 0;
   imgCalendarClick(imgCalendar);
-  lblUserName.Caption := CurrentSession.Username;
+  frmMain.lblUserName.Caption := Format('%s (%s)', [CurrentSession.FullName,
+    CurrentSession.Username]);
   WindowState := wsMaximized;
+
+  Caption := APP_NAME + ' | Sistem Reservasi';
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  //let's hope i sober when coding and always commit everything
-  dbCustomersConnection.Connected := false;
-  dbOrdersConnection.Connected := false;
-  Application.Terminate;
+  Hide;
+  frmLogin.Show;
+end;
+
+procedure TfrmMain.Image3Click(Sender: TObject);
+begin
+  frmAbout.Show;
 end;
 
 procedure TfrmMain.imgTypeClick(Sender: TObject);
@@ -129,18 +135,7 @@ end;
 
 procedure TfrmMain.imgUsersClick(Sender: TObject);
 begin
-  if (CurrentSession.Authority and AUTH_EDIT_USER) > 0 then
-    frmUsers.Caption := 'Atur Pengguna'
-  else
-    frmUsers.Caption := 'Ganti Password';
-
-  Enabled := false;
   frmUsers.Show;
-end;
-
-procedure TfrmMain.pnlContainerClick(Sender: TObject);
-begin
-
 end;
 
 end.

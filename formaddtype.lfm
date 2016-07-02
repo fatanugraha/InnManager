@@ -1,7 +1,7 @@
 object frmAddType: TfrmAddType
-  Left = 424
+  Left = 399
   Height = 345
-  Top = 275
+  Top = 318
   Width = 385
   BorderIcons = [biSystemMenu]
   Caption = 'frmAddType'
@@ -11,7 +11,7 @@ object frmAddType: TfrmAddType
   Constraints.MinHeight = 345
   OnClose = FormClose
   OnShow = FormShow
-  Position = poMainFormCenter
+  Position = poDesktopCenter
   LCLVersion = '1.6.0.4'
   object edtName: TLabeledEdit
     Left = 8

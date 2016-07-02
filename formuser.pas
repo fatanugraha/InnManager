@@ -92,6 +92,13 @@ end;
 
 procedure TfrmUsers.FormShow(Sender: TObject);
 begin
+  if (CurrentSession.Authority and AUTH_EDIT_USER) > 0 then
+    Caption := Format('%s | %s', [APP_NAME, 'Atur Pengguna'])
+  else
+    Caption := Format('%s | %s', [APP_NAME, 'Ganti Password']);
+
+  frmMain.Enabled := false;
+
   canSee := (CurrentSession.Authority and AUTH_SEE_USER) > 0;
   canEdit := (CurrentSession.Authority and AUTH_EDIT_USER) > 0;
 
@@ -200,8 +207,8 @@ end;
 
 procedure TfrmUsers.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+
   frmMain.Enabled := true;
-  //TODO: check kalo affected
 end;
 
 procedure TfrmUsers.btnAddClick(Sender: TObject);

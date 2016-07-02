@@ -1,3 +1,8 @@
+{
+  formaddcustomer.pas
+  :: handles customer management and print invoices
+}
+
 unit formaddcustomer;
 
 {$mode objfpc}{$H+}
@@ -6,7 +11,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  sqldb, memds, LCLType, dateUtils, ExtCtrls, ComCtrls, CheckLst, LR_Desgn,
+  sqldb, memds, LCLType, dateUtils, ExtCtrls, ComCtrls, LR_Desgn,
   LR_Class, LR_DBSet;
 
 type
@@ -22,7 +27,7 @@ type
   end;
 
   TRoomRec = record
-    id: integer;
+    id, active: integer;
     nama, jenis: string;
   end;
 
@@ -83,15 +88,16 @@ type
     procedure edtPriceAddChange(Sender: TObject);
     procedure edtPriceRoomKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure frDesigner1LoadReport(Report: TfrReport; var ReportName: String);
-    procedure GroupBox2Click(Sender: TObject);
     procedure lvRoomsClick(Sender: TObject);
   private
-    { private declarations }
-  public
-    tmpOrder: array of TOrderRec;
     tmpKamar: array of TRoomRec;
+    final: boolean;
+  public
+    FromCalendar: boolean;
+    tmpKamarActive: array of TRoomRec;
+    tmpOrder: array of TOrderRec;
     EditID: integer;
     //simpan id order yang udah dihapus
     tmpDeleted: array of integer;
@@ -109,7 +115,8 @@ implementation
 { TfrmAddCustomer }
 
 uses
-  formMain, formAddRoom, lib.common, lib.logger, lib.database, formLogin, formCustomer;
+  formMain, formAddRoom, lib.common, lib.logger, lib.database, formLogin,
+  formCustomer, formCalendar;
 
 procedure TfrmAddCustomer.UpdateOrders;
 var
@@ -150,14 +157,21 @@ var
   i, buf, sz, l, r, idx, mid: integer;
   tmp: string;
 begin
+  if editID = 0 then
+    Caption := Format('%s | %s', [APP_NAME, 'Buat Reservasi'])
+  else
+    Caption := Format('%s | %s', [APP_NAME, 'Lihat/Ubah Reservasi']);
+
+  final := false;
   SetLength(tmpOrder, 0);
-  SetLength(frmAddCustomer.tmpKamar, 0);
+  SetLength(tmpKamar, 0);
+  SetLength(tmpKamarActive, 0);
   SetLength(tmpDeleted, 0);
 
   //load data kamar biar lookup id kamar biar ga query terus
   //assuming setiap query O(N) N = banyak record
   query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
-  query.SQL.Text := 'SELECT `id`,`name`,`typename` FROM `product`';
+  query.SQL.Text := 'SELECT `id`,`name`,`typename`,`active` FROM `product`';
   query.open;
   while not query.eof do
   begin
@@ -166,6 +180,17 @@ begin
     tmpKamar[sz].id := query.FieldByName('id').AsInteger;
     tmpKamar[sz].nama := query.FieldByName('name').AsString;
     tmpKamar[sz].jenis := query.FieldByName('typename').AsString;
+    tmpKamar[sz].active := query.FieldByName('active').AsInteger;
+
+    if tmpKamar[sz].active = 1 then
+    begin
+      sz := Length(tmpKamarActive);
+      SetLength(tmpKamarActive, sz+1);
+      tmpKamarActive[sz].id := query.FieldByName('id').AsInteger;
+      tmpKamarActive[sz].nama := query.FieldByName('name').AsString;
+      tmpKamarActive[sz].jenis := query.FieldByName('typename').AsString;
+      tmpKamarActive[sz].active := query.FieldByName('active').AsInteger;
+    end;
     query.Next;
   end;
   query.close;
@@ -215,6 +240,7 @@ begin
     edtPriceFront.Text := query.FieldByName('bill_front').AsString;
     edtIdentity.Text   := query.FieldByName('stuffs').AsString;
     tmp                := query.FieldByName('order_data').AsString;
+    final              := query.FieldByName('done').AsInteger = 1;
     query.close;
     query.free;
 
@@ -249,7 +275,7 @@ begin
     begin
       tmpOrder[i].room_id := query.FieldByName('room_id').AsInteger;
 
-      //binary search id kamar
+      //binary search id kamar  -> ini overkill, TODO: ganti O(N) aja
       l := 0;
       r := High(tmpKamar);
       idx := -1;
@@ -283,22 +309,39 @@ begin
 
     UpdateOrders;
   end;
-end;
 
-procedure TfrmAddCustomer.frDesigner1LoadReport(Report: TfrReport;
-  var ReportName: String);
-begin
+  for i := 0 to ComponentCount-1 do
+  begin
+    if copy(Components[i].Name, 1, 3) = 'edt' then
+      TEdit(Components[i]).ReadOnly := final;
+    if copy(Components[i].Name, 1, 2) = 'mm' then
+      TMemo(Components[i]).ReadOnly := final;
+  end;
 
-end;
+  edtPriceRoom.ReadOnly:=true;
+  btnAddRoom.Visible := not Final;
+  btnRemoveRoom.Visible := not Final;
+  button6.Enabled := not Final;
 
-procedure TfrmAddCustomer.GroupBox2Click(Sender: TObject);
-begin
-
+  if Final then
+  begin
+    button6.Caption := 'Telah Final';
+    lvRooms.Width := btnAddRoom.Left+btnAddroom.Width-lvRooms.Left;
+  end else begin
+    lvRooms.Width := btnAddRoom.Left-8-lvRooms.Left;
+    button6.Caption := 'Finalisasi Transaksi';
+  end;
 end;
 
 procedure TfrmAddCustomer.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   frmMain.Enabled := true;
+  frmAddCustomer.FromCalendar := false;
+end;
+
+procedure TfrmAddCustomer.FormCreate(Sender: TObject);
+begin
+  frmAddCustomer.FromCalendar := false;
 end;
 
 procedure TfrmAddCustomer.btnAddRoomClick(Sender: TObject);
@@ -497,11 +540,21 @@ begin
   Query2.Free;
   Query1.Free;
 
-  //refresh orders
-  frmCustomer.LoadData;
+  if sender = button6 then
+  begin
+    //TODO: kitamark semua kamar checkout
+  end;
+
 
   //buka lagi querynya setelah update
   frmMain.dbOrdersQuery.Open;
+
+  //refresh orders
+  if sender <> button6 then
+    if not FromCalendar then
+      frmCustomer.LoadData
+    else
+      frmCalendar.ReloadData;
 
   Close;
 end;
@@ -536,7 +589,7 @@ begin
     Fields[9].AsString := 'Rp' + label13.Caption;
     Fields[10].AsString := CurrentSession.FullName;
     Fields[11].AsString := FormatDateTime('dddd, dd mmmm yyyy', now);
-    Fields[11].AsString := 'Rp' + label11.Caption;
+    Fields[12].AsString := 'Rp' + label11.Caption;
   end;
 
   ds2.Clear(false);
@@ -568,18 +621,26 @@ var
   ret: integer;
   query: TSQLQuery;
 begin
-  ret := Application.MessageBox('Apakah anda ingin menandai kustomer ini telah selesai transaksi dan telah melunasi pembayaran?',
-                                'Konfirmasi', MB_ICONQUESTION or MB_YESNOCANCEL);
+  ret := Application.MessageBox('Apakah anda ingin menandai kustomer ini telah '+
+    'selesai transaksi dan telah melunasi pembayaran?'+LineEnding+
+    'Data tidak dapat diubah setelah di finalisasi dan semua kamar '+
+    'akan ditandai telah check-out',
+    'Konfirmasi', MB_ICONQUESTION or MB_YESNOCANCEL);
 
   if ret <> ID_YES then
     exit;
 
+  Button1Click(button6);
+
+  //mark kalo selesai
   query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
   query.SQL.Text := 'UPDATE `data` SET `done` = 1, `active` = 0 WHERE `id` = :id';
   query.ParamByName('id').AsInteger := EditId;
   query.ExecSQL;
   frmMain.dbCustomersTransaction.Commit;
   query.Free;
+
+  frmCustomer.LoadData;
 end;
 
 procedure TfrmAddCustomer.edtPriceAddChange(Sender: TObject);

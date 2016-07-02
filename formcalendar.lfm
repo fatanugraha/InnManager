@@ -1,7 +1,7 @@
 object frmCalendar: TfrmCalendar
-  Left = 491
+  Left = 436
   Height = 506
-  Top = 73
+  Top = 75
   Width = 826
   Caption = 'frmCalendar'
   ClientHeight = 506
@@ -16,6 +16,7 @@ object frmCalendar: TfrmCalendar
     Height = 442
     Top = 56
     Width = 809
+    AlternateColor = clHighlightText
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
     DefaultColWidth = 100

@@ -1,3 +1,8 @@
+{
+  lib.logger.pas
+  :: contains methods for run-time debugging and logging.
+}
+
 unit lib.logger;
 
 {$mode objfpc}{$H+}
@@ -5,18 +10,21 @@ unit lib.logger;
 interface
 
 uses
-  Classes, SysUtils, Dialogs;
+  Classes, SysUtils, Dialogs, dateutils;
 
 const
   FILE_LOG = 'main.log';
 
 procedure dump(x: int64);
 procedure dump(x: string);
+procedure dump(x: TDateTime);
+procedure dump(x: boolean);
 
-//for logging purposes
+//throw exception terus halt
+procedure RaiseCriticalError(message: string; code: integer);
+
 procedure InitLogger;
 procedure WriteLog(message: string);
-procedure RaiseCriticalError(message: string; code: integer);
 procedure CloseLogger;
 
 implementation
@@ -26,6 +34,19 @@ uses
 
 var
   LogFile: TextFile;
+
+procedure dump(x: boolean);
+begin
+  if x then
+    ShowMessage('True')
+  else
+    ShowMessage('False');
+end;
+
+procedure dump(x: TDateTime);
+begin
+  ShowMessage(FormatDateTime('hh:mm:ss dddd dd/mm/yyyy', now));
+end;
 
 procedure dump(x: int64);
 begin

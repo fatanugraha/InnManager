@@ -1,14 +1,13 @@
 object frmProduct: TfrmProduct
-  Left = 559
+  Left = 562
   Height = 400
-  Top = 167
+  Top = 169
   Width = 600
   Caption = 'frmProduct'
   ClientHeight = 400
   ClientWidth = 600
   Color = 5793637
   OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
   LCLVersion = '1.6.0.4'
@@ -41,8 +40,6 @@ object frmProduct: TfrmProduct
     TabOrder = 0
     ViewStyle = vsReport
     OnClick = lvProductClick
-    OnCompare = lvProductCompare
-    OnSelectItem = lvProductSelectItem
   end
   object Button1: TButton
     Left = 8

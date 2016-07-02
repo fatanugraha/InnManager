@@ -10,7 +10,7 @@ uses
   Forms, memdslaz, lazcontrols, formLogin, lib.database, lib.common, lib.logger,
   formmain, formuser, formAddUser, formproduct, formtype, formaddtype,
   formAddProduct, formCalendar, formCustomer, formaddcustomer, formaddroom,
-  FormOrderCard;
+  FormOrderCard, formAbout;
 
 {$R *.res}
 
@@ -46,6 +46,7 @@ begin
   Application.CreateForm(TfrmAddCustomer, frmAddCustomer);
   Application.CreateForm(TfrmAddRoom, frmAddRoom);
   Application.CreateForm(TfrmOrderCard, frmOrderCard);
+  Application.CreateForm(TfrmAbout, frmAbout);
   Application.Run;
 end.
 
