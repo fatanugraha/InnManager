@@ -45,7 +45,7 @@ end;
 
 procedure dump(x: TDateTime);
 begin
-  ShowMessage(FormatDateTime('hh:mm:ss dddd dd/mm/yyyy', now));
+  ShowMessage(FormatDateTime('hh:mm:ss dddd dd/mm/yyyy', x));
 end;
 
 procedure dump(x: int64);

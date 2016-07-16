@@ -316,7 +316,7 @@ object frmMain: TfrmMain
       OnClick = imgUsersClick
     end
     object Image3: TImage
-      Left = 440
+      Left = 552
       Height = 76
       Top = 0
       Width = 76
@@ -362,7 +362,7 @@ object frmMain: TfrmMain
       }
     end
     object Label8: TLabel
-      Left = 440
+      Left = 552
       Height = 15
       Top = 69
       Width = 76
@@ -373,6 +373,40 @@ object frmMain: TfrmMain
       ParentColor = False
       ParentFont = False
       OnClick = Image3Click
+    end
+    object Image1: TImage
+      Left = 448
+      Height = 76
+      Top = 0
+      Width = 76
+      AutoSize = True
+      OnClick = Image1Click
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B477261706869633901000089504E47
+        0D0A1A0A0000000D494844520000004C0000004C0806000000C797512B000000
+        017352474200AECE1CE90000000467414D410000B18F0BFC6105000000097048
+        597300000EC300000EC301C76FA864000000CE49444154785EEDD4D10A83300C
+        0550DDFFFFF3E64021F8307A875D1C9CF3526C21C225C90200000000003DD6FD
+        BCDC73F33ED74DFDFE95E3BF577BEC2783041612584860A1B6A57FF5529E5DFF
+        A0C342020BB58DE46C46F226041612584860A1B6A55F97727DABF7A3CEB5DFBE
+        A93342878504166A1BC9D98CE44D082C24B090C0426D4BBF2EE5FA56EF479CEB
+        1ED23AA374584860A1B6919CCD48DE84C042020B092CD4B6F4EB52AE6FF53EF1
+        A9FE9574584860A1B6919CCD48DE84C042020B092C24300000000000F807CBF2
+        02EBCB64448C9C38BE0000000049454E44AE426082
+      }
+    end
+    object Label9: TLabel
+      Left = 448
+      Height = 15
+      Top = 69
+      Width = 76
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Laporan'
+      Font.Color = clWhite
+      ParentColor = False
+      ParentFont = False
+      OnClick = Image1Click
     end
   end
   object pnlContainer: TPanel

@@ -250,13 +250,15 @@ end;
 procedure TfrmAddRoom.DateEdit1AcceptDate(Sender: TObject; var ADate: TDateTime;
   var AcceptDate: boolean);
 begin
-  //pastiin tanngal checkin lebih atau sama dari tanggal sekarang
-  AcceptDate := (CompareDate(ADate, Now) >= 0);
+  //FIX: katanya mereka gapapa, in reality
 
-  if (not AcceptDate) then
-    Application.MessageBox(
-      'Tanggal check-in harus sama atau lebih dari tanggal sekarang',
-      'Data Salah', MB_ICONEXCLAMATION);
+  ////pastiin tanngal checkin lebih atau sama dari tanggal sekarang
+  //AcceptDate := (CompareDate(ADate, Now) >= 0);
+  //
+  //if (not AcceptDate) then
+  //  Application.MessageBox(
+  //    'Tanggal check-in harus sama atau lebih dari tanggal sekarang',
+  //    'Data Salah', MB_ICONEXCLAMATION);
 end;
 
 procedure TfrmAddRoom.DateEdit2AcceptDate(Sender: TObject; var ADate: TDateTime;

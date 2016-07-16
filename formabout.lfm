@@ -120,8 +120,8 @@ object frmAbout: TfrmAbout
       Left = 16
       Height = 37
       Top = 16
-      Width = 300
-      Caption = 'github.com/fatanugraha/'
+      Width = 154
+      Caption = 'fatanugraha/'
       Font.Color = clWhite
       Font.Height = -27
       Font.Quality = fqCleartype
@@ -129,7 +129,7 @@ object frmAbout: TfrmAbout
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 317
+      Left = 168
       Height = 37
       Top = 16
       Width = 156

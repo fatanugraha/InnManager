@@ -75,7 +75,7 @@ object frmCustomer: TfrmCustomer
     Top = 247
     Width = 75
     Anchors = [akRight, akBottom]
-    Caption = 'Ubah'
+    Caption = 'Lihat/Ubah'
     OnClick = btnEditClick
     TabOrder = 2
   end

@@ -226,6 +226,7 @@ begin
   Close;
   frmMain.Enabled := false;
   frmAddCustomer.EditID := OwnerID;
+  frmAddCustomer.FromCalendar := true;
   frmAddCustomer.Show;;
 end;
 

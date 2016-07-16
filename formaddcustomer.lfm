@@ -1,11 +1,11 @@
 object frmAddCustomer: TfrmAddCustomer
   Left = 1054
-  Height = 601
+  Height = 668
   Top = 235
   Width = 845
   BorderIcons = [biSystemMenu]
   Caption = 'frmAddCustomer'
-  ClientHeight = 601
+  ClientHeight = 668
   ClientWidth = 845
   OnClose = FormClose
   OnCreate = FormCreate
@@ -14,12 +14,12 @@ object frmAddCustomer: TfrmAddCustomer
   LCLVersion = '1.6.0.4'
   object Panel1: TPanel
     Left = 0
-    Height = 559
+    Height = 626
     Top = 42
     Width = 845
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 559
+    ClientHeight = 626
     ClientWidth = 845
     TabOrder = 0
     object GroupBox2: TGroupBox
@@ -31,6 +31,7 @@ object frmAddCustomer: TfrmAddCustomer
       ClientHeight = 325
       ClientWidth = 420
       TabOrder = 0
+      OnClick = GroupBox2Click
       object Label3: TLabel
         Left = 8
         Height = 15
@@ -561,6 +562,15 @@ object frmAddCustomer: TfrmAddCustomer
       OnClick = Button6Click
       TabOrder = 2
     end
+    object Button3: TButton
+      Left = 280
+      Height = 25
+      Top = 8
+      Width = 112
+      Caption = 'Hapus Pelanggan'
+      OnClick = Button3Click
+      TabOrder = 3
+    end
   end
   object frReport1: TfrReport
     InitialZoom = pzDefault
@@ -577,8 +587,8 @@ object frmAddCustomer: TfrmAddCustomer
   end
   object frDBDataSet2: TfrDBDataSet
     DataSet = ds2
-    left = 336
-    top = 8
+    left = 328
+    top = 64
   end
   object ds1: TMemDataset
     Active = True

@@ -14,6 +14,7 @@ type
   PForm = ^TForm;
 
   TfrmMain = class(TForm)
+    Image1: TImage;
     Image3: TImage;
     imgType: TImage;
     imgUsers: TImage;
@@ -26,6 +27,7 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label8: TLabel;
+    Label9: TLabel;
     lblSelected: TLabel;
     lblUserName: TLabel;
     pnlContainer: TPanel;
@@ -37,12 +39,14 @@ type
     dbOrdersQuery: TSQLQuery;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
     procedure Image3Click(Sender: TObject);
     procedure imgTypeClick(Sender: TObject);
     procedure imgCalendarClick(Sender: TObject);
     procedure imgCustomerClick(Sender: TObject);
     procedure imgProductClick(Sender: TObject);
     procedure imgUsersClick(Sender: TObject);
+    procedure Label9Click(Sender: TObject);
   private
     prev: PForm;
   public
@@ -61,7 +65,7 @@ implementation
 
 uses
   FormUser, FormLogin, lib.common, FormType, FormProduct, formCalendar, lib.logger, FormCustomer, formAddroom,
-  FormAbout;
+  FormAbout, FormReport;
 
 procedure TfrmMain.OpenTab(Form: PForm; Sender: TObject);
 begin
@@ -102,6 +106,11 @@ begin
   Caption := APP_NAME + ' | Sistem Reservasi';
 end;
 
+procedure TfrmMain.Image1Click(Sender: TObject);
+begin
+  OpenTab(@frmReport, Sender);
+end;
+
 procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Hide;
@@ -136,6 +145,11 @@ end;
 procedure TfrmMain.imgUsersClick(Sender: TObject);
 begin
   frmUsers.Show;
+end;
+
+procedure TfrmMain.Label9Click(Sender: TObject);
+begin
+
 end;
 
 end.

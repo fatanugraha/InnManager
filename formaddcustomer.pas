@@ -42,6 +42,7 @@ type
     Button2: TButton;
     btnPrintAdv: TButton;
     btnPrintFull: TButton;
+    Button3: TButton;
     Button6: TButton;
     edtContact1: TLabeledEdit;
     edtContact2: TLabeledEdit;
@@ -84,12 +85,14 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure btnPrintAdvClick(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure edtPriceAddChange(Sender: TObject);
     procedure edtPriceRoomKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure GroupBox2Click(Sender: TObject);
     procedure lvRoomsClick(Sender: TObject);
   private
     tmpKamar: array of TRoomRec;
@@ -167,6 +170,8 @@ begin
   SetLength(tmpKamar, 0);
   SetLength(tmpKamarActive, 0);
   SetLength(tmpDeleted, 0);
+
+  btnRemoveRoom.visible := false;
 
   //load data kamar biar lookup id kamar biar ga query terus
   //assuming setiap query O(N) N = banyak record
@@ -320,7 +325,6 @@ begin
 
   edtPriceRoom.ReadOnly:=true;
   btnAddRoom.Visible := not Final;
-  btnRemoveRoom.Visible := not Final;
   button6.Enabled := not Final;
 
   if Final then
@@ -331,6 +335,11 @@ begin
     lvRooms.Width := btnAddRoom.Left-8-lvRooms.Left;
     button6.Caption := 'Finalisasi Transaksi';
   end;
+end;
+
+procedure TfrmAddCustomer.GroupBox2Click(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmAddCustomer.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -458,7 +467,7 @@ begin
         Query2.SQL.Text := Query2.SQL.Text + 'OR ';
       Query2.SQL.Text := Query2.SQL.Text + Format('`id` = %d ', [tmpDeleted[i]]);
     end;
-    dump(query2.SQL.Text);
+    //dump(query2.SQL.Text);
     query2.ExecSQL;
   end;
 
@@ -556,6 +565,14 @@ begin
     else
       frmCalendar.ReloadData;
 
+  if (EditID = 0) and (UngroupDigits(edtPricefront.Text) > 0) then
+  begin
+    if Application.MessageBox('Cetak Nota Pembayaran DP?', 'Cetak Nota',
+      MB_ICONQUESTION or MB_YESNO) = ID_YES then
+      begin
+        btnPrintAdv.Click;
+      end;
+  end;
   Close;
 end;
 
@@ -614,6 +631,42 @@ begin
   else
     frReport1.LoadFromFile(CurrentDir+FILE_INV_FULL);
   frReport1.ShowReport;
+end;
+
+procedure TfrmAddCustomer.Button3Click(Sender: TObject);
+var
+  ret: integer;
+  query: TSQLQuery;
+begin
+  ret := Application.MessageBox('Apakah anda yakin untuk menghapus data pelanggan ini?'+LineEnding+
+                                'Semua pesanan pelanggan ini juga akan dihapus.', 'Konfirmasi', MB_ICONQUESTION or MB_YESNOCANCEL);
+  if ret <> ID_YES then
+    exit;
+
+  frmMain.dbOrdersQuery.Close;
+
+  query := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
+  query.SQL.Text := 'DELETE FROM `data` WHERE `id` = :id';
+  query.ParamByName('id').AsInteger := EditId;
+  query.ExecSQL;
+  frmMain.dbCustomersTransaction.Commit;
+  query.Free;
+
+  query := CreateQuery(frmMain.dbOrdersConnection, frmMain.dbOrdersTransaction);
+  query.SQL.Text := 'DELETE FROM `orders` WHERE `owner_id` = :id';
+  query.ParamByName('id').AsInteger := EditId;
+  query.ExecSQL;
+  frmMain.dbOrdersTransaction.Commit;
+  query.Free;
+
+  frmMain.dbOrdersQuery.Open;
+
+  if not FromCalendar then
+    frmCustomer.LoadData
+  else
+    frmCalendar.ReloadData;
+
+  close;
 end;
 
 procedure TfrmAddCustomer.Button6Click(Sender: TObject);

@@ -37,8 +37,6 @@ const
   AUTH_EDIT_USER    = 8;
 
   //date auxiliary data
-  MONTH_SIZE: array [0..11] of integer = (31, 28, 31, 30, 31, 30, 31, 31, 30,
-                                          31, 30, 31);
   MONTH_IDN : array [0..11] of string  = ('Januari', 'Februrari', 'Maret',
                                           'April', 'Mei', 'Juni', 'Juli',
                                           'Agustus', 'September', 'Oktober',

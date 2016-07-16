@@ -7,10 +7,10 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, SysUtils, // this includes the LCL widgetset
-  Forms, memdslaz, lazcontrols, formLogin, lib.database, lib.common, lib.logger,
-  formmain, formuser, formAddUser, formproduct, formtype, formaddtype,
-  formAddProduct, formCalendar, formCustomer, formaddcustomer, formaddroom,
-  FormOrderCard, formAbout;
+  Forms, memdslaz, lazcontrols, datetimectrls, formLogin, lib.database,
+  lib.common, lib.logger, formmain, formuser, formAddUser, formproduct,
+  formtype, formaddtype, formAddProduct, formCalendar, formCustomer,
+  formaddcustomer, formaddroom, FormOrderCard, formAbout, formreport;
 
 {$R *.res}
 
@@ -47,6 +47,7 @@ begin
   Application.CreateForm(TfrmAddRoom, frmAddRoom);
   Application.CreateForm(TfrmOrderCard, frmOrderCard);
   Application.CreateForm(TfrmAbout, frmAbout);
+  Application.CreateForm(TfrmReport, frmReport);
   Application.Run;
 end.
 

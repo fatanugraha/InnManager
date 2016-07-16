@@ -62,7 +62,7 @@ uses
 
 procedure TfrmCalendar.ReloadData;
 begin
-  LoadData(CurrentMonth, CurrentYear);
+  ChangeDate(CurrentMonth, CurrentYear)
 end;
 
 procedure TfrmCalendar.UpdateStatus(aCol, aRow, toStatus: integer);
@@ -85,8 +85,10 @@ var
   StatusStr, OwnerName, OwnerIns: string;
   lookup: TSQLQuery;
 begin
-  x := StrToDate(Format('1/%d/%d', [month + 1, Year]));
-  y := StrToDate(Format('%d/%d/%d', [MONTH_SIZE[month], month + 1, Year]));
+  x := EncodeDate(Year, month+1, 1);
+  //showmessage(datetostr(x));
+  y := EncodeDate(Year, month+1, DaysInMonth(EncodeDate(Year, Month+1, 1)));
+  //showmessage(datetostr(y));
 
   lookup := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
   lookup.sql.Text := 'SELECT `name`,`instance` FROM `data` WHERE `id` = :id';
@@ -205,11 +207,7 @@ var
   i, j, cur, size, user: integer;
   exists: boolean;
 begin
-  size := FIXED_COL + MONTH_SIZE[month];
-
-  //if leap year add 1 additional day
-  if (month = FEBRUARY) and IsLeapYear(year) then
-    Inc(size);
+  size := FIXED_COL + DaysInMonth(EncodeDate(year, month+1, 1));
 
   //erase existing contentes
   Grid.Clean(FIXED_COL, FIXED_ROW, Grid.ColCount - 1, Grid.RowCount - 1, [gzNormal]);
