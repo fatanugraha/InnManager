@@ -14,4 +14,4 @@ how to build
 
 lisence
 -------
-lisenced under the MIT Lisence, for complete lisence read LISENCE.md
+lisenced under the MIT Lisence, for complete lisence text read LISENCE.md
