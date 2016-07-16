@@ -159,6 +159,8 @@ begin
 
     tmp := TListItem.Create(listView1.Items);
     tmp.Caption := rooms_data[i].Name;
+    if (rooms_data[i].active = 0) then
+      tmp.Caption := tmp.Caption + ' (dihapus)';
     tmp.SubItems.add(GroupDigits(rooms_data[i].used));
     tmp.SubItems.add('Rp' + GroupDigits(rooms_data[i].sum));
     listview1.Items.AddItem(tmp);

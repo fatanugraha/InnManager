@@ -15,8 +15,8 @@ uses
 const
   //application info constants
   APP_NAME = 'PSBB MAN 3 Malang';
-  APP_VER  = '0.1';
-  APP_DATE = '26/06/2016';
+  APP_VER  = '0.2';
+  APP_DATE = '16/07/2016';
 
   //required filenames
   FILE_COREDB    = 'core.sqlite3';
