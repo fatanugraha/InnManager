@@ -1,7 +1,7 @@
 object frmLogin: TfrmLogin
-  Left = 608
+  Left = 334
   Height = 233
-  Top = 198
+  Top = 280
   Width = 384
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle

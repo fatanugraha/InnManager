@@ -1,39 +1,40 @@
 object frmCalendar: TfrmCalendar
-  Left = 436
+  Left = 183
   Height = 506
-  Top = 75
+  Top = 190
   Width = 826
   Caption = 'frmCalendar'
   ClientHeight = 506
   ClientWidth = 826
   Color = 5793637
-  OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
   LCLVersion = '1.6.0.4'
   object Grid: TStringGrid
     Left = 9
-    Height = 442
-    Top = 56
+    Height = 386
+    Top = 112
     Width = 809
     AlternateColor = clHighlightText
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoEdit = False
+    BorderStyle = bsNone
     DefaultColWidth = 100
     DefaultRowHeight = 50
     ExtendedSelect = False
+    FixedRows = 0
     Flat = True
     Font.Height = -9
     Font.Quality = fqCleartype
     MouseWheelOption = mwGrid
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSizing, goColSizing, goSmoothScroll]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goSmoothScroll]
     ParentFont = False
     TabOrder = 0
     TitleFont.Height = -9
     TitleFont.Quality = fqCleartype
     OnDblClick = GridDblClick
     OnDrawCell = GridDrawCell
-    OnSelection = GridSelection
+    OnTopLeftChanged = GridTopLeftChanged
   end
   object lblNow: TLabel
     Left = 344
@@ -67,5 +68,21 @@ object frmCalendar: TfrmCalendar
     Caption = '>'
     OnClick = btnNextClick
     TabOrder = 2
+  end
+  object pbHeader: TPaintBox
+    Left = 8
+    Height = 48
+    Top = 64
+    Width = 810
+    Anchors = [akTop, akLeft, akRight]
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnPaint = pbHeaderPaint
+  end
+  object dummy: TPaintBox
+    Left = 0
+    Height = 0
+    Top = 0
+    Width = 0
   end
 end

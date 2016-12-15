@@ -17,15 +17,16 @@ type
     btnNext: TButton;
     lblNow: TLabel;
     Grid: TStringGrid;
+    dummy: TPaintBox;
+    pbHeader: TPaintBox;
     procedure btnPrevClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure GridDblClick(Sender: TObject);
     procedure GridDrawCell(Sender: TObject; aCol, aRow: integer; aRect: TRect; aState: TGridDrawState);
-    procedure GridSelection(Sender: TObject; aCol, aRow: Integer);
+    procedure GridTopLeftChanged(Sender: TObject);
+    procedure pbHeaderPaint(Sender: TObject);
   private
     CurrentMonth: integer;
     CurrentYear: integer;
@@ -60,6 +61,9 @@ uses
 
 { TfrmCalendar }
 
+var
+  header_days: array [0..40] of string;
+
 procedure TfrmCalendar.ReloadData;
 begin
   ChangeDate(CurrentMonth, CurrentYear)
@@ -85,10 +89,8 @@ var
   StatusStr, OwnerName, OwnerIns: string;
   lookup: TSQLQuery;
 begin
-  x := EncodeDate(Year, month+1, 1);
-  //showmessage(datetostr(x));
+  x := IncDay(EncodeDate(Year, month+1, 1), -1);
   y := EncodeDate(Year, month+1, DaysInMonth(EncodeDate(Year, Month+1, 1)));
-  //showmessage(datetostr(y));
 
   lookup := CreateQuery(frmMain.dbCustomersConnection, frmMain.dbCustomersTransaction);
   lookup.sql.Text := 'SELECT `name`,`instance` FROM `data` WHERE `id` = :id';
@@ -142,11 +144,19 @@ begin
           Lookup.Close;
 
           mid := frmMain.dbOrdersQuery.fieldByName('id').AsInteger;
+          if a = x then
+          begin
+            grid.Cells[1, idx] := OwnerName + LineEnding + OwnerIns;
+            BoardData[1, idx] := mid;
+            StatusData[1, idx] := status;
+            a := incDay(a, 1);
+          end;
+
           for i := DayOf(a) to DayOf(b) do
           begin
-            grid.Cells[i, idx + 1] := OwnerName + LineEnding + OwnerIns;
-            BoardData[i, idx + 1] := mid;
-            StatusData[i, idx + 1] := status;
+            grid.Cells[i+1, idx] := OwnerName + LineEnding + OwnerIns;
+            BoardData[i+1, idx] := mid;
+            StatusData[i+1, idx] := status;
           end;
         end;
       end;
@@ -158,38 +168,34 @@ end;
 
 procedure TfrmCalendar.UpdateFixed;
 const
-  FIXED_COL_CNT = 1;
   FIXED_COL_SIZE = 120;
 var
   query: TSQLQuery;
-  cnt, x, i: integer;
+  y, i: integer;
 begin
   query := CreateQuery(frmLogin.dbCoreConnection, frmLogin.dbCoreTransaction);
 
   //hitung banyanknya kamar yang tersedia
   query.SQL.Text := 'SELECT COUNT(*) FROM `product` WHERE `active` = 1';
   query.Open;
-  Grid.RowCount := query.FieldByName('COUNT(*)').AsInteger + FIXED_COL_CNT;
+  Grid.RowCount := query.FieldByName('COUNT(*)').AsInteger;
   Grid.ColWidths[0] := FIXED_COL_SIZE;
   query.Close;
 
   //print nama kamar sama jenisnya
-  query.SQL.Text := 'SELECT `id`, `name`, `typename` FROM `product` '+
-    'WHERE `active` = 1';
+  query.SQL.Text := 'SELECT `id`, `name`, `typename` FROM `product` WHERE `active` = 1';
   query.Open;
-  cnt := FIXED_COL_CNT;
 
   SetLength(CellsID, 0);
-  x := 0;
+  y := 0;
 
   while (not query.EOF) do
   begin
-    SetLength(CellsID, x + 1);
-    CellsID[x] := query.FieldByName('id').AsInteger;
-    Inc(x);
+    SetLength(CellsID, y + 1);
+    CellsID[y] := query.FieldByName('id').AsInteger;
+    Grid.Cells[0, y] := Format('%s' + LineEnding + '%s', [query.FieldByName('name').AsString, query.FieldByName('typename').AsString]);
+    Inc(y);
 
-    Grid.Cells[0, cnt] := Format('%s' + LineEnding + '%s', [query.FieldByName('name').AsString, query.FieldByName('typename').AsString]);
-    Inc(cnt);
     query.Next;
   end;
 
@@ -201,13 +207,13 @@ procedure TfrmCalendar.ChangeDate(month, year: integer);
 const
   FEBRUARY = 1;
   FIXED_COL = 1;
-  FIXED_ROW = 1;
+  FIXED_ROW = 0;
 var
   tmp: char;
   i, j, cur, size, user: integer;
   exists: boolean;
 begin
-  size := FIXED_COL + DaysInMonth(EncodeDate(year, month+1, 1));
+  size := FIXED_COL + DaysInMonth(EncodeDate(year, month+1, 1)) + 1; //extra 1 day from previous month
 
   //erase existing contentes
   Grid.Clean(FIXED_COL, FIXED_ROW, Grid.ColCount - 1, Grid.RowCount - 1, [gzNormal]);
@@ -217,12 +223,21 @@ begin
   tmp := DefaultFormatSettings.DateSeparator;
   cur := TokenizeDay(FormatDateTime('dddd', StrToDate(Format('01/%d/%d', [month + 1, year]))));
 
-  //tulis ke grid
-  for i := 1 to size - 1 do
+  for i := 0 to size-1 do
   begin
-    Grid.Cells[i, 0] := Format('%s' + LineEnding + '%d', [DAY_IDN[cur], i]);
+    j := i;
+
+    if i = 0 then
+      j := DaysInMonth(IncDay(EncodeDate(Year, month+1, 1), -1))
+    else if i = size-1 then
+      j := 1;
+
+    header_days[i] := Format('%s' + LineEnding + '%d', [DAY_IDN[cur], j]);
     cur := (cur + 1) mod 7;
   end;
+
+  //tulis ke grid
+  //todo
 
   //update title
   lblNow.Caption := Format('%s %d', [MONTH_IDN[month], year]);
@@ -240,11 +255,7 @@ begin
   LoadData(month, year);
 
   //cek kalau di bulan dan tahun sekarnag
-  if (month = monthOf(now)-1) and (year = YearOf(now)) then
-  begin
-    grid.Col := DayOf(now);
-    grid.Row := 0;
-  end;
+  //todo
 end;
 
 procedure TfrmCalendar.FormShow(Sender: TObject);
@@ -259,7 +270,7 @@ end;
 
 procedure TfrmCalendar.GridDblClick(Sender: TObject);
 begin
-   if (grid.col = 0) or (grid.row = 0) then
+   if (grid.col = 0) then
     exit;
 
   if BoardData[grid.col, grid.row] = 0 then
@@ -289,19 +300,17 @@ var
 begin
   with TStringGrid(Sender) do
   begin
-    if (acol = 0) or (arow = 0) then //kalau dia fixed rows
+    if (acol = 0) then //kalau dia fixed rows
     begin
       tmp := Font.Size;
       Font.Size := 0;
       Font.Bold := true;
-
-      if (aRow = 0) and (Copy(Cells[ACol, ARow], 1, 6) = 'Minggu') then // kalau minggu, warnai merah
-        font.color := clRed;
     end;
 
     cl := Canvas.Brush.Color;
+
     canvas.Pen.color := clBlack;
-    if not ((aCol = 0) or (aRow = 0)) then
+    if aCol <> 0 then
       if StatusData[acol, arow] = 1 then //booked
         canvas.Brush.color := COLOR_BOOKED
       else if StatusData[acol, arow] = 2 then //check-in
@@ -309,45 +318,101 @@ begin
       else if StatusData[acol, arow] = 3 then //check-out
         canvas.Brush.color := COLOR_CHECKOUT;
 
-    h := DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
+    h := DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect,
+      DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
 
     Canvas.FillRect(aRect);
     sz := aRect.Bottom-aRect.Top+1;
 
     if (sz >= h) then
       Inc(aRect.Top, sz div 2 - h div 2)
-		else
+    else
       Inc(aRect.Top, 1);
 
-    DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
+    DrawText(Canvas.Handle, PChar(Cells[ACol, ARow]), -1, aRect,
+      DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
 
-    if (acol = 0) or (arow = 0) then //normalize
+    if (acol = 0) then //normalize
     begin
       grid.Font.size := tmp;
       grid.Font.Bold := false;
-      if (aRow = 0) and (Copy(Cells[ACol, ARow], 1, 6) = 'Minggu') then
-	font.color := clDefault;
     end;
 
     Canvas.Brush.Color := cl;
   end;
 end;
 
-procedure TfrmCalendar.GridSelection(Sender: TObject; aCol, aRow: Integer);
+procedure TfrmCalendar.GridTopLeftChanged(Sender: TObject);
 begin
+  pbHeader.Invalidate;
+end;
 
+procedure TfrmCalendar.pbHeaderPaint(Sender: TObject);
+const
+  nw_color = $B0B0B0;
+  bg_color = $F0F0F0;
+  fixed_wd = 120;
+  normal_wd = 100;
+var
+  h, i, size, sz, pref, aCol, aRow, wd: integer;
+
+  tmp_d, tmp_m: integer;
+  aRect: TRect;
+begin
+  //hapus sebelumnya
+  pbHeader.canvas.fillrect(0, 0, pbHeader.width, pbHeader.height);
+
+  wd := grid.DefaultColWidth;
+  pref := fixed_wd - wd div 2;
+
+  for i := grid.LeftCol-1 to grid.ColCount-1 do
+  begin
+    size := normal_wd;
+
+    if pref > pbHeader.width then
+       break;
+
+    aRect := Rect(pref, 0, pref+size+1, pbHeader.Height);
+
+    inc(pref, size);
+
+    h := DrawText(dummy.canvas.Handle, PChar(header_days[i]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
+    sz := aRect.Bottom-aRect.Top+1;
+
+    pbHeader.Canvas.Brush.Color := bg_color;
+
+    //tandai hari ini
+    if (currentmonth = monthOf(now)-1) and (currentyear = YearOf(now)) and (i = dayof(now)) then
+      pbHeader.Canvas.Brush.Color := nw_color;
+
+    if (i = 0) and (currentmonth <> monthof(now)-1) and (monthof(IncDay(now, 1))-1 = currentmonth) then
+      pbHeader.Canvas.Brush.Color := nw_color;
+
+    if (i = grid.ColCount-1) and (currentmonth <> monthof(now)-1) and (monthof(IncDay(now, -1))-1 = currentmonth) then
+      pbHeader.Canvas.Brush.Color := nw_color;
+
+    pbHeader.Canvas.Pen.Color := clBlack;
+    pbHeader.canvas.Rectangle(aRect);
+
+
+    if (sz >= h) then
+      Inc(aRect.Top, sz div 2 - h div 2)
+    else
+      Inc(aRect.Top, 1);
+
+    DrawText(pbHeader.Canvas.Handle, PChar(header_days[i]), -1, aRect, DT_NOPREFIX or DT_WORDBREAK or DT_CENTER);
+  end;
 end;
 
 procedure TfrmCalendar.FormResize(Sender: TObject);
 begin
   //cosmetics
   lblNow.Left := Width div 2 - LblNow.Width div 2;
-  LblNow.Top := Grid.Top div 2 - LblNow.Height div 2;
+  LblNow.Top := pbHeader.Top div 2 - LblNow.Height div 2;
 
-  btnNext.Top := Grid.Top div 2 - btnNext.Height div 2;
+  btnNext.Top := pbHeader.Top div 2 - btnNext.Height div 2;
   btnPrev.Top := btnNext.Top;
 end;
-
 
 procedure TfrmCalendar.btnPrevClick(Sender: TObject);
 begin
@@ -375,15 +440,6 @@ begin
 
   ChangeDate(CurrentMonth, Currentyear);
   FormResize(nil);
-end;
-
-procedure TfrmCalendar.Button1Click(Sender: TObject);
-begin
-
-end;
-
-procedure TfrmCalendar.FormCreate(Sender: TObject);
-begin
 end;
 
 end.
